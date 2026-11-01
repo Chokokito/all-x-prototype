@@ -1,14 +1,18 @@
 <script setup>
-import { t, navigateTo } from '../i18n'
+import { lang, t, navigateTo } from '../i18n'
 </script>
 
 <template>
   <footer class="footer">
-    <div class="wrap">
+    <div class="container">
       <div class="grid">
         <div class="brand">
-          <img src="/logo.png" alt="ALL X" width="84" height="20" />
+          <img src="/logo.png" alt="ALL X" width="92" height="22" />
           <p>{{ t('footer.desc') }}</p>
+          <div class="status-pill">
+            <span class="status-dot" aria-hidden="true" />
+            <span>{{ lang === 'pt' ? 'Todos os sistemas operacionais' : 'All systems operational' }}</span>
+          </div>
         </div>
         <nav v-for="c in t('footer.cols')" :key="c.h" :aria-label="c.h">
           <h4>{{ c.h }}</h4>
@@ -27,27 +31,79 @@ import { t, navigateTo } from '../i18n'
       <p class="disclosure">{{ t('footer.disclosure') }}</p>
       <div class="legal">
         <span>{{ t('footer.rights') }}</span>
-        <span class="thesis">any currency × any rail × any market × any business</span>
+        <div class="social">
+          <a href="#cms" @click.prevent="navigateTo('cms')">API Docs</a>
+          <a href="#compliance">Compliance</a>
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
 <style scoped>
-.footer { background: var(--bg-footer); border-top: 1px solid var(--line); padding: 56px 24px 36px; }
-.wrap { max-width: 1024px; margin: 0 auto; }
-.grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
-.brand { display: flex; flex-direction: column; gap: 14px; }
-.brand p { max-width: 340px; font-size: 13.5px; line-height: 1.55; font-weight: 400; color: var(--muted); }
-h4 { margin-bottom: 12px; font-size: 13px; font-weight: 600; color: var(--text); }
-ul { display: flex; flex-direction: column; gap: 8px; }
-li a { font-size: 13px; color: var(--muted); transition: color 0.2s; }
-li a:hover { color: var(--accent); }
-.disclosure {
-  padding: 20px 0 16px;
-  border-bottom: 1px solid var(--line);
-  font-size: 12px;
+.footer {
+  background: var(--bg-footer);
+  border-top: 1px solid var(--line);
+  padding: clamp(56px, 7vw, 88px) 0 40px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 48px;
+}
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.brand p {
+  max-width: 320px;
+  font-size: 13.5px;
   line-height: 1.6;
+  color: var(--muted);
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+h4 {
+  margin-bottom: 16px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+li a {
+  font-size: 13.5px;
+  color: var(--text-2);
+  transition: color 0.2s;
+}
+li a:hover { color: #fff; }
+.disclosure {
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.65;
   color: var(--dim);
 }
 .legal {
@@ -56,15 +112,21 @@ li a:hover { color: var(--accent); }
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  padding-top: 20px;
+  padding-top: 8px;
   font-size: 12.5px;
-  color: var(--dim);
+  color: var(--muted);
 }
-.thesis {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--accent-soft);
+.social {
+  display: flex;
+  gap: 20px;
 }
-@media (max-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } .brand { grid-column: 1 / -1; } }
+.social a {
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.social a:hover { color: var(--text); }
+@media (max-width: 720px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .brand { grid-column: 1 / -1; }
+}
 </style>

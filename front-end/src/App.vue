@@ -4,7 +4,6 @@ import { t, lang, targetLang, currentPage, langTransitioning } from './i18n'
 import SiteHeader from './components/SiteHeader.vue'
 import HeroSection from './components/HeroSection.vue'
 import DashboardShowcase from './components/DashboardShowcase.vue'
-import RailsTicker from './components/RailsTicker.vue'
 import BrandManifesto from './components/BrandManifesto.vue'
 import FeatureTriad from './components/FeatureTriad.vue'
 import HowItWorks from './components/HowItWorks.vue'
@@ -58,19 +57,14 @@ watch([currentPage, lang], async () => {
     </div>
   </Transition>
 
-  <div class="lang-stage" :class="{ 'is-switching': langTransitioning }" :key="lang">
+  <div class="lang-stage" :class="{ 'is-switching': langTransitioning }">
     <CmsDocsPage v-if="currentPage === 'cms'" />
     <template v-else>
       <div class="page-top">
-        <div class="orb orb-a" v-parallax="0.3" aria-hidden="true" />
-        <div class="orb orb-b" v-parallax="0.22" aria-hidden="true" />
-        <div class="orb orb-c" v-parallax="0.28" aria-hidden="true" />
         <SiteHeader />
         <main id="main">
           <HeroSection />
-          <!-- Emerges from behind the Hero card as the user scrolls down -->
           <DashboardShowcase />
-          <RailsTicker />
           <BrandManifesto />
           <FeatureTriad />
           <HowItWorks />
@@ -90,22 +84,16 @@ watch([currentPage, lang], async () => {
 </template>
 
 <style>
-/* Decorative page-level parallax orbs, behind the content */
 #app { position: relative; overflow-x: hidden; max-width: 100vw; }
-.orb { position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; filter: blur(80px); }
-.orb-a { top: 1100px; left: -180px; width: 460px; height: 460px; background: rgba(217, 142, 104, 0.1); }
-.orb-b { top: 2600px; right: -200px; width: 520px; height: 520px; background: rgba(229, 170, 140, 0.08); }
-.orb-c { top: 4200px; left: 8%; width: 420px; height: 420px; background: rgba(52, 211, 153, 0.05); }
-@media (max-width: 720px) { .orb { display: none; } }
 
 /* Language switch page transition */
 .lang-stage {
   transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1), filter 0.42s cubic-bezier(0.22, 1, 0.36, 1), transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .lang-stage.is-switching {
-  opacity: 0.14;
-  filter: blur(12px);
-  transform: scale(0.988);
+  opacity: 0.82;
+  filter: blur(10px);
+  transform: scale(0.992);
 }
 
 .lang-switch-veil {
@@ -116,24 +104,25 @@ watch([currentPage, lang], async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 45%, rgba(217, 142, 104, 0.16), rgba(10, 12, 16, 0.78));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: radial-gradient(circle at 50% 45%, rgba(217, 142, 104, 0.08), rgba(5, 5, 6, 0.26));
+  backdrop-filter: blur(14px) saturate(125%);
+  -webkit-backdrop-filter: blur(14px) saturate(125%);
 }
 .lang-switch-card {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 240px;
-  padding: 14px 22px;
-  border-radius: 14px;
-  background: rgba(17, 21, 30, 0.94);
-  border: 1px solid rgba(217, 142, 104, 0.45);
-  color: #ebaa89;
+  min-width: 248px;
+  padding: 15px 24px;
+  border-radius: 12px;
+  background: rgba(16, 16, 20, 0.88);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 142, 104, 0.35);
+  color: var(--text);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 36px rgba(217, 142, 104, 0.28);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 32px -8px rgba(217, 142, 104, 0.22);
   animation: langCardPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .lang-switch-top {
@@ -158,7 +147,7 @@ watch([currentPage, lang], async () => {
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #d98e68, #ffdcc6, #d98e68);
+  background: var(--accent);
   transform-origin: left;
   animation: langBarFill 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

@@ -5,7 +5,7 @@ const messages = {
     skip: 'Pular para o conteúdo',
     nav: {
       main: 'Principal', menu: 'Menu', lang: 'Idioma', home: 'ALL X — Início',
-      links: ['Pagamentos', 'Contas', 'Como Funciona', 'Compliance', 'API'],
+      links: ['Pagamentos', 'Contas', 'Como funciona', 'Compliance', 'API'],
       docs: 'Docs & CMS',
       sandbox: 'Sandbox API', contact: 'Fale com a ALL X',
     },
@@ -31,19 +31,19 @@ const messages = {
     stats: ['Moedas fiduciárias', 'Stablecoins integradas', 'Trilhos bancários locais', 'Operação unificada'],
     features: [
       {
-        tag: 'Pagamentos', title: 'Global Payments',
-        text: 'Envie e receba pagamentos internacionais por uma experiência única. Quotes, status e liquidação local via Pix, ACH, SWIFT e SEPA sem trocar de plataforma.',
-        bullets: ['Cotação transparente', 'Liquidação nos trilhos locais'],
+        tag: 'Global Payments', title: 'Receba e pague em qualquer mercado',
+        text: 'Receba em uma moeda e liquide em outra, com cotação, tarifas e prazo visíveis antes de confirmar.',
+        bullets: ['Conectado a Pix, ACH, SEPA, SWIFT e Fedwire', 'USDC e USDT em múltiplas redes', 'Câmbio em tempo real e rastreio de ponta a ponta'],
       },
       {
-        tag: 'Contas', title: 'Global Accounts',
-        text: 'Contas globais para empresas que operam além da fronteira. Receba pagamentos internacionais e organize saldos e movimentações sem multiplicar ferramentas e fornecedores.',
-        bullets: ['Saldos em USD e EUR', 'Conciliação centralizada'],
+        tag: 'Global Accounts', title: 'Contas virtuais e carteiras no mesmo lugar',
+        text: 'Receba como um player local em cada mercado e acompanhe saldos em USD, EUR e stablecoins em uma única visão.',
+        bullets: ['Contas dedicadas em USD e EUR', 'Conciliação centralizada'],
       },
       {
-        tag: 'Governança', title: 'Compliance e Controle',
-        text: 'KYB/UBO, KYC, screening de sanções/PEP e monitoramento contínuo de transações e blockchain integrados à operação.',
-        bullets: ['Verificação KYB e UBO', 'Monitoramento transacional'],
+        tag: 'Compliance', title: 'Onboarding de empresas com controles claros',
+        text: 'KYB/UBO, KYC, screening de sanções e PEP e monitoramento contínuo integrados a cada fluxo.',
+        bullets: ['KYB e KYC via API ou fluxo hospedado', 'Screening contínuo de clientes e contrapartes'],
       },
     ],
     vis: {
@@ -332,19 +332,19 @@ const messages = {
     stats: ['Fiat currencies', 'Integrated stablecoins', 'Local banking rails', 'Unified operation'],
     features: [
       {
-        tag: 'Payments', title: 'Global Payments',
-        text: 'Send and receive international payments through a single experience. Quotes, status and local settlement via Pix, ACH, SWIFT and SEPA without switching platforms.',
-        bullets: ['Transparent quotes', 'Local rail settlement'],
+        tag: 'Global Payments', title: 'Move money in and out of any market',
+        text: 'Collect in one currency and settle in another, with the quote, fees and timeline visible before you confirm.',
+        bullets: ['Connected to Pix, ACH, SEPA, SWIFT and Fedwire', 'USDC and USDT across multiple networks', 'Live FX rates and end-to-end tracking'],
       },
       {
-        tag: 'Accounts', title: 'Global Accounts',
-        text: 'Global accounts for companies operating across borders. Receive international payments and organize balances and movements without multiplying tools and providers.',
-        bullets: ['USD and EUR balances', 'Centralized reconciliation'],
+        tag: 'Global Accounts', title: 'Virtual accounts and wallets in one place',
+        text: 'Receive like a local in every market you operate in, and keep USD, EUR and stablecoin balances in a single view.',
+        bullets: ['Dedicated USD and EUR accounts', 'Centralized reconciliation'],
       },
       {
-        tag: 'Governance', title: 'Compliance & Control',
-        text: 'KYB/UBO, KYC, sanctions/PEP screening and continuous transaction & blockchain monitoring built directly into operations.',
-        bullets: ['KYB and UBO verification', 'Transaction monitoring'],
+        tag: 'Compliance', title: 'Onboard companies with clear controls',
+        text: 'KYB/UBO, KYC, sanctions and PEP screening, and continuous monitoring built into every flow.',
+        bullets: ['Hosted or API-based KYB and KYC', 'Ongoing customer and counterparty screening'],
       },
     ],
     vis: {
