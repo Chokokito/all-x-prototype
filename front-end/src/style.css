@@ -1,4 +1,5 @@
 :root {
+  --header-height: 68px;
   /* Sober, neutral palette: flat near-black, neutral greys, copper used sparingly */
   --bg: #050506;
   --bg-footer: #050506;
@@ -138,4 +139,14 @@ img { max-width: 100%; display: block; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   * { animation: none !important; }
+}
+
+@media (max-width: 960px) {
+  :root {
+    --header-height: 62px;
+  }
+}
+
+.page-top {
+  padding-top: var(--header-height);
 }

@@ -79,10 +79,10 @@ const BALANCE_RESPONSE = `{
   "balances": {
     "USDC": {
       "amount": 254000.50,
-      "idle_amount": 4000.50,
-      "earning_amount": 250000.00,
+      "available_amount": 4000.50,
+      "reserved_amount": 250000.00,
       "currency": "USD",
-      "yield_apr": 0.052
+      "settlement_status": "settled_t0"
     },
     "BRL": {
       "amount": 1289450.00,
@@ -173,10 +173,10 @@ export default function DocsCodeCard({
                 {'  '}<span className="tk-cp">"balances"</span>: {'{\n'}
                 {'    '}<span className="tk-cp">"USDC"</span>: {'{\n'}
                 {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">254000.50</span>,{'\n'}
-                {'      '}<span className="tk-cp">"idle_amount"</span>: <span className="tk-sk">4000.50</span>,{'\n'}
-                {'      '}<span className="tk-cp">"earning_amount"</span>: <span className="tk-sk">250000.00</span>,{'\n'}
+                {'      '}<span className="tk-cp">"available_amount"</span>: <span className="tk-sk">4000.50</span>,{'\n'}
+                {'      '}<span className="tk-cp">"reserved_amount"</span>: <span className="tk-sk">250000.00</span>,{'\n'}
                 {'      '}<span className="tk-cp">"currency"</span>: <span className="tk-em">"USD"</span>,{'\n'}
-                {'      '}<span className="tk-cp">"yield_apr"</span>: <span className="tk-sk">0.052</span>{'\n'}
+                {'      '}<span className="tk-cp">"settlement_status"</span>: <span className="tk-em">"settled_t0"</span>{'\n'}
                 {'    },\n'}
                 {'    '}<span className="tk-cp">"BRL"</span>: {'{\n'}
                 {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">1289450.00</span>,{'\n'}

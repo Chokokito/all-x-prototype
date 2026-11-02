@@ -126,89 +126,91 @@
 .cs-root { position: relative; isolation: isolate; height: 100%; width: 100%; }
 .cs-layer { pointer-events: none; position: absolute; inset: 0; overflow: visible; z-index: 2; }
 
-/* Docs Code Cards (CMS Page) */
+/* Docs Code Cards (CMS Page) — Aligned with Homepage Surface & Line Tokens */
 .docs-code-stack { display: flex; flex-direction: column; gap: 16px; }
 .docs-code-card {
-  background: #0b0d11;
-  border: 1px solid #212631;
-  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
   overflow: hidden;
 }
 .docs-code-elevated {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  border-color: var(--line-2);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.45);
 }
 .docs-code-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  background: #12161f;
-  border-bottom: 1px solid #212631;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
   gap: 12px;
 }
 .docs-code-tabs {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 .docs-tab {
   padding: 4px 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid transparent;
   background: transparent;
-  color: #8b95a5;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
-.docs-tab:hover { color: #e2e8f0; }
+.docs-tab:hover { color: var(--text); }
 .docs-tab.is-active {
-  background: rgba(217, 142, 104, 0.15);
-  border-color: rgba(217, 142, 104, 0.3);
-  color: #ebaa89;
+  background: #222226;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text);
 }
 .docs-copy-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
-  background: #191e28;
-  border: 1px solid #262e3d;
-  border-radius: 4px;
-  color: #cbd5e1;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  color: var(--text-2);
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
 }
-.docs-copy-btn:hover { border-color: #d98e68; color: #f8fafc; }
+.docs-copy-btn:hover { border-color: rgba(255, 255, 255, 0.22); color: var(--text); }
 .docs-copy-link {
   background: transparent;
   border: 0;
-  color: #64748b;
+  color: var(--muted);
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;
 }
-.docs-copy-link:hover { color: #ebaa89; }
-.docs-code-title { font-size: 12px; color: #ebaa89; }
+.docs-copy-link:hover { color: var(--accent-soft); }
+.docs-code-title { font-size: 12px; color: var(--accent-soft); }
 .docs-resp-status { display: flex; align-items: center; gap: 8px; }
-.docs-dot-green { width: 8px; height: 8px; border-radius: 9999px; background: #10b981; }
-.docs-resp-label { font-size: 12px; color: #8b95a5; }
-.docs-resp-ok { font-size: 12px; color: #34d399; }
+.docs-dot-green { width: 7px; height: 7px; border-radius: 9999px; background: var(--ok); }
+.docs-resp-label { font-size: 12px; color: var(--muted); }
+.docs-resp-ok { font-size: 12px; color: var(--ok); }
 .docs-head-right { display: flex; align-items: center; gap: 14px; }
-.docs-resp-sub { font-size: 11px; color: #64748b; }
+.docs-resp-sub { font-size: 11px; color: var(--dim); }
 .docs-code-pre {
   margin: 0;
   padding: 18px 20px;
   font-size: 12.5px;
   line-height: 1.65;
-  color: #cbd5e1;
+  color: var(--text-2);
   overflow-x: auto;
 }
-.tk-em { color: #34d399; }
-.tk-cp { color: #ebaa89; }
+.tk-em { color: var(--ok); }
+.tk-cp { color: var(--accent-soft); }
 .tk-am { color: #fcd34d; }
 .tk-sk { color: #38bdf8; }
-.tk-sl { color: #94a3b8; }
-.tk-tx { color: #cbd5e1; }
+.tk-sl { color: var(--muted); }
+.tk-tx { color: var(--text-2); }

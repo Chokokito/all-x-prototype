@@ -173,7 +173,7 @@ const messages = {
               { id: 'managed-wallets', label: 'Managed Wallets', badge: 'v2.4', method: 'POST', active: true },
               { id: 'multi-currency', label: 'Global Multi-Currency Accounts', method: 'GET' },
               { id: 'fx-engine', label: 'Motor FX & Cotações T+0', method: 'POST' },
-              { id: 'yield', label: 'Yield & Reservas Overnight', method: 'GET' },
+              { id: 'reserves', label: 'Saldos & Reservas Operacionais', method: 'GET' },
             ],
           },
           {
@@ -253,7 +253,7 @@ const messages = {
       },
       balance: {
         title: 'Consultar saldo e reservas',
-        sub: 'Recupere a composição completa dos saldos disponíveis, recursos alocados em yield e liquidações pendentes.',
+        sub: 'Recupere a composição completa dos saldos disponíveis, recursos alocados em reservas e liquidações pendentes.',
         reqLabel: 'cURL GET /v1/wallets/:id/balances',
         respLabel: 'Response 200 OK',
         respSub: 'Multicurrency Payload',
@@ -474,7 +474,7 @@ const messages = {
               { id: 'managed-wallets', label: 'Managed Wallets', badge: 'v2.4', method: 'POST', active: true },
               { id: 'multi-currency', label: 'Global Multi-Currency Accounts', method: 'GET' },
               { id: 'fx-engine', label: 'FX Engine & T+0 Quotes', method: 'POST' },
-              { id: 'yield', label: 'Overnight Yield & Reserves', method: 'GET' },
+              { id: 'reserves', label: 'Operational Balances & Reserves', method: 'GET' },
             ],
           },
           {
@@ -554,7 +554,7 @@ const messages = {
       },
       balance: {
         title: 'Query balance and reserves',
-        sub: 'Retrieve the full breakdown of available balances, yield-allocated funds and pending settlements.',
+        sub: 'Retrieve the full breakdown of available balances, liquidity reserves and pending settlements.',
         reqLabel: 'cURL GET /v1/wallets/:id/balances',
         respLabel: 'Response 200 OK',
         respSub: 'Multicurrency Payload',

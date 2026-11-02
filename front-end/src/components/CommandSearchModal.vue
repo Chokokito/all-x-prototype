@@ -219,7 +219,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   align-items: flex-start;
   justify-content: center;
   padding: 13vh 20px 24px;
-  background: rgba(8, 10, 15, 0.72);
+  background: rgba(5, 5, 6, 0.76);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -227,12 +227,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 .cmd-modal {
   width: 100%;
   max-width: 620px;
-  background: #11151e;
-  border: 1px solid rgba(217, 142, 104, 0.35);
+  background: #0b0b0e;
+  border: 1px solid var(--line-2);
   border-radius: 16px;
   box-shadow:
     0 32px 80px -12px rgba(0, 0, 0, 0.85),
-    0 0 48px -12px rgba(217, 142, 104, 0.22);
+    0 0 0 1px rgba(255, 255, 255, 0.03);
   overflow: hidden;
 }
 
@@ -241,11 +241,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  background: #141923;
-  border-bottom: 1px solid #212836;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
 }
 .cmd-search-icon {
-  color: #ebaa89;
+  color: var(--accent);
   flex-shrink: 0;
 }
 .cmd-input {
@@ -253,25 +253,25 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   background: transparent;
   border: 0;
   outline: none;
-  color: #f8fafc;
+  color: var(--text);
   font: inherit;
   font-size: 15px;
 }
 .cmd-input::placeholder {
-  color: #64748b;
+  color: var(--dim);
 }
 .cmd-esc {
   padding: 3px 8px;
-  background: #1c2230;
-  border: 1px solid #2b3344;
-  border-radius: 5px;
-  color: #94a3b8;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  color: var(--muted);
   font-size: 10.5px;
   cursor: pointer;
 }
 .cmd-esc:hover {
-  border-color: #d98e68;
-  color: #ebaa89;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text);
 }
 
 .cmd-body {
@@ -284,7 +284,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: #64748b;
+  color: var(--dim);
 }
 .cmd-list {
   display: flex;
@@ -303,8 +303,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   transition: background 0.15s, border-color 0.15s;
 }
 .cmd-item.active {
-  background: rgba(217, 142, 104, 0.11);
-  border-color: rgba(217, 142, 104, 0.28);
+  background: var(--surface-2);
+  border-color: var(--line-2);
 }
 .cmd-item-left {
   display: flex;
@@ -320,20 +320,20 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   flex-shrink: 0;
 }
 .cmd-badge.post {
-  background: rgba(16, 185, 129, 0.14);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #34d399;
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.26);
+  color: var(--ok);
 }
 .cmd-badge.get {
-  background: rgba(56, 189, 248, 0.14);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.26);
   color: #38bdf8;
 }
 .cmd-badge.docs,
 .cmd-badge.rails {
-  background: rgba(217, 142, 104, 0.15);
-  border: 1px solid rgba(217, 142, 104, 0.3);
-  color: #ebaa89;
+  background: rgba(217, 142, 104, 0.14);
+  border: 1px solid rgba(217, 142, 104, 0.28);
+  color: var(--accent-soft);
 }
 .cmd-item-text {
   display: flex;
@@ -343,32 +343,32 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 }
 .cmd-item-title {
   font-size: 13.5px;
-  font-weight: 600;
-  color: #f1f5f9;
+  font-weight: 500;
+  color: var(--text);
 }
 .cmd-item-sub {
   font-size: 11px;
-  color: #8b95a5;
+  color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .cmd-enter {
   font-size: 13px;
-  color: #64748b;
+  color: var(--dim);
   opacity: 0;
   transition: opacity 0.15s, color 0.15s;
 }
 .cmd-item.active .cmd-enter {
   opacity: 1;
-  color: #ebaa89;
+  color: var(--accent-soft);
 }
 
 .cmd-empty {
   padding: 28px 16px;
   text-align: center;
   font-size: 13.5px;
-  color: #8b95a5;
+  color: var(--muted);
 }
 
 .cmd-footer {
@@ -376,10 +376,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
   align-items: center;
   justify-content: space-between;
   padding: 10px 18px;
-  background: #0c0f15;
-  border-top: 1px solid #1e2431;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
   font-size: 11px;
-  color: #64748b;
+  color: var(--dim);
 }
 .cmd-shortcuts {
   display: flex;
@@ -389,14 +389,14 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 .cmd-shortcuts kbd {
   padding: 1px 5px;
   margin-right: 3px;
-  background: #171c26;
-  border: 1px solid #262e3d;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
   border-radius: 4px;
   font-size: 10px;
-  color: #94a3b8;
+  color: var(--muted);
 }
 .cmd-brand {
-  color: #d98e68;
+  color: var(--accent);
   font-weight: 600;
 }
 

@@ -1,270 +1,298 @@
 <script setup>
-import { computed, ref } from 'vue'
-import { lang, setLang, t, navigateTo } from '../i18n'
+import { computed, ref, onMounted, onBeforeUnmount } from "vue";
+import { lang, setLang, t, navigateTo } from "../i18n";
 
-const hrefs = ['#pagamentos', '#contas', '#como-funciona', '#compliance', '#api']
-const links = computed(() => t('nav.links').map((label, i) => ({ label, href: hrefs[i] })))
-const open = ref(false)
-const activeMenu = ref(null)
-let closeTimer = null
+const hrefs = [
+  "#pagamentos",
+  "#contas",
+  "#como-funciona",
+  "#compliance",
+  "#api",
+];
+const links = computed(() =>
+  t("nav.links").map((label, i) => ({ label, href: hrefs[i] })),
+);
+const open = ref(false);
+const activeMenu = ref(null);
+const isScrolled = ref(false);
+let closeTimer = null;
+
+function onScroll() {
+  isScrolled.value = window.scrollY > 8;
+}
+
+onMounted(() => {
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", onScroll);
+});
 
 function openMenu(key) {
-  clearTimeout(closeTimer)
-  activeMenu.value = key
+  clearTimeout(closeTimer);
+  activeMenu.value = key;
 }
 function scheduleClose() {
-  clearTimeout(closeTimer)
+  clearTimeout(closeTimer);
   closeTimer = setTimeout(() => {
-    activeMenu.value = null
-  }, 140)
+    activeMenu.value = null;
+  }, 140);
 }
 function goAnchor(href) {
-  activeMenu.value = null
-  open.value = false
-  if (href === '#cms') {
-    navigateTo('cms')
+  activeMenu.value = null;
+  open.value = false;
+  if (href === "#cms") {
+    navigateTo("cms");
   }
 }
 
 const megaMenus = computed(() =>
-  lang.value === 'pt'
+  lang.value === "pt"
     ? {
         products: {
-          leftTitle: 'Recursos Principais',
-          rightTitle: 'Cross-Border & Tesouraria',
+          leftTitle: "Recursos Principais",
+          rightTitle: "Cross-Border & Tesouraria",
           left: [
             {
-              title: 'Global Payments',
-              desc: 'Envie e receba pagamentos internacionais entre moedas',
-              href: '#pagamentos',
-              icon: 'network',
+              title: "Global Payments",
+              desc: "Envie e receba pagamentos internacionais entre moedas",
+              href: "#pagamentos",
+              icon: "network",
             },
             {
-              title: 'Global Accounts',
-              desc: 'Contas virtuais nomeadas em USD, EUR e carteiras',
-              href: '#contas',
-              icon: 'wallet',
+              title: "Global Accounts",
+              desc: "Contas virtuais nomeadas em USD, EUR e carteiras",
+              href: "#contas",
+              icon: "wallet",
             },
             {
-              title: 'Compliance',
-              desc: 'Escale globalmente com KYB, KYC e KYT integrados',
-              href: '#compliance',
-              icon: 'shield',
+              title: "Compliance",
+              desc: "Escale globalmente com KYB, KYC e KYT integrados",
+              href: "#compliance",
+              icon: "shield",
             },
           ],
           right: [
             {
-              title: 'SWIFT & Trilhos Locais',
-              desc: 'Pix, ACH, SEPA e Fedwire integrados à mesma operação',
-              href: '#pagamentos',
-              icon: 'globe',
+              title: "SWIFT & Trilhos Locais",
+              desc: "Pix, ACH, SEPA e Fedwire integrados à mesma operação",
+              href: "#pagamentos",
+              icon: "globe",
             },
             {
-              title: 'Stablecoin Gateway',
-              desc: 'Liquidez em USDC e USDT com conversão transparente',
-              href: '#como-funciona',
-              icon: 'coins',
+              title: "Stablecoin Gateway",
+              desc: "Liquidez em USDC e USDT com conversão transparente",
+              href: "#como-funciona",
+              icon: "coins",
             },
           ],
         },
         platform: {
-          leftTitle: 'Arquitetura Operacional',
-          rightTitle: 'Governança & Controle',
+          leftTitle: "Arquitetura Operacional",
+          rightTitle: "Governança & Controle",
           left: [
             {
-              title: 'Como Funciona',
-              desc: 'Quatro etapas claras com infraestrutura coordenada',
-              href: '#como-funciona',
-              icon: 'layers',
+              title: "Como Funciona",
+              desc: "Quatro etapas claras com infraestrutura coordenada",
+              href: "#como-funciona",
+              icon: "layers",
             },
             {
-              title: 'Console em Tempo Real',
-              desc: 'Acompanhe cotações, saldos e liquidações T+0',
-              href: '#console',
-              icon: 'terminal',
+              title: "Console em Tempo Real",
+              desc: "Acompanhe cotações, saldos e liquidações T+0",
+              href: "#console",
+              icon: "terminal",
             },
             {
-              title: 'Aplicações Setoriais',
-              desc: 'Comércio exterior, SaaS global e embedded finance',
-              href: '#mercado',
-              icon: 'briefcase',
+              title: "Aplicações Setoriais",
+              desc: "Comércio exterior, SaaS global e embedded finance",
+              href: "#mercado",
+              icon: "briefcase",
             },
           ],
           right: [
             {
-              title: 'Matriz de Compliance',
-              desc: 'Screening contínuo OFAC, PEP, UBO e monitoramento',
-              href: '#compliance',
-              icon: 'check-shield',
+              title: "Matriz de Compliance",
+              desc: "Screening contínuo OFAC, PEP, UBO e monitoramento",
+              href: "#compliance",
+              icon: "check-shield",
             },
             {
-              title: 'Status dos Corredores',
-              desc: 'Verifique a disponibilidade dos trilhos em tempo real',
-              href: '#contato',
-              icon: 'status',
+              title: "Status dos Corredores",
+              desc: "Verifique a disponibilidade dos trilhos em tempo real",
+              href: "#contato",
+              icon: "status",
             },
           ],
         },
         devs: {
-          leftTitle: 'Comece a Integrar',
-          rightTitle: 'Integre com',
+          leftTitle: "Comece a Integrar",
+          rightTitle: "Integre com",
           left: [
             {
-              title: 'Documentação',
-              desc: 'Construa sobre a infraestrutura da API ALL X',
-              href: '#cms',
-              icon: 'doc',
+              title: "Documentação",
+              desc: "Construa sobre a infraestrutura da API ALL X",
+              href: "#cms",
+              icon: "doc",
             },
             {
-              title: 'Referência da API',
-              desc: 'Explore nossos endpoints REST para integração',
-              href: '#api',
-              icon: 'branch',
+              title: "Referência da API",
+              desc: "Explore nossos endpoints REST para integração",
+              href: "#api",
+              icon: "branch",
             },
             {
-              title: 'Webhooks & Eventos',
-              desc: 'Conciliação automática de recebimentos e payouts',
-              href: '#cms',
-              icon: 'webhook',
+              title: "Webhooks & Eventos",
+              desc: "Conciliação automática de recebimentos e payouts",
+              href: "#cms",
+              icon: "webhook",
             },
           ],
-          sdks: ['TS', 'Py', 'Go', 'PHP', 'cURL'],
+          sdks: ["TS", "Py", "Go", "PHP", "cURL"],
           cards: [
             {
-              title: 'White-Label Core',
-              desc: 'Embuta contas e pagamentos no seu produto',
-              href: '#cms',
+              title: "White-Label Core",
+              desc: "Embuta contas e pagamentos no seu produto",
+              href: "#cms",
             },
             {
-              title: 'Sandbox API',
-              desc: 'Ambiente isolado para testes de liquidação',
-              href: '#cms',
+              title: "Sandbox API",
+              desc: "Ambiente isolado para testes de liquidação",
+              href: "#cms",
             },
           ],
         },
       }
     : {
         products: {
-          leftTitle: 'Core Features',
-          rightTitle: 'Cross-Border & Treasury',
+          leftTitle: "Core Features",
+          rightTitle: "Cross-Border & Treasury",
           left: [
             {
-              title: 'Global Payments',
-              desc: 'Send and receive money across borders seamlessly',
-              href: '#pagamentos',
-              icon: 'network',
+              title: "Global Payments",
+              desc: "Send and receive money across borders seamlessly",
+              href: "#pagamentos",
+              icon: "network",
             },
             {
-              title: 'Global Accounts',
-              desc: 'Create named accounts in multiple currencies',
-              href: '#contas',
-              icon: 'wallet',
+              title: "Global Accounts",
+              desc: "Create named accounts in multiple currencies",
+              href: "#contas",
+              icon: "wallet",
             },
             {
-              title: 'Compliance',
-              desc: 'Scale globally with built-in KYC, KYB and KYT',
-              href: '#compliance',
-              icon: 'shield',
+              title: "Compliance",
+              desc: "Scale globally with built-in KYC, KYB and KYT",
+              href: "#compliance",
+              icon: "shield",
             },
           ],
           right: [
             {
-              title: 'SWIFT & Local Rails',
-              desc: 'Pix, ACH, SEPA and Fedwire in your customer’s name',
-              href: '#pagamentos',
-              icon: 'globe',
+              title: "SWIFT & Local Rails",
+              desc: "Pix, ACH, SEPA and Fedwire in your customer’s name",
+              href: "#pagamentos",
+              icon: "globe",
             },
             {
-              title: 'Stablecoin Gateway',
-              desc: 'Multi-chain USDC and USDT liquidity with live quotes',
-              href: '#como-funciona',
-              icon: 'coins',
+              title: "Stablecoin Gateway",
+              desc: "Multi-chain USDC and USDT liquidity with live quotes",
+              href: "#como-funciona",
+              icon: "coins",
             },
           ],
         },
         platform: {
-          leftTitle: 'Operational Architecture',
-          rightTitle: 'Governance & Control',
+          leftTitle: "Operational Architecture",
+          rightTitle: "Governance & Control",
           left: [
             {
-              title: 'How It Works',
-              desc: 'Four visible steps with coordinated infrastructure',
-              href: '#como-funciona',
-              icon: 'layers',
+              title: "How It Works",
+              desc: "Four visible steps with coordinated infrastructure",
+              href: "#como-funciona",
+              icon: "layers",
             },
             {
-              title: 'Live Console',
-              desc: 'Track locked quotes, balances and T+0 settlements',
-              href: '#console',
-              icon: 'terminal',
+              title: "Live Console",
+              desc: "Track locked quotes, balances and T+0 settlements",
+              href: "#console",
+              icon: "terminal",
             },
             {
-              title: 'Use Cases',
-              desc: 'Global trade, SaaS payroll and embedded finance',
-              href: '#mercado',
-              icon: 'briefcase',
+              title: "Use Cases",
+              desc: "Global trade, SaaS payroll and embedded finance",
+              href: "#mercado",
+              icon: "briefcase",
             },
           ],
           right: [
             {
-              title: 'Compliance Matrix',
-              desc: 'Continuous OFAC, PEP, UBO and KYT monitoring',
-              href: '#compliance',
-              icon: 'check-shield',
+              title: "Compliance Matrix",
+              desc: "Continuous OFAC, PEP, UBO and KYT monitoring",
+              href: "#compliance",
+              icon: "check-shield",
             },
             {
-              title: 'System Status',
-              desc: 'Check real-time payment rail performance',
-              href: '#contato',
-              icon: 'status',
+              title: "System Status",
+              desc: "Check real-time payment rail performance",
+              href: "#contato",
+              icon: "status",
             },
           ],
         },
         devs: {
-          leftTitle: 'Start Building',
-          rightTitle: 'Integrate With',
+          leftTitle: "Start Building",
+          rightTitle: "Integrate With",
           left: [
             {
-              title: 'Documentation',
-              desc: 'Build on the ALL X API infrastructure',
-              href: '#cms',
-              icon: 'doc',
+              title: "Documentation",
+              desc: "Build on the ALL X API infrastructure",
+              href: "#cms",
+              icon: "doc",
             },
             {
-              title: 'API Reference',
-              desc: 'Explore and master our REST API for integration',
-              href: '#api',
-              icon: 'branch',
+              title: "API Reference",
+              desc: "Explore and master our REST API for integration",
+              href: "#api",
+              icon: "branch",
             },
             {
-              title: 'Webhooks & Events',
-              desc: 'Automated reconciliation for pay-ins and payouts',
-              href: '#cms',
-              icon: 'webhook',
+              title: "Webhooks & Events",
+              desc: "Automated reconciliation for pay-ins and payouts",
+              href: "#cms",
+              icon: "webhook",
             },
           ],
-          sdks: ['TS', 'Py', 'Go', 'PHP', 'cURL'],
+          sdks: ["TS", "Py", "Go", "PHP", "cURL"],
           cards: [
             {
-              title: 'White-Label Core',
-              desc: 'Embed global accounts & payments into your app',
-              href: '#cms',
+              title: "White-Label Core",
+              desc: "Embed global accounts & payments into your app",
+              href: "#cms",
             },
             {
-              title: 'API Sandbox',
-              desc: 'Isolated environment for end-to-end testing',
-              href: '#cms',
+              title: "API Sandbox",
+              desc: "Isolated environment for end-to-end testing",
+              href: "#cms",
             },
           ],
         },
-      }
-)
+      },
+);
 </script>
 
 <template>
-  <header class="header" @mouseleave="scheduleClose">
+  <header
+    class="header"
+    :class="{ 'is-scrolled': isScrolled }"
+    @mouseleave="scheduleClose"
+  >
     <div class="bar container-wide">
-      <a href="#" :aria-label="t('nav.home')"><img src="/logo.png" alt="ALL X" width="100" height="24" /></a>
+      <a href="#" :aria-label="t('nav.home')"
+        ><img src="/logo.png" alt="ALL X" width="100" height="24"
+      /></a>
 
       <nav class="links" :aria-label="t('nav.main')">
         <!-- Trigger 1: Pagamentos & Contas (Products Mega-Menu) -->
@@ -321,20 +349,54 @@ const megaMenus = computed(() =>
 
       <div class="actions">
         <!-- Animated sliding pill language switcher -->
-        <div class="lang-switch" role="group" :aria-label="t('nav.lang')" :data-lang="lang">
-          <svg class="lang-globe" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+        <div
+          class="lang-switch"
+          role="group"
+          :aria-label="t('nav.lang')"
+          :data-lang="lang"
+        >
+          <svg
+            class="lang-globe"
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.9"
+            aria-hidden="true"
+          >
             <circle cx="12" cy="12" r="10" />
-            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            <path
+              d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+            />
           </svg>
           <div class="lang-track">
             <span class="lang-thumb" aria-hidden="true" />
-            <button type="button" :class="{ on: lang === 'pt' }" :aria-pressed="lang === 'pt'" lang="pt" @click="setLang('pt')">PT</button>
-            <button type="button" :class="{ on: lang === 'en' }" :aria-pressed="lang === 'en'" lang="en" @click="setLang('en')">EN</button>
+            <button
+              type="button"
+              :class="{ on: lang === 'pt' }"
+              :aria-pressed="lang === 'pt'"
+              lang="pt"
+              @click="setLang('pt')"
+            >
+              PT
+            </button>
+            <button
+              type="button"
+              :class="{ on: lang === 'en' }"
+              :aria-pressed="lang === 'en'"
+              lang="en"
+              @click="setLang('en')"
+            >
+              EN
+            </button>
           </div>
         </div>
 
-        <a href="#cms" class="sandbox" @click.prevent="navigateTo('cms')">{{ t('nav.sandbox') }}</a>
-        <a href="#contato" class="cta">{{ t('nav.contact') }}</a>
+        <a href="#cms" class="sandbox" @click.prevent="navigateTo('cms')">{{
+          t("nav.sandbox")
+        }}</a>
+        <a href="#contato" class="cta">{{ t("nav.contact") }}</a>
 
         <!-- Animated Hamburger Button -->
         <button
@@ -363,9 +425,13 @@ const megaMenus = computed(() =>
       >
         <div class="mega-card">
           <!-- PRODUCTS OR PLATFORM 2-COLUMN MENU -->
-          <template v-if="activeMenu === 'products' || activeMenu === 'platform'">
+          <template
+            v-if="activeMenu === 'products' || activeMenu === 'platform'"
+          >
             <div class="mega-col">
-              <span class="mega-heading">{{ megaMenus[activeMenu].leftTitle }}</span>
+              <span class="mega-heading">{{
+                megaMenus[activeMenu].leftTitle
+              }}</span>
               <a
                 v-for="item in megaMenus[activeMenu].left"
                 :key="item.title"
@@ -375,31 +441,97 @@ const megaMenus = computed(() =>
               >
                 <span class="mega-icon" aria-hidden="true">
                   <!-- Network / Global Payments -->
-                  <svg v-if="item.icon === 'network'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="5" r="2.5" /><circle cx="5" cy="19" r="2.5" /><circle cx="19" cy="19" r="2.5" />
+                  <svg
+                    v-if="item.icon === 'network'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="5" r="2.5" />
+                    <circle cx="5" cy="19" r="2.5" />
+                    <circle cx="19" cy="19" r="2.5" />
                     <path d="M10.5 7.2 6.5 16.8M13.5 7.2l4 9.6M7.5 19h9" />
                   </svg>
                   <!-- Wallet / Accounts -->
-                  <svg v-else-if="item.icon === 'wallet'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-else-if="item.icon === 'wallet'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <rect x="3" y="5" width="18" height="14" rx="3" />
                     <path d="M3 10h18M16 14h2" />
                   </svg>
                   <!-- Shield / Compliance -->
-                  <svg v-else-if="item.icon === 'shield'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z" />
+                  <svg
+                    v-else-if="item.icon === 'shield'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z"
+                    />
                     <path d="M12 8v5M12 16h.01" />
                   </svg>
                   <!-- Layers / How it works -->
-                  <svg v-else-if="item.icon === 'layers'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m12 3 9 4.5-9 4.5-9-4.5L12 3zM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5" />
+                  <svg
+                    v-else-if="item.icon === 'layers'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="m12 3 9 4.5-9 4.5-9-4.5L12 3zM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5"
+                    />
                   </svg>
                   <!-- Terminal / Console -->
-                  <svg v-else-if="item.icon === 'terminal'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-else-if="item.icon === 'terminal'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <rect x="3" y="4" width="18" height="16" rx="3" />
                     <path d="m8 10 3 2.5L8 15M13 15h3" />
                   </svg>
                   <!-- Briefcase / Use cases -->
-                  <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-else
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <rect x="3" y="7" width="18" height="13" rx="2.5" />
                     <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18" />
                   </svg>
@@ -412,7 +544,9 @@ const megaMenus = computed(() =>
             </div>
 
             <div class="mega-col mega-col-right">
-              <span class="mega-heading">{{ megaMenus[activeMenu].rightTitle }}</span>
+              <span class="mega-heading">{{
+                megaMenus[activeMenu].rightTitle
+              }}</span>
               <a
                 v-for="item in megaMenus[activeMenu].right"
                 :key="item.title"
@@ -422,24 +556,70 @@ const megaMenus = computed(() =>
               >
                 <span class="mega-icon" aria-hidden="true">
                   <!-- Globe / SWIFT -->
-                  <svg v-if="item.icon === 'globe'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-if="item.icon === 'globe'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <circle cx="12" cy="12" r="9" />
-                    <path d="M3 12h18M12 3a14.5 14.5 0 0 1 0 18M12 3a14.5 14.5 0 0 0 0 18" />
+                    <path
+                      d="M3 12h18M12 3a14.5 14.5 0 0 1 0 18M12 3a14.5 14.5 0 0 0 0 18"
+                    />
                   </svg>
                   <!-- Coins / Stablecoins -->
-                  <svg v-else-if="item.icon === 'coins'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-else-if="item.icon === 'coins'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <circle cx="9.5" cy="9.5" r="5.5" />
                     <path d="M14.5 9.5a5.5 5.5 0 1 1-5 5" />
                   </svg>
                   <!-- Check Shield -->
-                  <svg v-else-if="item.icon === 'check-shield'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z" />
+                  <svg
+                    v-else-if="item.icon === 'check-shield'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z"
+                    />
                     <path d="m9 12 2 2 4-4" />
                   </svg>
                   <!-- Status Signal -->
-                  <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-else
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <rect x="3" y="4" width="18" height="16" rx="3" />
-                    <path d="M8.5 14.5a5 5 0 0 1 7 0M6 12a8.5 8.5 0 0 1 12 0M12 17h.01" />
+                    <path
+                      d="M8.5 14.5a5 5 0 0 1 7 0M6 12a8.5 8.5 0 0 1 12 0M12 17h.01"
+                    />
                   </svg>
                 </span>
                 <div class="mega-copy">
@@ -459,18 +639,54 @@ const megaMenus = computed(() =>
                 :key="item.title"
                 :href="item.href"
                 class="mega-item"
-                @click.prevent="item.href === '#cms' ? (activeMenu = null, navigateTo('cms')) : goAnchor(item.href)"
+                @click.prevent="
+                  item.href === '#cms'
+                    ? ((activeMenu = null), navigateTo('cms'))
+                    : goAnchor(item.href)
+                "
               >
                 <span class="mega-icon" aria-hidden="true">
-                  <svg v-if="item.icon === 'doc'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-if="item.icon === 'doc'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <rect x="5" y="3" width="14" height="18" rx="2.5" />
                     <path d="M9 8h6M9 12h6M9 16h4" />
                   </svg>
-                  <svg v-else-if="item.icon === 'branch'" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="6" cy="6" r="2.5" /><circle cx="18" cy="8" r="2.5" /><circle cx="6" cy="18" r="2.5" />
+                  <svg
+                    v-else-if="item.icon === 'branch'"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="6" cy="6" r="2.5" />
+                    <circle cx="18" cy="8" r="2.5" />
+                    <circle cx="6" cy="18" r="2.5" />
                     <path d="M6 8.5v7M8.5 6H13a2.5 2.5 0 0 1 2.5 2.5" />
                   </svg>
-                  <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    v-else
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <rect x="3" y="5" width="18" height="14" rx="3" />
                     <path d="M9 12h6M12 9v6" />
                   </svg>
@@ -490,7 +706,10 @@ const megaMenus = computed(() =>
                   :key="sdk"
                   href="#cms"
                   class="sdk-box mono"
-                  @click.prevent="activeMenu = null; navigateTo('cms')"
+                  @click.prevent="
+                    activeMenu = null;
+                    navigateTo('cms');
+                  "
                 >
                   {{ sdk }}
                 </a>
@@ -501,7 +720,10 @@ const megaMenus = computed(() =>
                   :key="card.title"
                   :href="card.href"
                   class="dev-subcard"
-                  @click.prevent="activeMenu = null; navigateTo('cms')"
+                  @click.prevent="
+                    activeMenu = null;
+                    navigateTo('cms');
+                  "
                 >
                   <strong>{{ card.title }}</strong>
                   <span>{{ card.desc }}</span>
@@ -524,11 +746,20 @@ const megaMenus = computed(() =>
         >
           {{ l.label }}
         </a>
-        <a href="#cms" :style="{ '--i': links.length }" @click.prevent="open = false; navigateTo('cms')">
-          {{ t('nav.sandbox') }}
+        <a
+          href="#cms"
+          :style="{ '--i': links.length }"
+          @click.prevent="
+            open = false;
+            navigateTo('cms');
+          "
+        >
+          {{ t("nav.sandbox") }}
         </a>
         <div class="mobile-bottom" :style="{ '--i': links.length + 1 }">
-          <a href="#contato" class="cta mobile-cta" @click="open = false">{{ t('nav.contact') }}</a>
+          <a href="#contato" class="cta mobile-cta" @click="open = false">{{
+            t("nav.contact")
+          }}</a>
         </div>
       </nav>
     </Transition>
@@ -537,15 +768,46 @@ const megaMenus = computed(() =>
 
 <style scoped>
 .header {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(5, 5, 6, 0.88);
-  backdrop-filter: blur(16px);
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 5, 6, 0.72);
+  -webkit-backdrop-filter: blur(20px);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
-.container-wide { max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
-.bar { height: 68px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
-.bar > a:first-child { justify-self: start; }
-.links { display: flex; align-items: center; gap: 6px; }
+.header.is-scrolled {
+  background: rgba(5, 5, 6, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.container-wide {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+.bar {
+  height: 68px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+.bar > a:first-child {
+  justify-self: start;
+}
+.links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 .nav-item {
   padding: 7px 14px;
   border-radius: 8px;
@@ -553,7 +815,9 @@ const megaMenus = computed(() =>
   font-size: 14px;
   letter-spacing: -0.01em;
   color: rgba(244, 244, 245, 0.78);
-  transition: color 0.16s ease, background 0.16s ease;
+  transition:
+    color 0.16s ease,
+    background 0.16s ease;
   white-space: nowrap;
 }
 .nav-item:hover,
@@ -561,7 +825,13 @@ const megaMenus = computed(() =>
   color: #fff;
   background: var(--surface-2);
 }
-.actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; justify-self: end; }
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  justify-self: end;
+}
 
 /* BlindPay-inspired Hover Mega-Menu */
 .mega-wrap {
@@ -620,7 +890,10 @@ const megaMenus = computed(() =>
   place-items: center;
   color: var(--text-2);
   flex-shrink: 0;
-  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease;
 }
 .mega-item:hover .mega-icon {
   color: var(--accent-soft);
@@ -662,7 +935,10 @@ const megaMenus = computed(() =>
   font-size: 11.5px;
   font-weight: 700;
   color: var(--text-2);
-  transition: border-color 0.16s, color 0.16s, background 0.16s;
+  transition:
+    border-color 0.16s,
+    color 0.16s,
+    background 0.16s;
 }
 .sdk-box:hover {
   border-color: rgba(217, 142, 104, 0.4);
@@ -683,7 +959,9 @@ const megaMenus = computed(() =>
   display: flex;
   flex-direction: column;
   gap: 4px;
-  transition: background 0.16s, border-color 0.16s;
+  transition:
+    background 0.16s,
+    border-color 0.16s;
 }
 .dev-subcard:hover {
   background: var(--surface-2);
@@ -702,7 +980,9 @@ const megaMenus = computed(() =>
 
 .mega-pop-enter-active,
 .mega-pop-leave-active {
-  transition: opacity 0.16s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.16s ease,
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .mega-pop-enter-from,
 .mega-pop-leave-to {
@@ -728,7 +1008,7 @@ const megaMenus = computed(() =>
   color: var(--text-2);
   transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.lang-switch[data-lang='en'] .lang-globe {
+.lang-switch[data-lang="en"] .lang-globe {
   transform: rotate(180deg);
 }
 .lang-track {
@@ -749,7 +1029,7 @@ const megaMenus = computed(() =>
   transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
 }
-.lang-switch[data-lang='en'] .lang-thumb {
+.lang-switch[data-lang="en"] .lang-thumb {
   transform: translateX(100%);
 }
 .lang-track button {
@@ -764,7 +1044,9 @@ const megaMenus = computed(() =>
   letter-spacing: 0.06em;
   color: var(--dim);
   cursor: pointer;
-  transition: color 0.25s, transform 0.2s;
+  transition:
+    color 0.25s,
+    transform 0.2s;
 }
 .lang-track button.on {
   color: #f8fafc;
@@ -774,16 +1056,30 @@ const megaMenus = computed(() =>
 }
 
 .sandbox {
-  padding: 8px 12px; font-size: 13.5px; font-weight: 500; color: rgba(244, 244, 245, 0.78);
-  border-radius: 8px; white-space: nowrap; transition: color 0.2s;
+  padding: 8px 12px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(244, 244, 245, 0.78);
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: color 0.2s;
 }
-.sandbox:hover { color: #fff; }
+.sandbox:hover {
+  color: #fff;
+}
 .cta {
-  padding: 9px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
-  white-space: nowrap; color: var(--on-accent); background: var(--accent);
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--on-accent);
+  background: var(--accent);
   transition: background 0.2s;
 }
-.cta:hover { background: var(--accent-soft); }
+.cta:hover {
+  background: var(--accent-soft);
+}
 
 /* Animated Hamburger Button */
 .burger {
@@ -798,7 +1094,9 @@ const megaMenus = computed(() =>
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.25s, background 0.25s;
+  transition:
+    border-color 0.25s,
+    background 0.25s;
 }
 .burger:hover,
 .burger.is-open {
@@ -811,16 +1109,34 @@ const megaMenus = computed(() =>
   height: 2px;
   border-radius: 2px;
   background: var(--text);
-  transition: transform 0.36s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.22s ease, background-color 0.25s;
+  transition:
+    transform 0.36s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.22s ease,
+    background-color 0.25s;
 }
-.line-1 { transform: translateY(-6px); }
-.line-2 { transform: translateY(0); }
-.line-3 { transform: translateY(6px); }
+.line-1 {
+  transform: translateY(-6px);
+}
+.line-2 {
+  transform: translateY(0);
+}
+.line-3 {
+  transform: translateY(6px);
+}
 
-.burger.is-open .bar-line { background: var(--text); }
-.burger.is-open .line-1 { transform: translateY(0) rotate(45deg); }
-.burger.is-open .line-2 { opacity: 0; transform: scaleX(0.2); }
-.burger.is-open .line-3 { transform: translateY(0) rotate(-45deg); }
+.burger.is-open .bar-line {
+  background: var(--text);
+}
+.burger.is-open .line-1 {
+  transform: translateY(0) rotate(45deg);
+}
+.burger.is-open .line-2 {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+.burger.is-open .line-3 {
+  transform: translateY(0) rotate(-45deg);
+}
 
 /* Mobile Drawer */
 .mobile {
@@ -828,8 +1144,12 @@ const megaMenus = computed(() =>
   flex-direction: column;
   padding: 10px 20px 22px;
   gap: 4px;
-  background: #050506;
+  background: rgba(5, 5, 6, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
+  max-height: calc(100vh - 62px);
+  overflow-y: auto;
 }
 .mobile a {
   font-weight: 500;
@@ -838,12 +1158,16 @@ const megaMenus = computed(() =>
   color: var(--text-2);
   padding: 10px 0;
   border-bottom: 1px solid var(--line);
-  animation: mobileItemIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 45ms) both;
+  animation: mobileItemIn 0.32s cubic-bezier(0.22, 1, 0.36, 1)
+    calc(var(--i, 0) * 45ms) both;
 }
-.mobile a:hover { color: #fff; }
+.mobile a:hover {
+  color: #fff;
+}
 .mobile-bottom {
   padding-top: 14px;
-  animation: mobileItemIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 45ms) both;
+  animation: mobileItemIn 0.32s cubic-bezier(0.22, 1, 0.36, 1)
+    calc(var(--i, 0) * 45ms) both;
 }
 .mobile .mobile-cta {
   display: inline-flex;
@@ -855,13 +1179,21 @@ const megaMenus = computed(() =>
 }
 
 @keyframes mobileItemIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobile-drawer-enter-active,
 .mobile-drawer-leave-active {
-  transition: opacity 0.24s ease, transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.24s ease,
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: top;
 }
 .mobile-drawer-enter-from,
@@ -870,13 +1202,37 @@ const megaMenus = computed(() =>
   transform: translateY(-10px) scaleY(0.96);
 }
 
-@media (max-width: 1180px) { .sandbox { display: none; } }
-@media (max-width: 960px) {
-  .container-wide { padding: 0 16px; }
-  .bar { height: 62px; gap: 12px; display: flex; justify-content: space-between; }
-  .actions { gap: 10px; }
-  .links, .sandbox, .actions > .cta, .mega-wrap { display: none !important; }
-  .burger { display: inline-flex; }
+@media (max-width: 1180px) {
+  .sandbox {
+    display: none;
+  }
 }
-@media (min-width: 961px) { .mobile { display: none !important; } }
+@media (max-width: 960px) {
+  .container-wide {
+    padding: 0 16px;
+  }
+  .bar {
+    height: 62px;
+    gap: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .actions {
+    gap: 10px;
+  }
+  .links,
+  .sandbox,
+  .actions > .cta,
+  .mega-wrap {
+    display: none !important;
+  }
+  .burger {
+    display: inline-flex;
+  }
+}
+@media (min-width: 961px) {
+  .mobile {
+    display: none !important;
+  }
+}
 </style>

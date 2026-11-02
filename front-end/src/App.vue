@@ -1,42 +1,46 @@
 <script setup>
-import { onMounted, watch, nextTick } from 'vue'
-import { t, lang, targetLang, currentPage, langTransitioning } from './i18n'
-import SiteHeader from './components/SiteHeader.vue'
-import HeroSection from './components/HeroSection.vue'
-import DashboardShowcase from './components/DashboardShowcase.vue'
-import BrandManifesto from './components/BrandManifesto.vue'
-import FeatureTriad from './components/FeatureTriad.vue'
-import HowItWorks from './components/HowItWorks.vue'
-import ProductGrid from './components/ProductGrid.vue'
-import ComplianceMatrix from './components/ComplianceMatrix.vue'
-import DeveloperApi from './components/DeveloperApi.vue'
-import MarketInsights from './components/MarketInsights.vue'
-import ConversionCta from './components/ConversionCta.vue'
-import SiteFooter from './components/SiteFooter.vue'
-import RevealStage from './components/RevealStage.vue'
-import CmsDocsPage from './components/CmsDocsPage.vue'
-import CommandSearchModal from './components/CommandSearchModal.vue'
+import { onMounted, watch, nextTick } from "vue";
+import { t, lang, targetLang, currentPage, langTransitioning } from "./i18n";
+import SiteHeader from "./components/SiteHeader.vue";
+import HeroSection from "./components/HeroSection.vue";
+import DashboardShowcase from "./components/DashboardShowcase.vue";
+import BrandManifesto from "./components/BrandManifesto.vue";
+import FeatureTriad from "./components/FeatureTriad.vue";
+import HowItWorks from "./components/HowItWorks.vue";
+import ProductGrid from "./components/ProductGrid.vue";
+import ComplianceMatrix from "./components/ComplianceMatrix.vue";
+import DeveloperApi from "./components/DeveloperApi.vue";
+import MarketInsights from "./components/MarketInsights.vue";
+import ConversionCta from "./components/ConversionCta.vue";
+import SiteFooter from "./components/SiteFooter.vue";
+import RevealStage from "./components/RevealStage.vue";
+import CmsDocsPage from "./components/CmsDocsPage.vue";
+import CommandSearchModal from "./components/CommandSearchModal.vue";
 
 function observeReveals() {
-  const els = document.querySelectorAll('.reveal')
+  const els = document.querySelectorAll(".reveal");
   const io = new IntersectionObserver(
-    (entries) => entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target) }
-    }),
+    (entries) =>
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }),
     { threshold: 0.12 },
-  )
-  els.forEach((el) => io.observe(el))
+  );
+  els.forEach((el) => io.observe(el));
 }
 
-onMounted(observeReveals)
+onMounted(observeReveals);
 watch([currentPage, lang], async () => {
-  await nextTick()
-  observeReveals()
-})
+  await nextTick();
+  observeReveals();
+});
 </script>
 
 <template>
-  <a href="#main" class="sr-only">{{ t('skip') }}</a>
+  <a href="#main" class="sr-only">{{ t("skip") }}</a>
   <CommandSearchModal />
 
   <!-- Smooth full-viewport veil when switching language -->
@@ -44,11 +48,24 @@ watch([currentPage, lang], async () => {
     <div v-if="langTransitioning" class="lang-switch-veil" aria-hidden="true">
       <div class="lang-switch-card mono">
         <div class="lang-switch-top">
-          <svg class="lang-veil-globe" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            class="lang-veil-globe"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <circle cx="12" cy="12" r="10" />
-            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            <path
+              d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+            />
           </svg>
-          <span>ALL X • {{ targetLang === 'pt' ? 'PORTUGUÊS (BR)' : 'ENGLISH (US)' }}</span>
+          <span
+            >ALL X •
+            {{ targetLang === "pt" ? "PORTUGUÊS (BR)" : "ENGLISH (US)" }}</span
+          >
         </div>
         <div class="lang-switch-bar">
           <span class="lang-switch-fill" />
@@ -84,11 +101,18 @@ watch([currentPage, lang], async () => {
 </template>
 
 <style>
-#app { position: relative; overflow-x: hidden; max-width: 100vw; }
+#app {
+  position: relative;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
 
 /* Language switch page transition */
 .lang-stage {
-  transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1), filter 0.42s cubic-bezier(0.22, 1, 0.36, 1), transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .lang-stage.is-switching {
   opacity: 0.82;
@@ -104,7 +128,11 @@ watch([currentPage, lang], async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 45%, rgba(217, 142, 104, 0.08), rgba(5, 5, 6, 0.26));
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(217, 142, 104, 0.08),
+    rgba(5, 5, 6, 0.26)
+  );
   backdrop-filter: blur(14px) saturate(125%);
   -webkit-backdrop-filter: blur(14px) saturate(125%);
 }
@@ -122,7 +150,9 @@ watch([currentPage, lang], async () => {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 32px -8px rgba(217, 142, 104, 0.22);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.65),
+    0 0 32px -8px rgba(217, 142, 104, 0.22);
   animation: langCardPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .lang-switch-top {
@@ -153,16 +183,30 @@ watch([currentPage, lang], async () => {
 }
 
 @keyframes langCardPop {
-  from { opacity: 0; transform: translateY(10px) scale(0.92); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 @keyframes langGlobeSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(180deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
 }
 @keyframes langBarFill {
-  from { transform: scaleX(0.08); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0.08);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .lang-veil-enter-active,
