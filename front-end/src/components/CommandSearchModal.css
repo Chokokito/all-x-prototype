@@ -1,0 +1,201 @@
+.cmd-backdrop[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 13vh 20px 24px;
+  background: rgba(5, 5, 6, 0.76);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.cmd-modal[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-modal {
+  width: 100%;
+  max-width: 620px;
+  background: #0b0b0e;
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  box-shadow:
+    0 32px 80px -12px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.cmd-input-row[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.cmd-search-icon[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-search-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.cmd-input[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+}
+.cmd-input[data-c="CommandSearchModal"]::placeholder, [data-c="CommandSearchModal"] .cmd-input::placeholder {
+  color: var(--dim);
+}
+.cmd-esc[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-esc {
+  padding: 3px 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 10.5px;
+  cursor: pointer;
+}
+.cmd-esc[data-c="CommandSearchModal"]:hover, [data-c="CommandSearchModal"] .cmd-esc:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text);
+}
+
+.cmd-body[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-body {
+  padding: 14px 12px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.cmd-group-label[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-group-label {
+  padding: 0 10px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+}
+.cmd-list[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cmd-item[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.cmd-item.active[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-item.active {
+  background: var(--surface-2);
+  border-color: var(--line-2);
+}
+.cmd-item-left[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.cmd-badge[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-badge {
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.cmd-badge.post[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-badge.post {
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.26);
+  color: var(--ok);
+}
+.cmd-badge.get[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-badge.get {
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.26);
+  color: #38bdf8;
+}
+.cmd-badge.docs[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-badge.docs, .cmd-badge.rails[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-badge.rails {
+  background: rgba(217, 142, 104, 0.14);
+  border: 1px solid rgba(217, 142, 104, 0.28);
+  color: var(--accent-soft);
+}
+.cmd-item-text[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.cmd-item-title[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-item-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text);
+}
+.cmd-item-sub[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-item-sub {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cmd-enter[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-enter {
+  font-size: 13px;
+  color: var(--dim);
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+.cmd-item.active[data-c="CommandSearchModal"] .cmd-enter, [data-c="CommandSearchModal"] .cmd-item.active .cmd-enter {
+  opacity: 1;
+  color: var(--accent-soft);
+}
+
+.cmd-empty[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-empty {
+  padding: 28px 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.cmd-footer[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--dim);
+}
+.cmd-shortcuts[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cmd-shortcuts[data-c="CommandSearchModal"] kbd, [data-c="CommandSearchModal"] .cmd-shortcuts kbd {
+  padding: 1px 5px;
+  margin-right: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.cmd-brand[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-brand {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cmd-fade-enter-active[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-fade-enter-active, .cmd-fade-leave-active[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-fade-leave-active {
+  transition: opacity 0.18s ease;
+}
+.cmd-fade-enter-active[data-c="CommandSearchModal"] .cmd-modal, [data-c="CommandSearchModal"] .cmd-fade-enter-active .cmd-modal, .cmd-fade-leave-active[data-c="CommandSearchModal"] .cmd-modal, [data-c="CommandSearchModal"] .cmd-fade-leave-active .cmd-modal {
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s ease;
+}
+.cmd-fade-enter-from[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-fade-enter-from, .cmd-fade-leave-to[data-c="CommandSearchModal"], [data-c="CommandSearchModal"] .cmd-fade-leave-to {
+  opacity: 0;
+}
+.cmd-fade-enter-from[data-c="CommandSearchModal"] .cmd-modal, [data-c="CommandSearchModal"] .cmd-fade-enter-from .cmd-modal, .cmd-fade-leave-to[data-c="CommandSearchModal"] .cmd-modal, [data-c="CommandSearchModal"] .cmd-fade-leave-to .cmd-modal {
+  transform: scale(0.96) translateY(-8px);
+  opacity: 0;
+}

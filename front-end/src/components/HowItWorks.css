@@ -1,0 +1,56 @@
+.how[data-c="HowItWorks"], [data-c="HowItWorks"] .how { padding: clamp(64px, 9vw, 120px) 0 clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: clamp(36px, 5vw, 56px); }
+.steps[data-c="HowItWorks"], [data-c="HowItWorks"] .steps {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line-2);
+}
+.step[data-c="HowItWorks"], [data-c="HowItWorks"] .step { padding: 24px 24px 8px 0; display: flex; flex-direction: column; gap: 10px; position: relative; }
+.step[data-c="HowItWorks"] + .step, [data-c="HowItWorks"] .step + .step { padding-left: 24px; border-left: 1px solid var(--line); }
+.step[data-c="HowItWorks"]::before, [data-c="HowItWorks"] .step::before {
+  content: ''; position: absolute; top: -1px; left: 0; height: 1px; width: 0; background: var(--accent);
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.step[data-c="HowItWorks"]:hover::before, [data-c="HowItWorks"] .step:hover::before { width: 100%; }
+.step-top[data-c="HowItWorks"], [data-c="HowItWorks"] .step-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.step-ico[data-c="HowItWorks"], [data-c="HowItWorks"] .step-ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  display: grid;
+  place-items: center;
+  color: var(--text-2);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.step[data-c="HowItWorks"]:hover .step-ico, [data-c="HowItWorks"] .step:hover .step-ico {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+.n[data-c="HowItWorks"], [data-c="HowItWorks"] .n { font-size: 12px; color: var(--dim); }
+.step[data-c="HowItWorks"] h3, [data-c="HowItWorks"] .step h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; }
+.step[data-c="HowItWorks"] p, [data-c="HowItWorks"] .step p { font-size: 14px; line-height: 1.55; color: var(--muted); }
+
+.meta[data-c="HowItWorks"], [data-c="HowItWorks"] .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.behind[data-c="HowItWorks"], [data-c="HowItWorks"] .behind, .cases[data-c="HowItWorks"], [data-c="HowItWorks"] .cases {
+  padding: clamp(24px, 3vw, 32px); display: flex; flex-direction: column; gap: 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+}
+.meta[data-c="HowItWorks"] h3, [data-c="HowItWorks"] .meta h3 { font-size: 15px; font-weight: 500; color: var(--text); }
+.behind[data-c="HowItWorks"] p, [data-c="HowItWorks"] .behind p { font-size: 14.5px; line-height: 1.65; color: var(--muted); }
+.cases[data-c="HowItWorks"] ul, [data-c="HowItWorks"] .cases ul { display: flex; flex-wrap: wrap; gap: 8px; }
+.cases[data-c="HowItWorks"] li, [data-c="HowItWorks"] .cases li { padding: 6px 12px; border-radius: 6px; font-size: 13px; background: var(--surface-2); border: 1px solid var(--line); color: var(--text-2); }
+
+@media (max-width: 960px) {
+  .steps[data-c="HowItWorks"], [data-c="HowItWorks"] .steps { grid-template-columns: repeat(2, 1fr); }
+  .step[data-c="HowItWorks"]:nth-child(3), [data-c="HowItWorks"] .step:nth-child(3) { padding-left: 0; border-left: 0; }
+  .step[data-c="HowItWorks"]:nth-child(n + 3), [data-c="HowItWorks"] .step:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .meta[data-c="HowItWorks"], [data-c="HowItWorks"] .meta { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+  .steps[data-c="HowItWorks"], [data-c="HowItWorks"] .steps { grid-template-columns: 1fr; }
+  .step[data-c="HowItWorks"], [data-c="HowItWorks"] .step { padding-left: 0 !important; border-left: 0 !important; }
+  .step[data-c="HowItWorks"] + .step, [data-c="HowItWorks"] .step + .step { border-top: 1px solid var(--line); }
+  .step-top[data-c="HowItWorks"], [data-c="HowItWorks"] .step-top { margin-bottom: 12px; }
+}

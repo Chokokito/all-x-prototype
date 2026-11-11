@@ -1,0 +1,13 @@
+.ticker[data-c="RailsTicker"], [data-c="RailsTicker"] .ticker {
+  padding: 20px 0;
+  margin-top: 28px;
+  border-block: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(217, 142, 104, 0.02), rgba(217, 142, 104, 0.07), rgba(217, 142, 104, 0.02));
+  opacity: 0.9;
+  overflow: hidden;
+  max-width: 100%;
+}
+.sv-par[data-c="RailsTicker"] + .sv-par, [data-c="RailsTicker"] .sv-par + .sv-par {
+  margin-top: 8px;
+  opacity: 0.65;
+}

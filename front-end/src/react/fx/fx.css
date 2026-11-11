@@ -1,0 +1,34 @@
+/* Shared FX primitives (AnimatedBeam, OrbitingCircles, DottedMap) */
+.fx-beam { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+
+.fx-orbit { position: relative; display: grid; place-items: center; }
+.fx-orbit-path { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.08); }
+.fx-orbit-item {
+  position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+  display: grid; place-items: center;
+  animation: fx-orbit-spin linear infinite;
+}
+.fx-orbit-item > * { position: absolute; transform: translate(-50%, -50%); }
+@keyframes fx-orbit-spin {
+  from { transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a))); }
+  to   { transform: rotate(calc(var(--a) + 360deg)) translateX(var(--r)) rotate(calc(-1 * (var(--a) + 360deg))); }
+}
+.fx-orbit-center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+.fx-chip {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 30px; padding: 0 12px;
+  border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line-2);
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700; color: var(--text-2); white-space: nowrap;
+}
+.fx-chip.is-accent { border-color: rgba(217,142,104,.5); color: var(--accent-soft); background: rgba(217,142,104,.1); }
+
+.fx-dotmap { position: relative; width: 100%; aspect-ratio: 2 / 1; }
+.fx-dotmap > img { width: 100%; height: 100%; display: block; pointer-events: none; user-select: none; }
+.fx-pin { position: absolute; width: 10px; height: 10px; transform: translate(-50%, -50%); }
+.fx-pin::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); }
+.fx-pin::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); animation: fx-ping 2.2s cubic-bezier(0,0,.2,1) infinite; animation-delay: var(--d, 0s); }
+@keyframes fx-ping { 0% { transform: scale(1); opacity: .65; } 75%, 100% { transform: scale(3.2); opacity: 0; } }
+.fx-pin-label { position: absolute; left: 14px; top: -5px; font-family: var(--mono); font-size: 10.5px; color: var(--text-2); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-pin::after, .fx-orbit-item { animation: none !important; }
+}

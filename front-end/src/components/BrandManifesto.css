@@ -1,0 +1,35 @@
+.manifesto[data-c="BrandManifesto"], [data-c="BrandManifesto"] .manifesto { padding: clamp(64px, 9vw, 120px) 0 clamp(40px, 6vw, 72px); }
+.manifesto[data-c="BrandManifesto"] .container, [data-c="BrandManifesto"] .manifesto .container { display: flex; flex-direction: column; gap: 28px; }
+.statement-group[data-c="BrandManifesto"], [data-c="BrandManifesto"] .statement-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 780px;
+}
+.statement[data-c="BrandManifesto"], [data-c="BrandManifesto"] .statement {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.32;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+.sub-statement[data-c="BrandManifesto"], [data-c="BrandManifesto"] .sub-statement {
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.38;
+}
+.w[data-c="BrandManifesto"], [data-c="BrandManifesto"] .w { color: #3a3a40; transition: color 0.35s ease; }
+.w.lit[data-c="BrandManifesto"], [data-c="BrandManifesto"] .w.lit { color: var(--text); }
+.stats[data-c="BrandManifesto"], [data-c="BrandManifesto"] .stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); margin: 32px 0 0;
+  border-top: 1px solid var(--line);
+}
+.stat[data-c="BrandManifesto"], [data-c="BrandManifesto"] .stat { padding: 24px 24px 0 0; display: flex; flex-direction: column-reverse; gap: 6px; }
+.stat[data-c="BrandManifesto"] + .stat, [data-c="BrandManifesto"] .stat + .stat { padding-left: 24px; border-left: 1px solid var(--line); }
+dt[data-c="BrandManifesto"], [data-c="BrandManifesto"] dt { font-size: 13.5px; color: var(--muted); }
+dd[data-c="BrandManifesto"], [data-c="BrandManifesto"] dd { margin: 0; font-weight: 500; font-size: clamp(18px, 1.9vw, 21px); letter-spacing: -0.02em; color: var(--text); }
+@media (max-width: 720px) {
+  .stats[data-c="BrandManifesto"], [data-c="BrandManifesto"] .stats { grid-template-columns: 1fr 1fr; }
+  .stat[data-c="BrandManifesto"], [data-c="BrandManifesto"] .stat { padding: 20px 12px 20px 0 !important; border-left: 0 !important; border-bottom: 1px solid var(--line); }
+  .stat[data-c="BrandManifesto"]:nth-child(even), [data-c="BrandManifesto"] .stat:nth-child(even) { padding-left: 16px !important; border-left: 1px solid var(--line) !important; }
+}
+@media (prefers-reduced-motion: reduce) { .w[data-c="BrandManifesto"], [data-c="BrandManifesto"] .w { color: var(--text); } }

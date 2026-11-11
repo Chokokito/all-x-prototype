@@ -1,11 +1,11 @@
-import { ref, watchEffect } from 'vue'
+import { useSyncExternalStore, useCallback } from 'react'
 
 const messages = {
   pt: {
     skip: 'Pular para o conteúdo',
     nav: {
       main: 'Principal', menu: 'Menu', lang: 'Idioma', home: 'ALL X — Início',
-      links: ['Pagamentos', 'Contas', 'Como funciona', 'Compliance', 'API'],
+      links: ['Pagamentos', 'Contas', 'Stablecoins', 'Como funciona', 'Compliance', 'API'],
       docs: 'Docs & CMS',
       sandbox: 'Sandbox API', contact: 'Fale com a ALL X',
     },
@@ -306,7 +306,7 @@ const messages = {
     skip: 'Skip to content',
     nav: {
       main: 'Main', menu: 'Menu', lang: 'Language', home: 'ALL X — Home',
-      links: ['Payments', 'Accounts', 'How It Works', 'Compliance', 'API'],
+      links: ['Payments', 'Accounts', 'Stablecoins', 'How It Works', 'Compliance', 'API'],
       docs: 'Docs & CMS',
       sandbox: 'Sandbox API', contact: 'Talk to ALL X',
     },
@@ -604,66 +604,123 @@ const messages = {
   },
 }
 
-const stored = typeof localStorage !== 'undefined' ? localStorage.getItem('lang') : null
-const guess = typeof navigator !== 'undefined' && navigator.language?.startsWith('en') ? 'en' : 'pt'
-export const lang = ref(stored === 'en' || stored === 'pt' ? stored : guess)
-export const langTransitioning = ref(false)
-export const targetLang = ref(lang.value)
+// ---- React store (replaces Vue refs) ----
+const PRODUCT_PAGES = ['global-payments', 'global-accounts', 'stablecoins', 'developers']
+const isCmsHash = (h) => h === '#cms' || h === '#docs' || h.startsWith('#sec-')
+const hasWin = typeof window !== 'undefined'
 
-watchEffect(() => {
-  document.documentElement.lang = lang.value === 'pt' ? 'pt-BR' : 'en'
-  localStorage.setItem('lang', lang.value)
-})
+function detectCurrentPage() {
+  if (!hasWin) return 'home'
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '')
+  if (PRODUCT_PAGES.includes(path)) return path
+  const h = window.location.hash
+  if (isCmsHash(h)) return 'cms'
+  const cleanHash = h.replace(/^#/, '')
+  if (PRODUCT_PAGES.includes(cleanHash)) return cleanHash
+  return 'home'
+}
+
+const stored = hasWin ? localStorage.getItem('lang') : null
+const guess = hasWin && navigator.language?.startsWith('en') ? 'en' : 'pt'
+const initLang = stored === 'en' || stored === 'pt' ? stored : guess
+
+let snap = {
+  lang: initLang,
+  targetLang: initLang,
+  langTransitioning: false,
+  currentPage: detectCurrentPage(),
+  searchModalOpen: false,
+}
+const subs = new Set()
+function set(patch) {
+  snap = { ...snap, ...patch }
+  if (patch.lang && hasWin) {
+    document.documentElement.lang = patch.lang === 'pt' ? 'pt-BR' : 'en'
+    localStorage.setItem('lang', patch.lang)
+  }
+  subs.forEach((f) => f())
+}
+const subscribe = (f) => (subs.add(f), () => subs.delete(f))
+export const getState = () => snap
+
+/** t(lang, 'hero.sub') → string | array | object */
+export const tr = (l, path) => path.split('.').reduce((o, k) => o?.[k], messages[l]) ?? path
+
+const serverSnap = {
+  lang: 'pt',
+  targetLang: 'pt',
+  langTransitioning: false,
+  currentPage: 'home',
+  searchModalOpen: false,
+}
+const getServerState = () => serverSnap
+
+/** Hook: { t, lang, targetLang, langTransitioning, currentPage, searchModalOpen } (reactive). */
+export function useI18n() {
+  const s = useSyncExternalStore(subscribe, getState, getServerState)
+  const t = useCallback((path) => tr(s.lang, path), [s.lang])
+  return { ...s, t }
+}
 
 let langTimer1 = null
 let langTimer2 = null
 export const setLang = (l) => {
-  if (l === lang.value && !langTransitioning.value) return
+  if (l === snap.lang && !snap.langTransitioning) return
   clearTimeout(langTimer1)
   clearTimeout(langTimer2)
-  targetLang.value = l
-  langTransitioning.value = true
-  langTimer1 = setTimeout(() => {
-    lang.value = l
-  }, 480)
-  langTimer2 = setTimeout(() => {
-    langTransitioning.value = false
-  }, 1050)
+  set({ targetLang: l, langTransitioning: true })
+  langTimer1 = setTimeout(() => set({ lang: l }), 480)
+  langTimer2 = setTimeout(() => set({ langTransitioning: false }), 1050)
 }
 
-/** t('hero.sub') → string | array | object for the current language (reactive). */
-export function t(path) {
-  return path.split('.').reduce((o, k) => o?.[k], messages[lang.value]) ?? path
-}
+export const openSearchModal = () => set({ searchModalOpen: true })
+export const closeSearchModal = () => set({ searchModalOpen: false })
 
-const isCmsHash = (h) => h === '#cms' || h === '#docs' || h.startsWith('#sec-')
-export const currentPage = ref(typeof window !== 'undefined' && isCmsHash(window.location.hash) ? 'cms' : 'home')
-export const searchModalOpen = ref(false)
-export const openSearchModal = () => { searchModalOpen.value = true }
-export const closeSearchModal = () => { searchModalOpen.value = false }
-
-if (typeof window !== 'undefined') {
+if (hasWin) {
+  document.documentElement.lang = initLang === 'pt' ? 'pt-BR' : 'en'
   window.addEventListener('hashchange', () => {
     const h = window.location.hash
     if (isCmsHash(h)) {
-      const wasHome = currentPage.value !== 'cms'
-      currentPage.value = 'cms'
+      const wasHome = snap.currentPage !== 'cms'
+      set({ currentPage: 'cms' })
       if (wasHome && (h === '#cms' || h === '#docs')) window.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
-      currentPage.value = 'home'
+      const next = detectCurrentPage()
+      set({ currentPage: next })
     }
+  })
+  window.addEventListener('popstate', () => {
+    set({ currentPage: detectCurrentPage() })
   })
 }
 
 export function navigateTo(page, anchor = '') {
-  currentPage.value = page
-  if (typeof window !== 'undefined') {
-    if (page === 'cms') {
-      window.location.hash = anchor || '#cms'
-      if (!anchor) window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      window.location.hash = anchor || '#'
-      if (!anchor) window.scrollTo({ top: 0, behavior: 'smooth' })
+  set({ currentPage: page })
+  if (!hasWin) return
+  if (PRODUCT_PAGES.includes(page)) {
+    const targetUrl = `/${page}${anchor || ''}`
+    if (window.location.pathname !== `/${page}`) {
+      window.history.pushState({}, '', targetUrl)
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    return
+  }
+  if (page === 'cms') {
+    window.location.hash = anchor || '#cms'
+    if (!anchor) window.scrollTo({ top: 0, behavior: 'smooth' })
+    return
+  }
+  // Navigating to home
+  const targetUrl = `/${anchor || ''}`
+  if (window.location.pathname !== '/' || window.location.hash !== (anchor || '')) {
+    window.history.pushState({}, '', targetUrl)
+  }
+  if (anchor && anchor.startsWith('#')) {
+    setTimeout(() => {
+      const el = document.querySelector(anchor)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }, 60)
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 }

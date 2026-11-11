@@ -23,10 +23,19 @@ const ARCS = [
   { from: [-23.5505, -46.6333], to: [19.4326, -99.1332] }, // BRL <-> MXN
 ]
 
-export default function CobeGlobe({ className = '' }) {
+export default function CobeGlobe({
+  className = '',
+  markers = MARKERS,
+  arcs = ARCS,
+  maxWidth = 370,
+  theta = 0.22,
+  phi = 0.75,
+  speed = 0.0035,
+  style = {},
+}) {
   const canvasRef = useRef(null)
   const pointerInteracting = useRef(null)
-  const phiRef = useRef(0.75)
+  const phiRef = useRef(phi)
 
   const r = useMotionValue(0)
   const rs = useSpring(r, {
@@ -72,7 +81,7 @@ export default function CobeGlobe({ className = '' }) {
       width: width * dpr,
       height: width * dpr,
       phi: phiRef.current,
-      theta: 0.22,
+      theta,
       dark: 1,
       diffuse: 1.15,
       mapSamples: 16000,
@@ -84,13 +93,13 @@ export default function CobeGlobe({ className = '' }) {
       arcColor: [0.85, 0.56, 0.41],
       arcWidth: 0.55,
       arcHeight: 0.22,
-      markers: MARKERS,
-      arcs: ARCS,
+      markers,
+      arcs,
     })
 
     const tick = () => {
       if (!pointerInteracting.current) {
-        phiRef.current += 0.0035
+        phiRef.current += speed
       }
       globe.update({
         phi: phiRef.current + rs.get(),
@@ -118,9 +127,10 @@ export default function CobeGlobe({ className = '' }) {
       style={{
         position: 'relative',
         width: '100%',
-        maxWidth: '370px',
+        maxWidth: `${maxWidth}px`,
         aspectRatio: '1 / 1',
         margin: '0 auto',
+        ...style,
         display: 'grid',
         placeItems: 'center',
       }}

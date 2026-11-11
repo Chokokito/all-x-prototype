@@ -1,5 +1,6 @@
-// v-parallax="speed": translates the element on scroll (uses the independent `translate`
-// property so it composes with transform-based animations). Disabled for reduced motion.
+// parallax(speed): callback ref that translates the element on scroll (uses the independent
+// `translate` property so it composes with transform-based animations). Disabled for reduced motion.
+// Usage: <div ref={parallax(0.22)} />
 const items = new Set()
 let ticking = false
 const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -20,10 +21,12 @@ function request() {
   if (!ticking) { ticking = true; requestAnimationFrame(update) }
 }
 
-export const vParallax = {
-  mounted(el, { value = 0.15 }) {
-    if (reduce) return
-    el.__speed = value
+const cache = new Map()
+export function parallax(speed = 0.15) {
+  if (cache.has(speed)) return cache.get(speed)
+  const ref = (el) => {
+    if (!el || reduce) return
+    el.__speed = speed
     el.style.willChange = 'translate'
     items.add(el)
     if (items.size === 1) {
@@ -31,10 +34,11 @@ export const vParallax = {
       addEventListener('resize', request)
     }
     request()
-  },
-  updated(el, { value = 0.15 }) { el.__speed = value },
-  unmounted(el) {
-    items.delete(el)
-    if (!items.size) { removeEventListener('scroll', request); removeEventListener('resize', request) }
-  },
+    return () => {
+      items.delete(el)
+      if (!items.size) { removeEventListener('scroll', request); removeEventListener('resize', request) }
+    }
+  }
+  cache.set(speed, ref)
+  return ref
 }

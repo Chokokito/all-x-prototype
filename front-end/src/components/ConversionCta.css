@@ -1,0 +1,72 @@
+.cta-band[data-c="ConversionCta"], [data-c="ConversionCta"] .cta-band {
+  padding: clamp(64px, 8vw, 104px) 0;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.cta-grid[data-c="ConversionCta"], [data-c="ConversionCta"] .cta-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(36px, 6vw, 80px);
+  align-items: center;
+}
+.pitch[data-c="ConversionCta"], [data-c="ConversionCta"] .pitch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.pitch[data-c="ConversionCta"] h2, [data-c="ConversionCta"] .pitch h2 {
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  color: var(--text);
+  max-width: 18ch;
+}
+.pitch[data-c="ConversionCta"] p, [data-c="ConversionCta"] .pitch p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-2);
+  max-width: 440px;
+}
+.actions[data-c="ConversionCta"], [data-c="ConversionCta"] .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+.rail-badges[data-c="ConversionCta"], [data-c="ConversionCta"] .rail-badges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.badge-cell[data-c="ConversionCta"], [data-c="ConversionCta"] .badge-cell {
+  padding: 22px 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.badge-cell[data-c="ConversionCta"] strong, [data-c="ConversionCta"] .badge-cell strong {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.badge-cell[data-c="ConversionCta"] span, [data-c="ConversionCta"] .badge-cell span {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .cta-grid[data-c="ConversionCta"], [data-c="ConversionCta"] .cta-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .rail-badges[data-c="ConversionCta"], [data-c="ConversionCta"] .rail-badges { grid-template-columns: 1fr 1fr; }
+  .actions[data-c="ConversionCta"], [data-c="ConversionCta"] .actions { width: 100%; flex-direction: column; }
+  .actions[data-c="ConversionCta"] .btn, [data-c="ConversionCta"] .actions .btn { width: 100%; }
+}

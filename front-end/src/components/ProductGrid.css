@@ -1,0 +1,32 @@
+.stack[data-c="ProductGrid"], [data-c="ProductGrid"] .stack { padding: clamp(64px, 9vw, 112px) 0 clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: clamp(36px, 5vw, 56px); }
+.cards[data-c="ProductGrid"], [data-c="ProductGrid"] .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.card[data-c="ProductGrid"], [data-c="ProductGrid"] .card { padding: 28px; background: var(--bg); display: flex; flex-direction: column; gap: 10px; min-height: 220px; transition: background 0.25s ease; }
+.card[data-c="ProductGrid"]:hover, [data-c="ProductGrid"] .card:hover { background: var(--surface); }
+.card-top[data-c="ProductGrid"], [data-c="ProductGrid"] .card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: auto;
+  padding-bottom: 28px;
+}
+.card-ico[data-c="ProductGrid"], [data-c="ProductGrid"] .card-ico {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  display: grid;
+  place-items: center;
+  color: var(--text-2);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.card[data-c="ProductGrid"]:hover .card-ico, [data-c="ProductGrid"] .card:hover .card-ico {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+.n[data-c="ProductGrid"], [data-c="ProductGrid"] .n { font-size: 12px; color: var(--dim); }
+.card[data-c="ProductGrid"] h3, [data-c="ProductGrid"] .card h3 { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; }
+.card[data-c="ProductGrid"] p, [data-c="ProductGrid"] .card p { font-size: 14px; line-height: 1.55; color: var(--muted); }
+@media (max-width: 900px) { .cards[data-c="ProductGrid"], [data-c="ProductGrid"] .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .cards[data-c="ProductGrid"], [data-c="ProductGrid"] .cards { grid-template-columns: 1fr; } .card[data-c="ProductGrid"], [data-c="ProductGrid"] .card { min-height: 0; } }

@@ -1,0 +1,32 @@
+.comp[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] .comp { padding: clamp(64px, 9vw, 112px) 0 clamp(20px, 3vw, 36px); display: flex; flex-direction: column; gap: clamp(36px, 5vw, 56px); }
+.grid[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] .grid { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-2); }
+.cell[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] .cell { padding: 24px 20px 24px 0; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid var(--line); }
+.cell[data-c="ComplianceMatrix"]:not(:nth-child(4n + 1)), [data-c="ComplianceMatrix"] .cell:not(:nth-child(4n + 1)) { padding-left: 20px; border-left: 1px solid var(--line); }
+.cell-ico[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] .cell-ico {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  display: grid;
+  place-items: center;
+  color: var(--text-2);
+  margin-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.cell[data-c="ComplianceMatrix"]:hover .cell-ico, [data-c="ComplianceMatrix"] .cell:hover .cell-ico {
+  color: var(--accent-soft);
+  border-color: rgba(217, 142, 104, 0.35);
+  background: #19191e;
+}
+dt[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] dt { font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: -0.01em; }
+dd[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] dd { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+@media (max-width: 960px) {
+  .grid[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] .grid { grid-template-columns: repeat(2, 1fr); }
+  .cell[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] .cell { padding-left: 0 !important; border-left: 0 !important; }
+  .cell[data-c="ComplianceMatrix"]:nth-child(even), [data-c="ComplianceMatrix"] .cell:nth-child(even) { padding-left: 20px !important; border-left: 1px solid var(--line) !important; }
+}
+@media (max-width: 520px) {
+  .grid[data-c="ComplianceMatrix"], [data-c="ComplianceMatrix"] .grid { grid-template-columns: 1fr; }
+  .cell[data-c="ComplianceMatrix"]:nth-child(even), [data-c="ComplianceMatrix"] .cell:nth-child(even) { padding-left: 0 !important; border-left: 0 !important; }
+}
