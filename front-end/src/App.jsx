@@ -21,6 +21,8 @@ import GlobalPaymentsPage from './components/GlobalPaymentsPage'
 import GlobalAccountsPage from './components/GlobalAccountsPage'
 import StablecoinsPage from './components/StablecoinsPage'
 import DevelopersPage from './components/DevelopersPage'
+import ContactPage from './components/ContactPage'
+import CompliancePage from './components/CompliancePage'
 
 function observeReveals() {
   const io = new IntersectionObserver(
@@ -92,6 +94,10 @@ export default function App({ initialPage }) {
                   <StablecoinsPage />
                 ) : activePage === 'developers' ? (
                   <DevelopersPage />
+                ) : activePage === 'contact' ? (
+                  <ContactPage />
+                ) : activePage === 'compliance' ? (
+                  <CompliancePage />
                 ) : (
                   <>
                     <HeroSection />

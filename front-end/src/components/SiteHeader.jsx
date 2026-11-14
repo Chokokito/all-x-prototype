@@ -9,8 +9,8 @@ const hrefs = [
   '/global-accounts',
   '/stablecoins',
   '#como-funciona',
-  '#compliance',
-  '#api',
+  '/compliance',
+  '/developers',
 ]
 
 const MEGA = {
@@ -25,7 +25,7 @@ const MEGA = {
       ],
       right: [
         { title: 'SWIFT & Trilhos Locais', desc: 'Pix, ACH, SEPA e Fedwire integrados à mesma operação', href: '/global-payments', page: 'global-payments', icon: 'globe' },
-        { title: 'Compliance & Governança', desc: 'Escale globalmente com KYB, KYC e KYT integrados', href: '#compliance', icon: 'shield' },
+        { title: 'Compliance & Governança', desc: 'Escale globalmente com KYB, KYC e KYT integrados', href: '/compliance', page: 'compliance', icon: 'shield' },
       ],
     },
     platform: {
@@ -37,7 +37,7 @@ const MEGA = {
         { title: 'Aplicações Setoriais', desc: 'Comércio exterior, SaaS global e embedded finance', href: '#mercado', icon: 'briefcase' },
       ],
       right: [
-        { title: 'Matriz de Compliance', desc: 'Screening contínuo OFAC, PEP, UBO e monitoramento', href: '#compliance', icon: 'check-shield' },
+        { title: 'Matriz de Compliance', desc: 'Screening contínuo OFAC, PEP, UBO e monitoramento', href: '/compliance', page: 'compliance', icon: 'check-shield' },
         { title: 'Status dos Corredores', desc: 'Verifique a disponibilidade dos trilhos em tempo real', href: '#contato', icon: 'status' },
       ],
     },
@@ -52,7 +52,7 @@ const MEGA = {
       sdks: ['TS', 'Py', 'Go', 'PHP', 'cURL'],
       cards: [
         { title: 'White-Label Core', desc: 'Embuta contas e pagamentos no seu produto', href: '#cms' },
-        { title: 'Sandbox API', desc: 'Ambiente isolado para testes de liquidação', href: '#cms' },
+        { title: 'API', desc: 'Ambiente isolado para testes de liquidação', href: '#cms' },
       ],
     },
   },
@@ -67,7 +67,7 @@ const MEGA = {
       ],
       right: [
         { title: 'SWIFT & Local Rails', desc: 'Pix, ACH, SEPA and Fedwire in a unified experience', href: '/global-payments', page: 'global-payments', icon: 'globe' },
-        { title: 'Compliance & Governance', desc: 'Scale globally with built-in KYC, KYB and KYT', href: '#compliance', icon: 'shield' },
+        { title: 'Compliance & Governance', desc: 'Scale globally with built-in KYC, KYB and KYT', href: '/compliance', page: 'compliance', icon: 'shield' },
       ],
     },
     platform: {
@@ -79,7 +79,7 @@ const MEGA = {
         { title: 'Use Cases', desc: 'Global trade, SaaS payroll and embedded finance', href: '#mercado', icon: 'briefcase' },
       ],
       right: [
-        { title: 'Compliance Matrix', desc: 'Continuous OFAC, PEP, UBO and KYT monitoring', href: '#compliance', icon: 'check-shield' },
+        { title: 'Compliance Matrix', desc: 'Continuous OFAC, PEP, UBO and KYT monitoring', href: '/compliance', page: 'compliance', icon: 'check-shield' },
         { title: 'System Status', desc: 'Check real-time payment rail performance', href: '#contato', icon: 'status' },
       ],
     },
@@ -223,6 +223,7 @@ export default function SiteHeader() {
   const links = t('nav.links').map((label, i) => ({ label, href: hrefs[i] }))
   const [open, setOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState(null)
+  const [activeNavItem, setActiveNavItem] = useState(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const closeTimer = useRef(null)
   const lastMenu = useRef(null)
@@ -240,15 +241,20 @@ export default function SiteHeader() {
     clearTimeout(closeTimer.current)
     setActiveMenu(key)
   }
+  function focusNavItem(item) {
+    setActiveNavItem(item)
+  }
   function scheduleClose() {
     clearTimeout(closeTimer.current)
     closeTimer.current = setTimeout(() => {
       setActiveMenu(null)
+      setActiveNavItem(null)
     }, 140)
   }
   function handleNavClick(e, href, page) {
     e.preventDefault()
     setActiveMenu(null)
+    setActiveNavItem(null)
     setOpen(false)
     if (page) {
       navigateTo(page)
@@ -297,9 +303,11 @@ export default function SiteHeader() {
           {/* Page 1: Global Payments */}
           <a
             href={links[0].href}
-            className={`nav-item${currentPage === 'global-payments' || activeMenu === 'products' ? ' active' : ''}`}
+            className={`nav-item${currentPage === 'global-payments' || activeNavItem === 'global-payments' ? ' active' : ''}`}
             onMouseEnter={() => openMenu('products')}
             onFocus={() => openMenu('products')}
+            onMouseMove={() => focusNavItem('global-payments')}
+            onFocusCapture={() => focusNavItem('global-payments')}
             onClick={(e) => handleNavClick(e, links[0].href, 'global-payments')}
           >
             {links[0].label}
@@ -308,9 +316,11 @@ export default function SiteHeader() {
           {/* Page 2: Global Accounts */}
           <a
             href={links[1].href}
-            className={`nav-item${currentPage === 'global-accounts' ? ' active' : ''}`}
+            className={`nav-item${currentPage === 'global-accounts' || activeNavItem === 'global-accounts' ? ' active' : ''}`}
             onMouseEnter={() => openMenu('products')}
             onFocus={() => openMenu('products')}
+            onMouseMove={() => focusNavItem('global-accounts')}
+            onFocusCapture={() => focusNavItem('global-accounts')}
             onClick={(e) => handleNavClick(e, links[1].href, 'global-accounts')}
           >
             {links[1].label}
@@ -319,9 +329,11 @@ export default function SiteHeader() {
           {/* Page 3: Stablecoins */}
           <a
             href={links[2].href}
-            className={`nav-item${currentPage === 'stablecoins' ? ' active' : ''}`}
+            className={`nav-item${currentPage === 'stablecoins' || activeNavItem === 'stablecoins' ? ' active' : ''}`}
             onMouseEnter={() => openMenu('products')}
             onFocus={() => openMenu('products')}
+            onMouseMove={() => focusNavItem('stablecoins')}
+            onFocusCapture={() => focusNavItem('stablecoins')}
             onClick={(e) => handleNavClick(e, links[2].href, 'stablecoins')}
           >
             {links[2].label}
@@ -330,9 +342,11 @@ export default function SiteHeader() {
           {/* Trigger 2: Como funciona & Compliance (Platform Mega-Menu) */}
           <a
             href={links[3].href}
-            className={`nav-item${activeMenu === 'platform' ? ' active' : ''}`}
+            className={`nav-item${activeNavItem === 'how-it-works' ? ' active' : ''}`}
             onMouseEnter={() => openMenu('platform')}
             onFocus={() => openMenu('platform')}
+            onMouseMove={() => focusNavItem('how-it-works')}
+            onFocusCapture={() => focusNavItem('how-it-works')}
             onClick={(e) => handleNavClick(e, links[3].href)}
           >
             {links[3].label}
@@ -340,9 +354,11 @@ export default function SiteHeader() {
 
           <a
             href={links[4].href}
-            className="nav-item"
+            className={`nav-item${activeNavItem === 'compliance' ? ' active' : ''}`}
             onMouseEnter={() => openMenu('platform')}
             onFocus={() => openMenu('platform')}
+            onMouseMove={() => focusNavItem('compliance')}
+            onFocusCapture={() => focusNavItem('compliance')}
             onClick={(e) => handleNavClick(e, links[4].href)}
           >
             {links[4].label}
@@ -351,9 +367,11 @@ export default function SiteHeader() {
           {/* Trigger 3: API & Developers Mega-Menu */}
           <a
             href={links[5].href}
-            className={`nav-item${activeMenu === 'devs' ? ' active' : ''}`}
+            className={`nav-item${activeNavItem === 'developers' ? ' active' : ''}`}
             onMouseEnter={() => openMenu('devs')}
             onFocus={() => openMenu('devs')}
+            onMouseMove={() => focusNavItem('developers')}
+            onFocusCapture={() => focusNavItem('developers')}
             onClick={(e) => handleNavClick(e, links[5].href)}
           >
             {links[5].label}
@@ -407,7 +425,7 @@ export default function SiteHeader() {
           <a href="#cms" className="sandbox" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>
             {t('nav.sandbox')}
           </a>
-          <a href="#contato" className="cta">{t('nav.contact')}</a>
+          <a href="/contact" className="cta" onClick={(e) => handleNavClick(e, '/contact', 'contact')}>{t('nav.contact')}</a>
 
           {/* Animated Hamburger Button */}
           <button
@@ -547,7 +565,7 @@ export default function SiteHeader() {
             {t('nav.sandbox')}
           </a>
           <div className="mobile-bottom" style={{ '--i': links.length + 1 }}>
-            <a href="#contato" className="cta mobile-cta" onClick={() => setOpen(false)}>
+            <a href="/contact" className="cta mobile-cta" onClick={(e) => { handleNavClick(e, '/contact', 'contact') }}>
               {t('nav.contact')}
             </a>
           </div>

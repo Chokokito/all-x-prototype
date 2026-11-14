@@ -23,14 +23,14 @@ const fxRates = {
 
 const initialTx = [
   { id: 'tx_8F2K…91AC', from: 'BRL', to: 'USDC', amt: 'R$ 850.000,00', outAmt: '152.795,25 USDC', rail: 'Pix', s: 'done', ben: 'Acme Global Supplies LLC', rate: '1 USDC = 5,5630 BRL', fee: '0,25%', ref: 'E18236120202610301842a9f', time: '1,8s' },
-  { id: 'tx_3H7Q…0B4E', from: 'USD', to: 'EUR', amt: '$ 124.500,00', outAmt: '€ 114.910,20', rail: 'SWIFT', s: 'proc', ben: 'Nordic Freight AB', rate: '1 EUR = 1,0834 USD', fee: '0,20%', ref: 'SWFT-99281-DE89', time: 'T+0' },
-  { id: 'tx_Q19D…7F06', from: 'BRL', to: 'USDT', amt: 'R$ 212.300,00', outAmt: '38.162,86 USDT', rail: 'Pix', s: 'wait', ben: 'CloudScale Infrastructure Inc.', rate: '1 USDT = 5,5630 BRL', fee: '0,25%', ref: '0x944e8c...7F06', time: 'T+0' },
+  { id: 'tx_3H7Q…0B4E', from: 'USD', to: 'EUR', amt: '$ 124.500,00', outAmt: '€ 114.910,20', rail: 'SWIFT', s: 'proc', ben: 'Nordic Freight AB', rate: '1 EUR = 1,0834 USD', fee: '0,20%', ref: 'SWFT-99281-DE89', time: 'Estimado' },
+  { id: 'tx_Q19D…7F06', from: 'BRL', to: 'USDT', amt: 'R$ 212.300,00', outAmt: '38.162,86 USDT', rail: 'Pix', s: 'wait', ben: 'CloudScale Infrastructure Inc.', rate: '1 USDT = 5,5630 BRL', fee: '0,25%', ref: '0x944e8c...7F06', time: 'Estimado' },
   { id: 'tx_6LMA…C2D8', from: 'USDC', to: 'USD', amt: '$ 98.870,00', outAmt: '$ 98.870,00', rail: 'ACH', s: 'done', ben: 'Mercury Treasury Ops', rate: '1 USDC = 1,0000 USD', fee: '0,10%', ref: 'ACH-021000021-8841', time: '2,4s' },
   { id: 'tx_Z04P…5E1B', from: 'EUR', to: 'BRL', amt: '€ 46.210,00', outAmt: 'R$ 278.184,20', rail: 'SEPA', s: 'rev', ben: 'Horizon Industrial GmbH', rate: '1 EUR = 6,0200 BRL', fee: '0,30%', ref: 'SEPA-DE71-55019', time: 'KYB Check' },
   { id: 'tx_K7WT…88A3', from: 'USD', to: 'BRL', amt: '$ 310.000,00', outAmt: 'R$ 1.724.530,00', rail: 'Fedwire', s: 'done', ben: 'Latam Logistics S.A.', rate: '1 USD = 5,5630 BRL', fee: '0,22%', ref: 'FW-026009593-772', time: '3,1s' },
   { id: 'tx_9P2M…44D1', from: 'USDC', to: 'EUR', amt: '$ 64.000,00', outAmt: '€ 59.073,00', rail: 'SEPA', s: 'done', ben: 'Berlin Digital Studio GmbH', rate: '1 EUR = 1,0834 USDC', fee: '0,18%', ref: 'SEPA-NL44-10942', time: '2,1s' },
   { id: 'tx_5V8N…19F0', from: 'BRL', to: 'USD', amt: 'R$ 540.000,00', outAmt: '$ 97.069,92', rail: 'ACH', s: 'done', ben: 'Apex Semiconductor Corp', rate: '1 USD = 5,5630 BRL', fee: '0,25%', ref: 'ACH-121000358-401', time: '1,9s' },
-  { id: 'tx_2C9R…63E7', from: 'EUR', to: 'USDC', amt: '€ 88.500,00', outAmt: '95.880,90 USDC', rail: 'SEPA', s: 'proc', ben: 'Vault Liquidity Pool', rate: '1 EUR = 1,0834 USDC', fee: '0,15%', ref: '0x71c9a2...63E7', time: 'T+0' },
+  { id: 'tx_2C9R…63E7', from: 'EUR', to: 'USDC', amt: '€ 88.500,00', outAmt: '95.880,90 USDC', rail: 'SEPA', s: 'proc', ben: 'Vault Liquidity Pool', rate: '1 EUR = 1,0834 USDC', fee: '0,15%', ref: '0x71c9a2...63E7', time: 'Estimado' },
   { id: 'tx_7M4K…02B9', from: 'USD', to: 'USDT', amt: '$ 175.000,00', outAmt: '175.000,00 USDT', rail: 'Fedwire', s: 'done', ben: 'Pacific Trade Partners', rate: '1 USD = 1,0000 USDT', fee: '0,10%', ref: '0x38f1b0...02B9', time: '1,4s' },
 ]
 
@@ -172,7 +172,7 @@ export default function DashboardShowcase() {
       rate: currentPair.label,
       fee: '0,20%',
       ref: 'E18236120' + Date.now(),
-      time: 'T+0',
+      time: 'Estimado',
     }
     setTxList((list) => [newRow, ...list])
     setShowNewTx(false)
@@ -227,11 +227,11 @@ export default function DashboardShowcase() {
         st: { done: 'Liquidado', proc: 'Em conversão', wait: 'Aguardando Pix', rev: 'Em revisão' },
         cardLTag: 'COTAÇÃO TRAVADA · 30s',
         cardLRate: currentPair.label,
-        cardLSub: `Rota ${newFrom} → ${newTo} · Liquidação T+0`,
+        cardLSub: `Rota ${newFrom} → ${newTo} · Liquidação estimada`,
         cardRTag: 'LIQUIDAÇÃO CONCLUÍDA',
         cardRAmt: lastSettledAmt,
         cardRSub: lastSettledSource,
-        settleBtn: 'Simular liquidação T+0',
+        settleBtn: 'Simular liquidação',
         copied: 'Copiado ✓',
         copyId: 'Copiar hash',
         execBtn: 'Confirmar e liquidar',
@@ -254,11 +254,11 @@ export default function DashboardShowcase() {
         st: { done: 'Settled', proc: 'Converting', wait: 'Awaiting Pix', rev: 'In review' },
         cardLTag: 'LOCKED QUOTE · 30s',
         cardLRate: currentPair.label,
-        cardLSub: `Route ${newFrom} → ${newTo} · T+0 settlement`,
+        cardLSub: `Route ${newFrom} → ${newTo} · Estimated settlement`,
         cardRTag: 'SETTLEMENT COMPLETED',
         cardRAmt: lastSettledAmt,
         cardRSub: lastSettledSource,
-        settleBtn: 'Simulate T+0 settlement',
+        settleBtn: 'Simulate settlement',
         copied: 'Copied ✓',
         copyId: 'Copy hash',
         execBtn: 'Confirm & settle',
@@ -407,7 +407,7 @@ export default function DashboardShowcase() {
                         <input value={newAmount} type="number" min="100" step="1000" onChange={(e) => setNewAmount(e.target.value === '' ? '' : Number(e.target.value))} />
                       </label>
                       <div className="comp-preview">
-                        <span>{pt ? 'Liquidação estimada (T+0)' : 'Estimated settlement (T+0)'}</span>
+                        <span>{pt ? 'Liquidação estimada' : 'Estimated settlement'}</span>
                         <strong className="mono">{calculatedOutput}</strong>
                         <small className="mono">{currentPair.label} · {currentPair.rail}</small>
                       </div>
@@ -512,7 +512,7 @@ export default function DashboardShowcase() {
                   </div>
                   <div className="kpi-card">
                     <small>{pt ? 'Tempo médio de liquidação' : 'Avg settlement time'}</small>
-                    <strong className="mono">1,8s (T+0)</strong>
+                    <strong className="mono">{pt ? 'Conforme rota' : 'Route dependent'}</strong>
                     <span>Pix, SEPA Instant &amp; Stablecoins</span>
                   </div>
                   <div className="kpi-card">

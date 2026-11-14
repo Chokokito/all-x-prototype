@@ -27,46 +27,48 @@ const ARCS = [
 
 const COPY = {
   pt: {
-    badge: 'Stablecoin Gateway · operação 24/7',
+    badge: 'Stablecoin Gateway',
     l1: 'Stablecoins quando aceleram.',
     l2: 'Moeda local no destino.',
-    sub: 'A ALL X conecta USDC e USDT aos trilhos bancários locais sem exigir que sua empresa gerencie chaves privadas, taxas de rede ou corretoras cripto.',
+    sub: 'A ALL X conecta USDC e USDT aos trilhos bancários locais sem exigir que sua empresa gerencie a complexidade técnica.',
     cta1: 'Integrar o Gateway',
     cta2: 'Ver os fluxos',
     modes: [
-      { tab: 'On-ramp', from: ['Pix · ACH · SEPA', 'BRL, USD ou EUR da sua conta'], to: ['USDC · USDT', 'Na carteira gerenciada ou no destino'], note: 'Em menos de 60 segundos, 24/7, inclusive feriados bancários.' },
-      { tab: 'Off-ramp', from: ['USDC · USDT', 'Depósito em endereço dedicado'], to: ['Pix · ACH · SEPA', 'Crédito em moeda local na conta'], note: 'Screening on-chain e liquidação T+0 com comprovante para o ERP.' },
-      { tab: 'Cross-border', from: ['BRL ou USD', 'Sua tesouraria opera em moeda local'], to: ['USD · EUR · BRL', 'O fornecedor recebe no banco dele'], note: 'A stablecoin é o trilho invisível: de D+4 para o mesmo dia.' },
+      { tab: 'On-ramp', from: ['Pix · ACH · SEPA', 'BRL, USD ou EUR da sua conta'], to: ['USDC · USDT', 'Na carteira gerenciada ou no destino'], note: 'Cotação, conversão e liquidação conforme a rota disponível.' },
+      { tab: 'Off-ramp', from: ['USDC · USDT', 'Depósito em carteira ou endereço aplicável'], to: ['Pix · ACH · SEPA', 'Liquidação em moeda local conforme disponibilidade'], note: 'Blockchain screening e informações da liquidação ao longo da operação.' },
+      { tab: 'Cross-border', from: ['BRL ou USD', 'Sua tesouraria opera em moeda local'], to: ['USD · EUR · BRL', 'O fornecedor recebe no trilho disponível'], note: 'A stablecoin conecta a operação aos trilhos locais disponíveis.' },
     ],
     engine: 'ALL X',
+    availability: 'Disponibilidade conforme rota',
     eEyebrow: 'Stablecoin é infraestrutura',
     eTitle: 'Você compra velocidade e controle, não uma aula de blockchain.',
-    eText: 'A experiência executiva fica com o seu financeiro. A complexidade dos protocolos fica conosco.',
+    eText: 'A experiência fica com o seu financeiro. A complexidade técnica é abstraída na operação.',
     visible: 'O que sua equipe vê',
     hidden: 'O que a ALL X orquestra',
-    vis: ['Cotação clara e travada', 'Aprovação por função e MFA', 'Saldos fiat e stablecoin lado a lado', 'Conciliação com ID de invoice'],
-    hid: ['Taxas de rede (gas) abstraídas', 'Custódia segregada, sem seed phrase', 'Seleção automática de redes e contratos', 'Blockchain screening (KYT) em cada transação'],
+    vis: ['Cotação transparente', 'Permissões por função e MFA', 'Saldos fiat e stablecoin lado a lado', 'Conciliação com ID de invoice'],
+    hid: ['Regras e controles de risco', 'Carteiras e liquidação conforme escopo aplicável', 'Conexão com trilhos locais', 'Blockchain screening'],
   },
   en: {
-    badge: 'Stablecoin Gateway · 24/7 operation',
+    badge: 'Stablecoin Gateway',
     l1: 'Stablecoins when they speed up.',
     l2: 'Local currency at destination.',
-    sub: 'ALL X bridges USDC and USDT with local banking rails without your business managing private keys, network fees or crypto exchanges.',
+    sub: 'ALL X bridges USDC and USDT with local banking rails without your business managing technical complexity.',
     cta1: 'Integrate the Gateway',
     cta2: 'View the flows',
     modes: [
-      { tab: 'On-ramp', from: ['Pix · ACH · SEPA', 'BRL, USD or EUR from your account'], to: ['USDC · USDT', 'In the managed wallet or at destination'], note: 'Under 60 seconds, 24/7, including bank holidays.' },
-      { tab: 'Off-ramp', from: ['USDC · USDT', 'Deposit to a dedicated address'], to: ['Pix · ACH · SEPA', 'Local currency credit to your account'], note: 'On-chain screening and T+0 settlement with ERP-ready receipt.' },
-      { tab: 'Cross-border', from: ['BRL or USD', 'Your treasury operates in local currency'], to: ['USD · EUR · BRL', 'The supplier is paid at their own bank'], note: 'Stablecoin is the invisible rail: from D+4 to same day.' },
+      { tab: 'On-ramp', from: ['Pix · ACH · SEPA', 'BRL, USD or EUR from your account'], to: ['USDC · USDT', 'In the managed wallet or at destination'], note: 'Quotes, conversion and settlement according to the available route.' },
+      { tab: 'Off-ramp', from: ['USDC · USDT', 'Deposit to the applicable wallet or address'], to: ['Pix · ACH · SEPA', 'Local currency settlement subject to availability'], note: 'Blockchain screening and settlement information throughout the operation.' },
+      { tab: 'Cross-border', from: ['BRL or USD', 'Your treasury operates in local currency'], to: ['USD · EUR · BRL', 'The supplier is paid through the available rail'], note: 'Stablecoin connects the operation to available local rails.' },
     ],
     engine: 'ALL X',
+    availability: 'Availability according to route',
     eEyebrow: 'Stablecoin is infrastructure',
     eTitle: 'You buy speed and control, not a blockchain lecture.',
-    eText: 'The executive experience stays with your finance team. Protocol complexity stays with us.',
+    eText: 'The experience stays with your finance team. Technical complexity is abstracted in the operation.',
     visible: 'What your team sees',
     hidden: 'What ALL X orchestrates',
-    vis: ['Clear, locked quotes', 'Role-based approvals and MFA', 'Fiat and stablecoin balances side by side', 'Reconciliation by invoice ID'],
-    hid: ['Network (gas) fees abstracted', 'Segregated custody, no seed phrase', 'Automatic network and contract selection', 'Blockchain screening (KYT) on every transaction'],
+    vis: ['Transparent quotes', 'Role-based permissions and MFA', 'Fiat and stablecoin balances side by side', 'Reconciliation by invoice ID'],
+    hid: ['Risk rules and controls', 'Wallets and settlement within applicable scope', 'Connection to local rails', 'Blockchain screening'],
   },
 }
 
@@ -121,7 +123,7 @@ export default function StablecoinsPage() {
             </div>
             <div className="pp-panel-top" style={{ borderTop: '1px solid var(--line)', borderBottom: 0 }}>
               <span>{mode.note}</span>
-              <span className="pp-live"><i />24/7/365</span>
+              <span className="pp-live"><i />{c.availability}</span>
             </div>
           </div>
         </div>

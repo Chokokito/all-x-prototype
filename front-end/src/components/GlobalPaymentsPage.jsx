@@ -29,62 +29,62 @@ const ARCS = [
 const COPY = {
   pt: {
     badge: 'Pagamentos internacionais corporativos',
-    l1: 'Pagamentos globais com',
-    l2: 'velocidade de trilho local.',
-    sub: 'Envie e receba pagamentos internacionais por uma experiência única. Cotação, status e liquidação local sem trocar de plataforma e sem cadeias opacas de bancos correspondentes.',
+    l1: 'Pagamentos internacionais',
+    l2: 'em uma única experiência.',
+    sub: 'Envie e receba pagamentos internacionais por uma experiência única. Quotes, status e liquidação local sem trocar de plataforma.',
     cta1: 'Fale com a ALL X',
     cta2: 'Ver corredores',
-    quote: 'Cotação travada',
-    quoteSub: 'Pix → Fedwire · liquidação T+0',
-    settled: 'Liquidado',
-    settledSub: 'Crédito integral no destino',
+    quote: 'Cotação transparente',
+    quoteSub: 'Taxa, fees e prazo estimado de liquidação',
+    settled: 'Liquidação local',
+    settledSub: 'Conforme rota e disponibilidade aplicáveis',
     railsLabel: 'Moedas, stablecoins e trilhos conectados',
-    rails: ['Pix', 'ACH', 'Fedwire', 'SEPA', 'SWIFT', 'USDC', 'USDT'],
+    rails: ['USD', 'EUR', 'BRL', 'USDC', 'USDT', 'Pix', 'ACH', 'SWIFT', 'SEPA'],
     cEyebrow: 'Corredores',
-    cTitle: 'Os trilhos locais de cada mercado, em uma única operação.',
-    cText: 'Receba em uma moeda e liquide em outra, direto no sistema doméstico do beneficiário.',
+    cTitle: 'Trilhos locais em uma única operação.',
+    cText: 'Receba em moedas tradicionais ou stablecoins, converta com cotação transparente e liquide conforme a rota disponível.',
     corridors: [
-      ['Brasil', 'Pix e TED 24/7 conectados a USD, EUR e USDC.', 'T+0'],
-      ['Estados Unidos', 'ACH, Same-Day ACH, Fedwire e SWIFT.', 'T+0'],
-      ['Europa e Reino Unido', 'SEPA, SEPA Instant e SWIFT.', 'T+0'],
-      ['Ásia e cadeias de suprimentos', 'SWIFT e rotas em USDC/USDT para importadores.', 'T+0 / T+1'],
+      ['Receba', 'Receba pagamentos em moedas tradicionais ou stablecoins.', 'Inbound'],
+      ['Cote', 'Consulte taxa, fees e prazo estimado antes de confirmar.', 'Quote'],
+      ['Envie', 'Pague fornecedores e beneficiários usando os trilhos locais de cada mercado.', 'Payout'],
+      ['Liquide', 'A disponibilidade depende do corredor, parceiro e jurisdição aplicáveis.', 'Settlement'],
     ],
     fEyebrow: 'Controle',
-    fTitle: 'Clareza antes, durante e depois de cada ordem.',
+    fTitle: 'Clareza antes, durante e depois de cada operação.',
     feats: [
-      ['Cotação transparente', 'Taxa, tarifas e prazo estimado visíveis antes de confirmar. O valor aprovado é o valor entregue.'],
-      ['Rastreio de ponta a ponta', 'Funding, compliance, conversão e crédito acompanhados em tempo real, com comprovante padronizado.'],
-      ['Lotes e alçadas', 'Pagamentos unitários ou em lote, com permissões por função e aprovação executiva.'],
+      ['Uma experiência única', 'Envie e receba pagamentos internacionais sem trocar de plataforma.'],
+      ['Quotes e status', 'Acompanhe cotações, status e informações da liquidação ao longo da operação.'],
+      ['Trilhos locais', 'Pague fornecedores e beneficiários usando os trilhos locais de cada mercado.'],
     ],
   },
   en: {
     badge: 'Corporate cross-border payments',
-    l1: 'Global payments at',
-    l2: 'local-rail speed.',
-    sub: 'Send and receive international payments in a single experience. Quotes, status and local settlement without switching platforms or opaque correspondent banking chains.',
+    l1: 'International payments',
+    l2: 'in a single experience.',
+    sub: 'Send and receive international payments in a single experience. Quotes, status and local settlement without switching platforms.',
     cta1: 'Talk to ALL X',
     cta2: 'View corridors',
-    quote: 'Locked quote',
-    quoteSub: 'Pix → Fedwire · T+0 settlement',
-    settled: 'Settled',
-    settledSub: 'Full credit at destination',
+    quote: 'Transparent quote',
+    quoteSub: 'Rate, fees and estimated settlement',
+    settled: 'Local settlement',
+    settledSub: 'Subject to applicable route and availability',
     railsLabel: 'Connected currencies, stablecoins and rails',
-    rails: ['Pix', 'ACH', 'Fedwire', 'SEPA', 'SWIFT', 'USDC', 'USDT'],
+    rails: ['USD', 'EUR', 'BRL', 'USDC', 'USDT', 'Pix', 'ACH', 'SWIFT', 'SEPA'],
     cEyebrow: 'Corridors',
-    cTitle: 'Each market’s local rails, in one single operation.',
-    cText: 'Collect in one currency and settle in another, straight into the beneficiary’s domestic system.',
+    cTitle: 'Local rails in a single operation.',
+    cText: 'Receive in fiat or stablecoins, convert with transparent quotes and settle according to the available route.',
     corridors: [
-      ['Brazil', 'Pix and TED 24/7 connected to USD, EUR and USDC.', 'T+0'],
-      ['United States', 'ACH, Same-Day ACH, Fedwire and SWIFT.', 'T+0'],
-      ['Europe and United Kingdom', 'SEPA, SEPA Instant and SWIFT.', 'T+0'],
-      ['Asia and supply chains', 'SWIFT and USDC/USDT routes for importers.', 'T+0 / T+1'],
+      ['Receive', 'Receive payments in fiat currencies or stablecoins.', 'Inbound'],
+      ['Quote', 'Review rate, fees and estimated timing before confirming.', 'Quote'],
+      ['Send', 'Pay suppliers and beneficiaries through local rails in each market.', 'Payout'],
+      ['Settle', 'Availability depends on the applicable corridor, partner and jurisdiction.', 'Settlement'],
     ],
     fEyebrow: 'Control',
-    fTitle: 'Clarity before, during and after every order.',
+    fTitle: 'Clarity before, during and after every operation.',
     feats: [
-      ['Transparent quotes', 'Rate, fees and estimated timing visible before you confirm. The approved amount is the delivered amount.'],
-      ['End-to-end tracking', 'Funding, compliance, conversion and credit tracked in real time, with a standardized receipt.'],
-      ['Batches and approvals', 'Single or batch payments, with role-based permissions and executive sign-off.'],
+      ['A single experience', 'Send and receive international payments without switching platforms.'],
+      ['Quotes and status', 'Follow quotes, status and settlement information throughout the operation.'],
+      ['Local rails', 'Pay suppliers and beneficiaries through local rails in each market.'],
     ],
   },
 }
@@ -112,12 +112,12 @@ export default function GlobalPaymentsPage() {
             <CobeGlobe markers={MARKERS} arcs={ARCS} maxWidth={480} theta={0.25} phi={5.2} speed={0.003} />
             <div className="pp-float a">
               <small><i />{c.quote.toUpperCase()}</small>
-              <strong>R$ 528.000 → US$ 100.000</strong>
+              <strong>BRL → USD</strong>
               <span>{c.quoteSub}</span>
             </div>
             <div className="pp-float b">
               <small><i />{c.settled.toUpperCase()}</small>
-              <strong>USD 100,000.00</strong>
+              <strong>USD / local rail</strong>
               <span>{c.settledSub}</span>
             </div>
           </div>

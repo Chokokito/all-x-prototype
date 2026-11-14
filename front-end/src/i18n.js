@@ -5,9 +5,9 @@ const messages = {
     skip: 'Pular para o conteúdo',
     nav: {
       main: 'Principal', menu: 'Menu', lang: 'Idioma', home: 'ALL X — Início',
-      links: ['Pagamentos', 'Contas', 'Stablecoins', 'Como funciona', 'Compliance', 'API'],
+      links: ['Pagamentos', 'Contas', 'Stablecoins', 'Como funciona', 'Compliance', 'Desenvolvedor'],
       docs: 'Docs & CMS',
-      sandbox: 'Sandbox API', contact: 'Fale com a ALL X',
+      sandbox: 'API', contact: 'Fale com a ALL X',
     },
     hero: {
       badge: 'Pagamentos globais, contas e stablecoins',
@@ -306,9 +306,9 @@ const messages = {
     skip: 'Skip to content',
     nav: {
       main: 'Main', menu: 'Menu', lang: 'Language', home: 'ALL X — Home',
-      links: ['Payments', 'Accounts', 'Stablecoins', 'How It Works', 'Compliance', 'API'],
+      links: ['Payments', 'Accounts', 'Stablecoins', 'How It Works', 'Compliance', 'Developers'],
       docs: 'Docs & CMS',
-      sandbox: 'Sandbox API', contact: 'Talk to ALL X',
+      sandbox: 'API', contact: 'Talk to ALL X',
     },
     hero: {
       badge: 'Global payments, corporate accounts and stablecoins',
@@ -605,7 +605,7 @@ const messages = {
 }
 
 // ---- React store (replaces Vue refs) ----
-const PRODUCT_PAGES = ['global-payments', 'global-accounts', 'stablecoins', 'developers']
+const PRODUCT_PAGES = ['global-payments', 'global-accounts', 'stablecoins', 'developers', 'contact', 'compliance']
 const isCmsHash = (h) => h === '#cms' || h === '#docs' || h.startsWith('#sec-')
 const hasWin = typeof window !== 'undefined'
 
