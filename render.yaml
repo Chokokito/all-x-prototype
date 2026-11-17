@@ -1,34 +1,31 @@
-﻿# Blueprint do Render: New + > Blueprint > selecione este repositorio.
-# Cria o CMS (Payload, Docker + disco persistente SQLite) e o site (Next.js).
+﻿# Blueprint do Render (100% gratuito): New + > Blueprint > selecione este repositorio.
+# Cria o CMS (Payload em Docker) e o site (Next.js) no plano free.
+# Antes de aplicar, crie um Postgres gratuito no Neon (neon.tech) ou Supabase e cole a URL em DATABASE_URI.
 services:
   - type: web
     name: allx-backend
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    plan: starter # disco persistente exige plano pago
+    plan: free
     healthCheckPath: /admin/login
     envVars:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URI
-        value: file:/app/data/allx-cms.db
+        sync: false # cole aqui a connection string postgres://... do Neon ou Supabase
       - key: PAYLOAD_SECRET
         generateValue: true
       - key: NEXT_PUBLIC_SERVER_URL
         value: https://allx-backend.onrender.com # troque se o Render der outra URL
       - key: FRONTEND_URL
         value: https://allx-frontend.onrender.com
-    disk:
-      name: allx-cms-data
-      mountPath: /app/data
-      sizeGB: 1
 
   - type: web
     name: allx-frontend
     runtime: node
     rootDir: front-end
-    plan: starter
+    plan: free
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:

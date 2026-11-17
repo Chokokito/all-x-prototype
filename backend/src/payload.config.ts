@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { pt } from '@payloadcms/translations/languages/pt'
 import { Users } from './collections/Users'
@@ -18,6 +19,9 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
 ].filter((u): u is string => Boolean(u))
+
+const dbUri = process.env.DATABASE_URI || 'file:./allx-cms.db'
+const usePostgres = dbUri.startsWith('postgres://') || dbUri.startsWith('postgresql://')
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001',
@@ -45,12 +49,19 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor(),
-  db: sqliteAdapter({
-    push: true, // cria/atualiza tabelas automaticamente (sem precisar de migrations)
-    client: {
-      url: process.env.DATABASE_URI || 'file:./allx-cms.db',
-    },
-  }),
+  db: usePostgres
+    ? postgresAdapter({
+        push: true, // cria/atualiza tabelas automaticamente no Postgres
+        pool: {
+          connectionString: dbUri,
+        },
+      })
+    : sqliteAdapter({
+        push: true, // cria/atualiza tabelas automaticamente (sem precisar de migrations)
+        client: {
+          url: dbUri,
+        },
+      }),
   collections: [Categories, Pages, Users],
   cors: allowedOrigins,
   csrf: allowedOrigins,
