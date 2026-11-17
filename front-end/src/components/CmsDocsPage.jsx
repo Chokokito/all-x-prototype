@@ -1,9 +1,9 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnchorProvider, ScrollProvider, TOCItem, useActiveAnchor } from 'fumadocs-core/toc'
 import { useI18n, setLang, navigateTo, openSearchModal } from '../i18n'
 import Transition from '../Transition'
-import { usePayloadFumadocs, CMS_BASE_URL } from '../docs/payloadSource'
+import { usePayloadFumadocs } from '../docs/payloadSource'
 import PayloadBlocksRenderer from '../docs/PayloadBlocksRenderer'
 import './CmsDocsPage.css'
 
@@ -53,6 +53,27 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
   const [collapsedGroups, setCollapsedGroups] = useState({})
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const tocContainerRef = useRef(null)
+
+  // Ctrl+K: abre a página (e seção) escolhida na busca
+  useEffect(() => {
+    function onNavigate(e) {
+      const { slug, anchor } = e.detail || {}
+      if (!slug) return
+      setActiveNavId(slug)
+      setTimeout(() => {
+        if (anchor) document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        else window.scrollTo({ top: 0, behavior: 'smooth' })
+      }, 120)
+    }
+    window.addEventListener('docs:navigate', onNavigate)
+    return () => window.removeEventListener('docs:navigate', onNavigate)
+  }, [])
+
+  // Link direto com âncora (/docs/slug#secao)
+  useEffect(() => {
+    const h = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : ''
+    if (h) setTimeout(() => document.getElementById(h)?.scrollIntoView({ block: 'start' }), 400)
+  }, [])
 
   const {
     source,
@@ -324,16 +345,8 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
             <div className="cms-sidebar-footer">
               <div className="cms-version-info mono">
                 <span className="cms-version-dot" />
-                <span>{source === 'payload-live' ? 'Payload CMS • Fumadocs' : t('cms.sidebar.version')}</span>
+                <span>{t('cms.sidebar.version')}</span>
               </div>
-              <a
-                href={`${CMS_BASE_URL}/admin`}
-                target="_blank"
-                rel="noreferrer"
-                className="cms-status-link"
-              >
-                CMS Admin
-              </a>
             </div>
           </aside>
 
@@ -442,18 +455,6 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
 
               {/* Quick Developer Actions (#2:358) */}
               <div className="cms-quick-actions">
-                <a
-                  href={`${CMS_BASE_URL}/admin/collections/docs-pages`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="cms-quick-link"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                  </svg>
-                  <span>{t('cms.toc.editCms')}</span>
-                </a>
                 <a
                   href="#contato"
                   className="cms-quick-link"

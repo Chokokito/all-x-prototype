@@ -6,7 +6,7 @@ const messages = {
     nav: {
       main: 'Principal', menu: 'Menu', lang: 'Idioma', home: 'ALL X — Início',
       links: ['Pagamentos', 'Contas', 'Stablecoins', 'Como funciona', 'Compliance', 'Desenvolvedor'],
-      docs: 'Docs & CMS',
+      docs: 'Docs',
       sandbox: 'API', contact: 'Fale com a ALL X',
     },
     hero: {
@@ -194,9 +194,8 @@ const messages = {
             ],
           },
           {
-            title: 'DESENVOLVEDOR & CMS',
+            title: 'DESENVOLVEDOR',
             items: [
-              { id: 'cms-headless', label: 'CMS Headless Integration', method: 'REST' },
               { id: 'sdks', label: 'SDKs (Node, Python, Go)', method: 'SDK' },
               { id: 'changelog', label: 'Changelog da API', method: 'v2.4' },
             ],
@@ -307,7 +306,7 @@ const messages = {
     nav: {
       main: 'Main', menu: 'Menu', lang: 'Language', home: 'ALL X — Home',
       links: ['Payments', 'Accounts', 'Stablecoins', 'How It Works', 'Compliance', 'Developers'],
-      docs: 'Docs & CMS',
+      docs: 'Docs',
       sandbox: 'API', contact: 'Talk to ALL X',
     },
     hero: {
@@ -495,9 +494,8 @@ const messages = {
             ],
           },
           {
-            title: 'DEVELOPER & CMS',
+            title: 'DEVELOPER',
             items: [
-              { id: 'cms-headless', label: 'CMS Headless Integration', method: 'REST' },
               { id: 'sdks', label: 'SDKs (Node, Python, Go)', method: 'SDK' },
               { id: 'changelog', label: 'API Changelog', method: 'v2.4' },
             ],
@@ -605,7 +603,7 @@ const messages = {
 }
 
 // ---- React store (replaces Vue refs) ----
-const PRODUCT_PAGES = ['global-payments', 'global-accounts', 'stablecoins', 'developers', 'contact', 'compliance']
+const PRODUCT_PAGES = ['global-payments', 'global-accounts', 'stablecoins', 'developers', 'business', 'contact', 'compliance']
 const isCmsHash = (h) => h === '#cms' || h === '#docs' || h.startsWith('#sec-')
 const hasWin = typeof window !== 'undefined'
 

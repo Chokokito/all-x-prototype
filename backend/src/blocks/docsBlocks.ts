@@ -351,7 +351,7 @@ export const PrerequisitesBlock: Block = {
           ],
         },
         {
-          label: '⚙️ Índice Lateral (Automático)',
+          label: 'Índice Lateral (Automático)',
           description: 'Configuração automática para o menu direito "Nesta página". Não precisa alterar.',
           fields: [
             {
@@ -471,7 +471,7 @@ export const ApiEndpointBlock: Block = {
           ],
         },
         {
-          label: '💻 Códigos de Exemplo (Opcional)',
+          label: 'Códigos de Exemplo (Opcional)',
           description: 'Se você deixar em branco, o painel exibirá automaticamente um exemplo padrão da ALL X.',
           fields: [
             {
@@ -505,7 +505,7 @@ export const ApiEndpointBlock: Block = {
           ],
         },
         {
-          label: '⚙️ Índice Lateral (Automático)',
+          label: 'Índice Lateral (Automático)',
           fields: [
             {
               type: 'row',
@@ -568,8 +568,8 @@ export const FeatureGridBlock: Block = {
                       label: 'Cor & Ícone do Cartão',
                       admin: { width: '35%' },
                       options: [
-                        { label: '🟢 Verde (Entrada / Recebimento)', value: 'green' },
-                        { label: '🟠 Cobre (Saída / Liquidação)', value: 'copper' },
+                        { label: 'Verde (Entrada / Recebimento)', value: 'green' },
+                        { label: 'Cobre (Saída / Liquidação)', value: 'copper' },
                       ],
                     },
                     {
@@ -633,7 +633,7 @@ export const FeatureGridBlock: Block = {
           ],
         },
         {
-          label: '⚙️ Índice Lateral (Automático)',
+          label: 'Índice Lateral (Automático)',
           fields: [
             {
               type: 'row',
@@ -747,7 +747,7 @@ export const MetadataBoxBlock: Block = {
           ],
         },
         {
-          label: '⚙️ Índice Lateral (Automático)',
+          label: 'Índice Lateral (Automático)',
           fields: [
             {
               type: 'row',

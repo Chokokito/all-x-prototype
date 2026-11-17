@@ -7,3 +7,5 @@ node_modules
 *.db-wal
 next-env.d.ts
 *.tsbuildinfo
+
+*.db.bak*

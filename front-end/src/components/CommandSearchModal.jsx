@@ -1,92 +1,20 @@
 'use client'
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { useI18n, closeSearchModal, openSearchModal, navigateTo, getState } from '../i18n'
+import { useI18n, closeSearchModal, openSearchModal, getState } from '../i18n'
+import { fetchDocsData, seedDocsData, buildSearchEntries } from '../docs/payloadSource'
 import Transition from '../Transition'
 import './CommandSearchModal.css'
 
-const ITEMS = {
-  pt: [
-    {
-      id: 'sec-create',
-      badge: 'POST',
-      badgeClass: 'post',
-      title: 'Criar uma carteira gerenciada',
-      sub: '/v1/instances/:id/customers/:id/wallets • Provisionamento MPC <100ms',
-    },
-    {
-      id: 'sec-balance',
-      badge: 'GET',
-      badgeClass: 'get',
-      title: 'Consultar saldo e reservas',
-      sub: '/v1/wallets/:id/balances • Multicurrency Payload (USDC, BRL, EUR)',
-    },
-    {
-      id: 'sec-prereq',
-      badge: 'DOCS',
-      badgeClass: 'docs',
-      title: 'Pré-requisitos & Regra de Compliance KYC',
-      sub: 'kyc_status: approved, compliance_request e assinatura HMAC',
-    },
-    {
-      id: 'sec-settlement',
-      badge: 'RAILS',
-      badgeClass: 'rails',
-      title: 'Recebimento e Liquidação T+0',
-      sub: 'Event: payment.received & Event: payout.settled via Pix e Stablecoins',
-    },
-    {
-      id: 'sec-cms',
-      badge: 'WEBHOOK',
-      badgeClass: 'docs',
-      title: 'Metadados no CMS & Webhooks',
-      sub: 'Chaves customizadas customer_internal_id e ledger_account',
-    },
-  ],
-  en: [
-    {
-      id: 'sec-create',
-      badge: 'POST',
-      badgeClass: 'post',
-      title: 'Create a managed wallet',
-      sub: '/v1/instances/:id/customers/:id/wallets • MPC provisioning <100ms',
-    },
-    {
-      id: 'sec-balance',
-      badge: 'GET',
-      badgeClass: 'get',
-      title: 'Query balance and reserves',
-      sub: '/v1/wallets/:id/balances • Multicurrency Payload (USDC, BRL, EUR)',
-    },
-    {
-      id: 'sec-prereq',
-      badge: 'DOCS',
-      badgeClass: 'docs',
-      title: 'Prerequisites & KYC Compliance Rule',
-      sub: 'kyc_status: approved, compliance_request and HMAC signature',
-    },
-    {
-      id: 'sec-settlement',
-      badge: 'RAILS',
-      badgeClass: 'rails',
-      title: 'Receiving & T+0 Settlement',
-      sub: 'Event: payment.received & Event: payout.settled via Pix and Stablecoins',
-    },
-    {
-      id: 'sec-cms',
-      badge: 'WEBHOOK',
-      badgeClass: 'docs',
-      title: 'CMS Metadata & Webhooks',
-      sub: 'Custom keys customer_internal_id and ledger_account',
-    },
-  ],
-}
-
 function selectItem(item) {
   closeSearchModal()
-  navigateTo('cms', `#${item.id}`)
-  setTimeout(() => {
-    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, 60)
+  if (typeof window === 'undefined') return
+  const onDocs = window.location.pathname.startsWith('/docs')
+  if (!onDocs) {
+    window.location.assign(`/docs/${item.slug}${item.anchor ? '#' + item.anchor : ''}`)
+    return
+  }
+  window.history.replaceState({}, '', `/docs/${item.slug}${item.anchor ? '#' + item.anchor : ''}`)
+  window.dispatchEvent(new CustomEvent('docs:navigate', { detail: { slug: item.slug, anchor: item.anchor } }))
 }
 
 export default function CommandSearchModal() {
@@ -95,7 +23,21 @@ export default function CommandSearchModal() {
   const [activeIdx, setActiveIdx] = useState(0)
   const inputEl = useRef(null)
 
-  const items = lang === 'pt' ? ITEMS.pt : ITEMS.en
+  const [docsData, setDocsData] = useState(() => seedDocsData())
+
+  // Sempre que a busca abre, pega a versão mais recente do CMS (páginas novas aparecem na hora)
+  useEffect(() => {
+    if (!searchModalOpen) return
+    let cancelled = false
+    fetchDocsData().then((d) => {
+      if (!cancelled && d) setDocsData(d)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [searchModalOpen])
+
+  const items = useMemo(() => buildSearchEntries(docsData.pages, lang), [docsData, lang])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -180,7 +122,7 @@ export default function CommandSearchModal() {
             {/* Results List */}
             <div className="cmd-body">
               <div className="cmd-group-label mono">
-                {lang === 'pt' ? 'DOCUMENTAÇÃO & ENDPOINTS RECOMENDADOS' : 'RECOMMENDED DOCUMENTATION & ENDPOINTS'}
+                {lang === 'pt' ? 'PÁGINAS & SEÇÕES DA DOCUMENTAÇÃO' : 'DOCUMENTATION PAGES & SECTIONS'}
               </div>
 
               {filtered.length ? (

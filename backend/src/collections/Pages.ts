@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { docsBlocks } from '../blocks/docsBlocks'
+import { PAGE_TEMPLATES } from '../blocks/templates'
 
 function slugifyText(input: string): string {
   return String(input || '')
@@ -23,26 +24,39 @@ export const Pages: CollectionConfig = {
     description:
       'Crie ou edite páginas da documentação técnica e comercial da ALL X usando blocos visuais prontos — sem precisar programar.',
     preview: (doc) => {
-      const slug = doc?.slug || 'managed-wallets'
-      return `http://localhost:3000/docs/${slug}`
+      // Sem endereço salvo (página nova), não há o que pré-visualizar.
+      if (!doc?.slug) return null
+      return `${process.env.FRONTEND_URL || 'http://localhost:3000'}/docs/${doc.slug}`
     },
     livePreview: {
       url: ({ data }) => {
-        const slug = data?.slug || 'managed-wallets'
-        return `http://localhost:3000/docs/${slug}`
+        if (!data?.slug) return ''
+        return `${process.env.FRONTEND_URL || 'http://localhost:3000'}/docs/${data.slug}`
       },
     },
   },
   access: {
     read: () => true,
-    create: () => true,
-    update: () => true,
-    delete: () => true,
+    create: ({ req }) => Boolean(req.user),
+    update: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => Boolean(req.user),
+  },
+  versions: {
+    drafts: { autosave: { interval: 3000 } },
+    maxPerDoc: 20,
   },
   hooks: {
     beforeValidate: [
-      ({ data }) => {
+      ({ data, operation }) => {
         if (!data) return data
+
+        // 0. Modelo inicial: pré-monta os blocos em páginas novas
+        if (operation === 'create' && data.template && PAGE_TEMPLATES[data.template]) {
+          if (!Array.isArray(data.blocks) || data.blocks.length === 0) {
+            data.blocks = PAGE_TEMPLATES[data.template].map((b) => ({ ...b }))
+          }
+        }
+        delete data.template
 
         // 1. Auto-generate URL slug if blank
         if (!data.slug && data.titlePt) {
@@ -152,6 +166,24 @@ export const Pages: CollectionConfig = {
           description: 'Defina o título, resumo e em qual seção do menu lateral esta página vai aparecer.',
           fields: [
             {
+              name: 'template',
+              type: 'select',
+              virtual: true,
+              label: 'Começar com um modelo pronto',
+              defaultValue: 'blank',
+              admin: {
+                condition: (data) => !data?.id,
+                description:
+                  'Só aparece ao criar. Escolha um modelo e os blocos já vêm montados; depois é só trocar os textos.',
+              },
+              options: [
+                { label: 'Página em branco', value: 'blank' },
+                { label: 'Guia / Conceito (resumo, pré-requisitos, etapas)', value: 'guide' },
+                { label: 'Endpoint de API (aviso, pré-requisitos, chamada)', value: 'endpoint' },
+                { label: 'Visão geral de produto (pilares e recursos)', value: 'overview' },
+              ],
+            },
+            {
               type: 'row',
               fields: [
                 {
@@ -213,14 +245,14 @@ export const Pages: CollectionConfig = {
                     description: 'Pequeno selo exibido ao lado do nome da página no menu.',
                   },
                   options: [
-                    { label: '📄 DOC (Guia / Conceito Geral)', value: 'DOC' },
-                    { label: '🟢 POST (Criação / Envio de Dados)', value: 'POST' },
-                    { label: '🔵 GET (Consulta de Dados)', value: 'GET' },
-                    { label: '🟣 WSS (Webhooks / Tempo Real)', value: 'WSS' },
-                    { label: '🟠 CORE (Infraestrutura Principal)', value: 'CORE' },
-                    { label: '⚡ REST (Referência de API)', value: 'REST' },
-                    { label: '📦 SDK (Bibliotecas & Código)', value: 'SDK' },
-                    { label: '🏷️ v2.4 (Versão / Novidade)', value: 'v2.4' },
+                    { label: 'DOC (Guia / Conceito Geral)', value: 'DOC' },
+                    { label: 'POST (Criação / Envio de Dados)', value: 'POST' },
+                    { label: 'GET (Consulta de Dados)', value: 'GET' },
+                    { label: 'WSS (Webhooks / Tempo Real)', value: 'WSS' },
+                    { label: 'CORE (Infraestrutura Principal)', value: 'CORE' },
+                    { label: 'REST (Referência de API)', value: 'REST' },
+                    { label: 'SDK (Bibliotecas & Código)', value: 'SDK' },
+                    { label: 'v2.4 (Versão / Novidade)', value: 'v2.4' },
                   ],
                 },
                 {

@@ -173,3 +173,59 @@ export function usePayloadFumadocs({ activeSlug, lang = 'pt', sidebarFilter = ''
     breadcrumbs,
   }
 }
+
+/**
+ * Busca os dados mais recentes do CMS (usado pelo Ctrl+K).
+ * Retorna { categories, pages } ou null se o CMS estiver fora do ar.
+ */
+export function fetchDocsData() {
+  return fetch(`${CMS_BASE_URL}/api/docs-tree`, { mode: 'cors' })
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+    .then((data) =>
+      Array.isArray(data?.categories) && Array.isArray(data?.pages) && data.pages.length > 0
+        ? normalizePayloadData(data.categories, data.pages)
+        : null,
+    )
+    .catch(() => null)
+}
+
+/** Dados locais (seed) usados enquanto o CMS não responde. */
+export function seedDocsData() {
+  return normalizePayloadData(SEED_CATEGORIES, SEED_PAGES)
+}
+
+/**
+ * Transforma páginas do CMS em itens da busca: uma entrada por página
+ * e uma por seção (bloco com âncora) dentro dela.
+ */
+export function buildSearchEntries(pages, lang = 'pt') {
+  const pt = lang === 'pt'
+  const entries = []
+  for (const p of pages) {
+    const pageTitle = (pt ? p.titlePt : p.titleEn) || p.titlePt || p.slug
+    const method = String(p.method || 'DOC').toUpperCase()
+    entries.push({
+      id: `page:${p.slug}`,
+      slug: p.slug,
+      anchor: null,
+      badge: method,
+      badgeClass: method === 'POST' ? 'post' : method === 'GET' ? 'get' : 'docs',
+      title: pageTitle,
+      sub: (pt ? p.subtitlePt : p.subtitleEn) || p.subtitlePt || `/docs/${p.slug}`,
+    })
+    for (const b of Array.isArray(p.blocks) ? p.blocks : []) {
+      const label = (pt ? b.tocLabelPt || b.titlePt : b.tocLabelEn || b.titleEn) || b.tocLabelPt || b.titlePt
+      if (!b.anchorId || !label) continue
+      entries.push({
+        id: `sec:${p.slug}#${b.anchorId}`,
+        slug: p.slug,
+        anchor: b.anchorId,
+        badge: pt ? 'SEÇÃO' : 'SECTION',
+        badgeClass: 'docs',
+        title: label,
+        sub: pageTitle,
+      })
+    }
+  }
+  return entries
+}

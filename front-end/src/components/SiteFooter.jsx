@@ -4,6 +4,7 @@ import { useI18n, navigateTo } from '../i18n'
 import './SiteFooter.css'
 
 const FOOTER_PAGE_MAP = {
+  Business: 'business',
   'Global Accounts': 'global-accounts',
   'Global Payments': 'global-payments',
   'Stablecoin Gateway': 'stablecoins',

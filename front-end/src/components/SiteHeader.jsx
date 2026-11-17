@@ -19,6 +19,7 @@ const MEGA = {
       leftTitle: 'Produtos Principais (Páginas Dedicadas)',
       rightTitle: 'Cross-Border & Tesouraria',
       left: [
+        { title: 'Business', desc: 'Treasury e Payables para operações globais', href: '/business', page: 'business', icon: 'briefcase' },
         { title: 'Global Payments', desc: 'Envie e receba pagamentos internacionais entre moedas', href: '/global-payments', page: 'global-payments', icon: 'network' },
         { title: 'Global Accounts', desc: 'Contas corporativas nomeadas em USD, EUR, BRL e carteiras', href: '/global-accounts', page: 'global-accounts', icon: 'wallet' },
         { title: 'Stablecoin Gateway', desc: 'Liquidez 24/7 em USDC e USDT conectada aos trilhos locais', href: '/stablecoins', page: 'stablecoins', icon: 'coins' },
@@ -61,6 +62,7 @@ const MEGA = {
       leftTitle: 'Core Products (Dedicated Pages)',
       rightTitle: 'Cross-Border & Treasury',
       left: [
+        { title: 'Business', desc: 'Treasury and payables for global operations', href: '/business', page: 'business', icon: 'briefcase' },
         { title: 'Global Payments', desc: 'Send and receive money across borders seamlessly', href: '/global-payments', page: 'global-payments', icon: 'network' },
         { title: 'Global Accounts', desc: 'Create named corporate accounts in multiple currencies', href: '/global-accounts', page: 'global-accounts', icon: 'wallet' },
         { title: 'Stablecoin Gateway', desc: '24/7 USDC and USDT liquidity bridged to local rails', href: '/stablecoins', page: 'stablecoins', icon: 'coins' },

@@ -23,6 +23,7 @@ export async function GET() {
       }),
       payload.find({
         collection: 'docs-pages',
+        where: { _status: { not_equals: 'draft' } },
         sort: 'order',
         limit: 200,
         depth: 1,

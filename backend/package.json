@@ -7,7 +7,8 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
-    "payload": "payload"
+    "payload": "payload",
+    "db:reset": "node -e \"const fs=require('fs');const f='allx-cms.db';if(fs.existsSync(f)){fs.copyFileSync(f,f+'.bak-'+Date.now());}for(const s of ['','-shm','-wal','-journal']){fs.rmSync(f+s,{force:true})}console.log('Banco local recriado no proximo npm run dev (backup salvo como '+f+'.bak-*)')\""
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.93.0",

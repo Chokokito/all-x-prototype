@@ -157,6 +157,10 @@ export interface Category {
 export interface DocsPage {
   id: number;
   /**
+   * Só aparece ao criar. Escolha um modelo e os blocos já vêm montados; depois é só trocar os textos.
+   */
+  template?: ('blank' | 'guide' | 'endpoint' | 'overview') | null;
+  /**
    * Título grande que aparece no topo da página.
    */
   titlePt: string;
@@ -376,6 +380,7 @@ export interface DocsPage {
     | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Gerencie quem pode acessar e editar o conteúdo da documentação da ALL X.
@@ -504,6 +509,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  * via the `definition` "docs-pages_select".
  */
 export interface DocsPagesSelect<T extends boolean = true> {
+  template?: T;
   titlePt?: T;
   category?: T;
   subtitlePt?: T;
@@ -680,6 +686,7 @@ export interface DocsPagesSelect<T extends boolean = true> {
   breadcrumbsEn?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

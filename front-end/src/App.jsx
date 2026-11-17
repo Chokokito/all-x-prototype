@@ -23,6 +23,7 @@ import StablecoinsPage from './components/StablecoinsPage'
 import DevelopersPage from './components/DevelopersPage'
 import ContactPage from './components/ContactPage'
 import CompliancePage from './components/CompliancePage'
+import BusinessPage from './components/BusinessPage'
 
 function observeReveals() {
   const io = new IntersectionObserver(
@@ -98,6 +99,8 @@ export default function App({ initialPage }) {
                   <ContactPage />
                 ) : activePage === 'compliance' ? (
                   <CompliancePage />
+                ) : activePage === 'business' ? (
+                  <BusinessPage />
                 ) : (
                   <>
                     <HeroSection />

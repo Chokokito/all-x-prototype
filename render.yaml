@@ -1,0 +1,38 @@
+﻿# Blueprint do Render: New + > Blueprint > selecione este repositorio.
+# Cria o CMS (Payload, Docker + disco persistente SQLite) e o site (Next.js).
+services:
+  - type: web
+    name: allx-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter # disco persistente exige plano pago
+    healthCheckPath: /admin/login
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URI
+        value: file:/app/data/allx-cms.db
+      - key: PAYLOAD_SECRET
+        generateValue: true
+      - key: NEXT_PUBLIC_SERVER_URL
+        value: https://allx-backend.onrender.com # troque se o Render der outra URL
+      - key: FRONTEND_URL
+        value: https://allx-frontend.onrender.com
+    disk:
+      name: allx-cms-data
+      mountPath: /app/data
+      sizeGB: 1
+
+  - type: web
+    name: allx-frontend
+    runtime: node
+    rootDir: front-end
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NEXT_PUBLIC_CMS_URL
+        value: https://allx-backend.onrender.com

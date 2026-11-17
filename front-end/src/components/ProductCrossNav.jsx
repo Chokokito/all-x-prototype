@@ -2,6 +2,7 @@
 import { useI18n, navigateTo } from '../i18n'
 
 const ALL = {
+  business: { t: 'Business', pt: 'Treasury e Payables para operações globais', en: 'Treasury and payables for global operations' },
   'global-payments': { t: 'Global Payments', pt: 'Pagamentos internacionais com liquidação local', en: 'Cross-border payments with local settlement' },
   'global-accounts': { t: 'Global Accounts', pt: 'Contas corporativas em USD, EUR, BRL e stablecoins', en: 'Corporate accounts in USD, EUR, BRL and stablecoins' },
   stablecoins: { t: 'Stablecoin Gateway', pt: 'On/off-ramp institucional em USDC e USDT', en: 'Institutional on/off-ramp in USDC and USDT' },
