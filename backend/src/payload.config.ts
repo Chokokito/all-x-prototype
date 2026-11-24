@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import { Categories } from './collections/Categories'
 import { Pages } from './collections/Pages'
 import { seedDocumentation } from './seed'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -51,7 +52,8 @@ export default buildConfig({
   editor: lexicalEditor(),
   db: usePostgres
     ? postgresAdapter({
-        push: true, // cria/atualiza tabelas automaticamente no Postgres
+        push: false, // em producao o push e ignorado; usamos migrations
+        prodMigrations: migrations, // roda as migrations pendentes ao iniciar
         pool: {
           connectionString: dbUri,
         },
