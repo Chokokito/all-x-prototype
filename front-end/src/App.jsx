@@ -1,7 +1,6 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useI18n, navigateTo } from './i18n'
-import Transition from './Transition'
 import SiteHeader from './components/SiteHeader'
 import HeroSection from './components/HeroSection'
 import DashboardShowcase from './components/DashboardShowcase'
@@ -17,6 +16,7 @@ import SiteFooter from './components/SiteFooter'
 import RevealStage from './components/RevealStage'
 import CmsDocsPage from './components/CmsDocsPage'
 import CommandSearchModal from './components/CommandSearchModal'
+import LangSwitchStage from './components/LangSwitchStage'
 import GlobalPaymentsPage from './components/GlobalPaymentsPage'
 import GlobalAccountsPage from './components/GlobalAccountsPage'
 import StablecoinsPage from './components/StablecoinsPage'
@@ -41,15 +41,19 @@ function observeReveals() {
 }
 
 export default function App({ initialPage }) {
-  const { t, lang, targetLang, currentPage, langTransitioning } = useI18n()
+  const { t, lang, currentPage } = useI18n()
+  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
+    setHydrated(true)
     if (initialPage && initialPage !== currentPage) {
       navigateTo(initialPage)
     }
   }, [initialPage])
 
-  const activePage = currentPage === 'home' && initialPage ? initialPage : currentPage || initialPage || 'home'
+  const activePage = hydrated
+    ? currentPage || initialPage || 'home'
+    : initialPage || currentPage || 'home'
 
   useEffect(() => {
     const io = observeReveals()
@@ -61,25 +65,7 @@ export default function App({ initialPage }) {
       <a href="#main" className="sr-only">{t('skip')}</a>
       <CommandSearchModal />
 
-      {/* Smooth full-viewport veil when switching language */}
-      <Transition name="lang-veil" show={langTransitioning}>
-        <div className="lang-switch-veil" aria-hidden="true">
-          <div className="lang-switch-card mono">
-            <div className="lang-switch-top">
-              <svg className="lang-veil-globe" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg>
-              <span>ALL X • {targetLang === 'pt' ? 'PORTUGUÊS (BR)' : 'ENGLISH (US)'}</span>
-            </div>
-            <div className="lang-switch-bar">
-              <span className="lang-switch-fill" />
-            </div>
-          </div>
-        </div>
-      </Transition>
-
-      <div className={`lang-stage${langTransitioning ? ' is-switching' : ''}`}>
+      <LangSwitchStage>
         {activePage === 'cms' ? (
           <CmsDocsPage />
         ) : (
@@ -123,7 +109,7 @@ export default function App({ initialPage }) {
             </RevealStage>
           </>
         )}
-      </div>
+      </LangSwitchStage>
     </>
   )
 }

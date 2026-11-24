@@ -8,6 +8,7 @@ import { pt } from '@payloadcms/translations/languages/pt'
 import { Users } from './collections/Users'
 import { Categories } from './collections/Categories'
 import { Pages } from './collections/Pages'
+import { ContactRequests } from './collections/ContactRequests'
 import { seedDocumentation } from './seed'
 import { migrations } from './migrations'
 
@@ -26,7 +27,15 @@ const usePostgres = dbUri.startsWith('postgres://') || dbUri.startsWith('postgre
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001',
-  secret: process.env.PAYLOAD_SECRET || 'allx-enterprise-cms-secret-key-2026',
+  secret: (() => {
+    const s = process.env.PAYLOAD_SECRET
+    if (s) return s
+    // Em producao o segredo e obrigatorio; o fallback so existe para dev local.
+    if (process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE !== 'phase-production-build') {
+      throw new Error('PAYLOAD_SECRET nao definido')
+    }
+    return 'dev-only-insecure-secret'
+  })(),
   i18n: {
     supportedLanguages: { pt },
     fallbackLanguage: 'pt',
@@ -35,6 +44,12 @@ export default buildConfig({
     theme: 'dark',
     importMap: { baseDir: path.resolve(dirname) },
     components: {
+      beforeNavLinks: [
+        { path: '/components/admin/SiteLink#default', clientProps: { variant: 'nav', kind: 'home' } },
+      ],
+      actions: [
+        { path: '/components/admin/SiteLink#default', clientProps: { variant: 'header', kind: 'site' } },
+      ],
       views: {
         dashboard: { Component: '/components/admin/Welcome#default' },
       },
@@ -64,7 +79,7 @@ export default buildConfig({
           url: dbUri,
         },
       }),
-  collections: [Categories, Pages, Users],
+  collections: [Categories, Pages, ContactRequests, Users],
   cors: allowedOrigins,
   csrf: allowedOrigins,
   typescript: {

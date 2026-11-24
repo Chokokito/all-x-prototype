@@ -19,11 +19,12 @@ ENV PORT=3001
 ENV HOSTNAME=0.0.0.0
 ENV DATABASE_URI=file:/app/data/allx-cms.db
 
-RUN mkdir -p /app/data
+RUN mkdir -p /app/data && chown -R node:node /app/data
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+USER node
 EXPOSE 3001
 CMD ["node", "server.js"]

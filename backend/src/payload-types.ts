@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     categories: Category;
     'docs-pages': DocsPage;
+    'contact-requests': ContactRequest;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -79,6 +80,7 @@ export interface Config {
   collectionsSelect: {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'docs-pages': DocsPagesSelect<false> | DocsPagesSelect<true>;
+    'contact-requests': ContactRequestsSelect<false> | ContactRequestsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -383,6 +385,29 @@ export interface DocsPage {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Solicitações enviadas pelo formulário de contato do site. Apenas a equipe logada consegue ver e tratar estes registros.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-requests".
+ */
+export interface ContactRequest {
+  id: number;
+  name: string;
+  email: string;
+  company?: string | null;
+  role?: string | null;
+  interest?: string | null;
+  volume?: string | null;
+  corridors?: string | null;
+  message: string;
+  lang?: ('pt' | 'en') | null;
+  website?: string | null;
+  status?: ('new' | 'in-progress' | 'done' | 'archived') | null;
+  internalNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Gerencie quem pode acessar e editar o conteúdo da documentação da ALL X.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -443,6 +468,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'docs-pages';
         value: number | DocsPage;
+      } | null)
+    | ({
+        relationTo: 'contact-requests';
+        value: number | ContactRequest;
       } | null)
     | ({
         relationTo: 'users';
@@ -687,6 +716,26 @@ export interface DocsPagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-requests_select".
+ */
+export interface ContactRequestsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  company?: T;
+  role?: T;
+  interest?: T;
+  volume?: T;
+  corridors?: T;
+  message?: T;
+  lang?: T;
+  website?: T;
+  status?: T;
+  internalNotes?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

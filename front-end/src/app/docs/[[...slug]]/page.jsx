@@ -1,6 +1,7 @@
 import { use } from 'react'
 import CmsDocsPage from '../../../components/CmsDocsPage'
 import CommandSearchModal from '../../../components/CommandSearchModal'
+import LangSwitchStage from '../../../components/LangSwitchStage'
 
 export default function DocsRoutePage({ params }) {
   const resolved = params ? use(params) : {}
@@ -10,7 +11,9 @@ export default function DocsRoutePage({ params }) {
   return (
     <>
       <CommandSearchModal />
-      <CmsDocsPage initialSlug={initialSlug} />
+      <LangSwitchStage>
+        <CmsDocsPage initialSlug={initialSlug} />
+      </LangSwitchStage>
     </>
   )
 }

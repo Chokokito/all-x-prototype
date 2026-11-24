@@ -123,7 +123,7 @@ export default function CobeGlobe({
 
   return (
     <div
-      className={className}
+      className={className || undefined}
       style={{
         position: 'relative',
         width: '100%',

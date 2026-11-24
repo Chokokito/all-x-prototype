@@ -36,7 +36,8 @@ export const Pages: CollectionConfig = {
     },
   },
   access: {
-    read: () => true,
+    // Publico so enxerga paginas publicadas; logados veem rascunhos tambem.
+    read: ({ req }) => (req.user ? true : { _status: { equals: 'published' } }),
     create: ({ req }) => Boolean(req.user),
     update: ({ req }) => Boolean(req.user),
     delete: ({ req }) => Boolean(req.user),

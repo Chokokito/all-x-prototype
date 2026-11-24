@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+
 import { navigateTo, useI18n } from '../i18n'
-import ProductCrossNav from './ProductCrossNav'
-import './ProductPage.css'
+import BusinessView from './pages/business/BusinessView'
+import './pages/business.css'
 
 const COPY = {
   pt: {
@@ -125,138 +125,6 @@ const COPY = {
 export default function BusinessPage() {
   const { lang } = useI18n()
   const c = COPY[lang] || COPY.pt
-  const [activeTab, setActiveTab] = useState(0)
-  const data = activeTab === 0 ? c.treasury : c.payables
-
-  return (
-    <div data-c="ProductPage">
-      <section className="pp-hero">
-        <div className="pp-grid-bg" aria-hidden="true" />
-        <div className="container pp-split">
-          <div className="pp-copy">
-            <span className="pp-badge"><i />{c.badge}</span>
-            <h1 className="pp-h1"><span>{c.l1}</span><span>{c.l2}</span></h1>
-            <p className="pp-sub">{c.sub}</p>
-            <div className="pp-ctas">
-              <a href="/contact" className="btn btn-primary" onClick={(event) => { event.preventDefault(); navigateTo('contact') }}>{c.cta1}</a>
-              <a href="#casos-de-uso" className="btn btn-ghost">{c.cta2}</a>
-            </div>
-          </div>
-          <div className="pp-globe-wrap">
-            <div className="pp-panel">
-              <div className="pp-panel-top">
-                <span>{c.panel}</span>
-                <span className="pp-live"><i />{c.panelStatus}</span>
-              </div>
-              <div className="pp-seg" style={{ margin: '20px 20px 0' }} role="tablist" aria-label={c.panel}>
-                {c.tabs.map((tab, index) => (
-                  <button key={tab} type="button" role="tab" aria-selected={activeTab === index} className={activeTab === index ? 'on' : ''} onClick={() => setActiveTab(index)}>
-                    {tab}
-                  </button>
-                ))}
-              </div>
-              <div style={{ padding: '24px 28px 8px' }}>
-                <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 500, letterSpacing: '-0.03em' }}>{data.title}</h2>
-                <p style={{ marginTop: 10, color: 'var(--muted)', fontSize: 13.5, lineHeight: 1.55 }}>{data.description}</p>
-              </div>
-              <div className="business-board-meta">
-                <span>{c.boardLabel}</span>
-                <span className="mono">TREASURY / PAYABLES</span>
-              </div>
-              <div style={{ padding: '8px 28px 24px' }}>
-                <div className="pp-rows">
-                  {data.rows.map(([label, description, tag]) => (
-                    <div key={label} className="pp-row" style={{ gridTemplateColumns: '90px 1fr auto', padding: '14px 4px', alignItems: 'center' }}>
-                      <span className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>{label}</span>
-                      <strong style={{ fontSize: 14 }}>{description}</strong>
-                      <em>{tag}</em>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="pp-sec business-flow">
-        <div className="container">
-          <header className="section-head pp-head reveal">
-            <div className="title-block">
-              <span className="eyebrow">{c.boardLabel}</span>
-              <h2 className="section-title">{lang === 'pt' ? 'Do contexto à conciliação, sem perder o fio da operação.' : 'From context to reconciliation, without losing the thread.'}</h2>
-            </div>
-            <p>{lang === 'pt' ? 'Uma camada operacional aproxima a decisão financeira da execução: o time entende o que está disponível, quem aprova e como a operação será registrada.' : 'An operating layer brings financial decisions closer to execution: the team sees what is available, who approves, and how the operation will be recorded.'}</p>
-          </header>
-          <div className="business-flow-grid">
-            {c.boardItems.map(([number, title, description]) => (
-              <article key={number} className="business-flow-step reveal">
-                <span className="n">{number}</span>
-                <div className="business-flow-line" aria-hidden="true" />
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="casos-de-uso" className="pp-sec">
-        <div className="container">
-          <header className="section-head pp-head reveal">
-            <div className="title-block">
-              <span className="eyebrow">{c.useEyebrow}</span>
-              <h2 className="section-title">{c.useTitle}</h2>
-            </div>
-            <p>{c.useText}</p>
-          </header>
-          <div className="pp-cols">
-            {c.uses.map(([title, description], index) => (
-              <div key={title} className="pp-col reveal">
-                <span className="n">{String(index + 1).padStart(2, '0')}</span>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="pp-sec">
-        <div className="container">
-          <header className="section-head pp-head reveal">
-            <div className="title-block">
-              <span className="eyebrow">{c.controlEyebrow}</span>
-              <h2 className="section-title">{c.controlTitle}</h2>
-            </div>
-            <p>{c.controlText}</p>
-          </header>
-          <div className="pp-rows reveal">
-            {c.controls.map(([title, description], index) => (
-              <div key={title} className="pp-row business-control-row">
-                <strong><span className="compliance-index">{String(index + 1).padStart(2, '0')}</span>{title}</strong>
-                <p>{description}</p>
-                <em>{lang === 'pt' ? 'CONTROLE' : 'CONTROL'}</em>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="pp-sec compliance-final">
-        <div className="container">
-          <div className="compliance-final-copy reveal">
-            <span className="eyebrow">{c.panel}</span>
-            <h2 className="section-title">{c.finalTitle}</h2>
-            <p>{c.finalText}</p>
-            <a href="/contact" className="btn btn-primary" onClick={(event) => { event.preventDefault(); navigateTo('contact') }}>{c.finalCta}</a>
-          </div>
-        </div>
-      </section>
-
-      <section className="pp-sec">
-        <div className="container"><ProductCrossNav current="business" /></div>
-      </section>
-    </div>
-  )
+  return <BusinessView c={c} lang={lang} navigateTo={navigateTo} />
 }
+

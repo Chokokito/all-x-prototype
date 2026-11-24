@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
 /* ===== Tema ALL X (alinhado ao site) ===== */
 html[data-theme='dark'], html[data-theme='light'], :root {
   --font-body: 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
   --style-radius-s: 4px;
   --style-radius-m: 6px;
   --style-radius-l: 8px;
@@ -344,3 +344,138 @@ html body .allx-onb__links a {
   border: 1px solid transparent; transition: border-color 0.15s ease;
 }
 html body .allx-onb__links a:hover { border-color: rgba(217, 142, 104, 0.5); }
+
+/* ===== Botao "Ver site" (menu lateral e cabecalho) ===== */
+html body .allx-site-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; text-decoration: none;
+  color: #ebaa89; border: 1px solid rgba(217, 142, 104, 0.4); border-radius: 6px;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+html body .allx-site-link svg {
+  width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; flex: none;
+}
+html body .allx-site-link:hover,
+html body .allx-site-link:focus,
+html body .allx-site-link:active { text-decoration: none !important; }
+html body .allx-site-link span { text-decoration: none !important; }
+html body .allx-site-link:hover { background: rgba(217, 142, 104, 0.12); border-color: #d98e68; color: #f6c9ad; }
+html body .allx-site-link:focus-visible { outline: 2px solid #d98e68; outline-offset: 2px; }
+html body .allx-site-link--nav { margin: 4px 14px 14px; padding: 10px 12px; justify-content: center; }
+html body .allx-site-link--header { padding: 6px 12px; margin-right: 8px; }
+@media (max-width: 760px) {
+  html body .allx-site-link--header span { display: none; }
+  html body .allx-site-link--header { padding: 7px 9px; }
+}
+
+/* ===== Icones no menu lateral (via mascara, herdam a cor do link) ===== */
+html body .nav__link { display: flex !important; align-items: center; gap: 10px; }
+html body .nav__link::before {
+  content: ''; flex: none; width: 17px; height: 17px; opacity: 0.8;
+  background-color: currentColor;
+  -webkit-mask: var(--allx-ico, none) center / contain no-repeat;
+  mask: var(--allx-ico, none) center / contain no-repeat;
+}
+html body .nav__link.active::before, html body .nav__link:hover::before { opacity: 1; }
+html body .nav__link:not([href*='/collections/']):not([href*='/globals/'])::before { --allx-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='9' rx='1'/%3E%3Crect x='14' y='3' width='7' height='5' rx='1'/%3E%3Crect x='14' y='12' width='7' height='9' rx='1'/%3E%3Crect x='3' y='16' width='7' height='5' rx='1'/%3E%3C/svg%3E"); }
+html body .nav__link[href$='/collections/categories']::before { --allx-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z'/%3E%3C/svg%3E"); }
+html body .nav__link[href$='/collections/docs-pages']::before { --allx-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6M9 17h6'/%3E%3C/svg%3E"); }
+html body .nav__link[href$='/collections/contact-requests']::before { --allx-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='M3 7l9 6 9-6'/%3E%3C/svg%3E"); }
+html body .nav__link[href$='/collections/users']::before { --allx-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.5'/%3E%3Cpath d='M2.5 20c0-3.3 2.9-5.5 6.5-5.5s6.5 2.2 6.5 5.5'/%3E%3Cpath d='M16 4.6a3.5 3.5 0 010 6.8M18 14.7c2 .7 3.5 2.4 3.5 5.3'/%3E%3C/svg%3E"); }
+html body .nav__link[href*='/account']::before { --allx-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4 3.6-7 8-7s8 3 8 7'/%3E%3C/svg%3E"); }
+
+/* Contador/indicador de "Nova" em solicitacoes: destaca o status na lista */
+html body .cell-status { font-weight: 600; }
+
+/* ===== Aviso de status nas Solicitacoes de Contato ===== */
+html body .allx-hint {
+  display: flex; align-items: flex-start; gap: 14px; margin: 0 0 20px; padding: 16px 18px;
+  border-radius: 8px; background: #0d0d0f; border: 1px solid rgba(255, 255, 255, 0.08);
+}
+html body .allx-hint strong { display: block; font-size: 15px; color: #f4f4f5; }
+html body .allx-hint p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.5; color: #a0a0a8; }
+html body .allx-hint__dot { flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: #85858d; }
+html body .allx-hint--empty { border-style: dashed; }
+html body .allx-hint--clear { border-color: rgba(74, 222, 128, 0.3); }
+html body .allx-hint--clear .allx-hint__dot { background: #4ade80; box-shadow: 0 0 10px rgba(74, 222, 128, 0.6); }
+html body .allx-hint--new { border-color: rgba(217, 142, 104, 0.5); background: rgba(217, 142, 104, 0.06); }
+html body .allx-hint--new .allx-hint__dot { background: #d98e68; box-shadow: 0 0 10px rgba(217, 142, 104, 0.7); }
+
+/* ===== Sem sublinhado no hover da sidebar e nos links das tabelas ===== */
+html body .nav__link,
+html body .nav__link:hover,
+html body .nav__link:focus,
+html body .nav__link:active,
+html body .nav__link-label,
+html body .nav__link:hover .nav__link-label,
+html body .table a,
+html body .table a:hover,
+html body .table a:focus,
+html body .table td a,
+html body .table td a:hover,
+html body .table td a:focus {
+  text-decoration: none !important;
+}
+html body .table td a {
+  color: #f4f4f5;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+html body .table td a:hover {
+  color: #ebaa89 !important;
+}
+
+/* ===== Barra de selecao em massa (Editar / Publicar / Excluir) ===== */
+html body .list-selection {
+  display: inline-flex !important;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px !important;
+  padding: 6px 10px 6px 14px;
+  border-radius: 8px;
+  background: rgba(217, 142, 104, 0.12);
+  border: 1px solid rgba(217, 142, 104, 0.45);
+  box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.75);
+  color: #f4f4f5 !important;
+  font-size: 13px;
+  font-weight: 600;
+}
+html body .list-selection__actions {
+  display: inline-flex !important;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px !important;
+}
+html body .list-selection__button,
+html body .list-selection button {
+  text-decoration: none !important;
+  padding: 5px 11px !important;
+  border-radius: 6px;
+  background: #141417 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #f4f4f5 !important;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+html body .list-selection__button:hover,
+html body .list-selection button:hover {
+  background: rgba(217, 142, 104, 0.18) !important;
+  border-color: #d98e68 !important;
+  color: #f6c9ad !important;
+  text-decoration: none !important;
+}
+html body .list-selection .delete-documents__toggle,
+html body .list-selection button[id*='delete'] {
+  background: rgba(239, 68, 68, 0.14) !important;
+  border-color: rgba(248, 113, 113, 0.4) !important;
+  color: #fca5a5 !important;
+}
+html body .list-selection .delete-documents__toggle:hover,
+html body .list-selection button[id*='delete']:hover {
+  background: rgba(239, 68, 68, 0.28) !important;
+  border-color: #f87171 !important;
+  color: #fee2e2 !important;
+}
