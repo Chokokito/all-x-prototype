@@ -45,7 +45,7 @@ export default function SiteFooter() {
                   const targetPage = FOOTER_PAGE_MAP[i]
                   const href =
                     targetPage === 'cms'
-                      ? '#cms'
+                      ? '/docs'
                       : targetPage
                         ? `/${targetPage}`
                         : '#'
@@ -73,7 +73,7 @@ export default function SiteFooter() {
         <div className="legal">
           <span>{t('footer.rights')}</span>
           <div className="social">
-            <a href="#cms" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>API Docs</a>
+            <a href="/docs" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>API Docs</a>
             <a href="#compliance" onClick={(e) => { e.preventDefault(); navigateTo('home', '#compliance') }}>Compliance</a>
           </div>
         </div>

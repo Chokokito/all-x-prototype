@@ -610,6 +610,7 @@ const hasWin = typeof window !== 'undefined'
 function detectCurrentPage() {
   if (!hasWin) return 'home'
   const path = window.location.pathname.replace(/^\/+|\/+$/g, '')
+  if (path === 'docs' || path.startsWith('docs/')) return 'cms'
   if (PRODUCT_PAGES.includes(path)) return path
   const h = window.location.hash
   if (isCmsHash(h)) return 'cms'
@@ -693,23 +694,46 @@ if (hasWin) {
 }
 
 export function navigateTo(page, anchor = '') {
-  set({ currentPage: page })
-  if (!hasWin) return
+  if (!hasWin) {
+    set({ currentPage: page })
+    return
+  }
+  const onDocsRoute =
+    window.location.pathname === '/docs' || window.location.pathname.startsWith('/docs/')
+
+  if (page === 'cms') {
+    const cleanAnchor = anchor && anchor !== '#cms' && anchor !== '#docs' ? anchor : ''
+    const targetUrl = `/docs${cleanAnchor}`
+    if (!onDocsRoute) {
+      window.location.assign(targetUrl)
+      return
+    }
+    set({ currentPage: 'cms' })
+    if (!cleanAnchor) window.scrollTo({ top: 0, behavior: 'smooth' })
+    return
+  }
+
   if (PRODUCT_PAGES.includes(page)) {
     const targetUrl = `/${page}${anchor || ''}`
+    if (onDocsRoute) {
+      window.location.assign(targetUrl)
+      return
+    }
+    set({ currentPage: page })
     if (window.location.pathname !== `/${page}`) {
       window.history.pushState({}, '', targetUrl)
     }
     window.scrollTo({ top: 0, behavior: 'smooth' })
     return
   }
-  if (page === 'cms') {
-    window.location.hash = anchor || '#cms'
-    if (!anchor) window.scrollTo({ top: 0, behavior: 'smooth' })
-    return
-  }
+
   // Navigating to home
   const targetUrl = `/${anchor || ''}`
+  if (onDocsRoute) {
+    window.location.assign(targetUrl)
+    return
+  }
+  set({ currentPage: page })
   if (window.location.pathname !== '/' || window.location.hash !== (anchor || '')) {
     window.history.pushState({}, '', targetUrl)
   }

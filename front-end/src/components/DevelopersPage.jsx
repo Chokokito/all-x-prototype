@@ -205,7 +205,7 @@ export default function DevelopersPage() {
             </h1>
             <p className="dx-sub">{c.sub}</p>
             <div className="dx-ctas">
-              <a href="#docs" className="btn btn-primary" onClick={openDocs}>{c.cta1}</a>
+              <a href="/docs" className="btn btn-primary" onClick={openDocs}>{c.cta1}</a>
               <a href="#api-primitives" className="btn btn-ghost">{c.cta2}</a>
             </div>
           </div>
@@ -325,7 +325,7 @@ export default function DevelopersPage() {
             <h2 className="dx-h2">{c.quickTitle}</h2>
             <p>{c.quickText}</p>
             <div className="dx-ctas">
-              <a href="#docs" className="btn btn-primary" onClick={openDocs}>{c.cta1}</a>
+              <a href="/docs" className="btn btn-primary" onClick={openDocs}>{c.cta1}</a>
               <a href="#api-primitives" className="btn btn-ghost">{c.cta2}</a>
             </div>
           </div>

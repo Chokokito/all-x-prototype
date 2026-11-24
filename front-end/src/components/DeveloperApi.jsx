@@ -19,7 +19,7 @@ export default function DeveloperApi() {
             <li key={b}>{b}</li>
           ))}
         </ul>
-        <a href="#cms" className="btn btn-ghost docs-btn" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>
+        <a href="/docs" className="btn btn-ghost docs-btn" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>
           {t('cta.b2')}
         </a>
       </div>

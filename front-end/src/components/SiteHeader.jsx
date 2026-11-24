@@ -46,14 +46,14 @@ const MEGA = {
       leftTitle: 'Comece a Integrar',
       rightTitle: 'Integre com',
       left: [
-        { title: 'Documentação', desc: 'Construa sobre a infraestrutura da API ALL X', href: '#cms', icon: 'doc' },
+        { title: 'Documentação', desc: 'Construa sobre a infraestrutura da API ALL X', href: '/docs', icon: 'doc' },
         { title: 'Referência da API', desc: 'Explore nossos endpoints REST para integração', href: '#api', icon: 'branch' },
-        { title: 'Webhooks & Eventos', desc: 'Conciliação automática de recebimentos e payouts', href: '#cms', icon: 'webhook' },
+        { title: 'Webhooks & Eventos', desc: 'Conciliação automática de recebimentos e payouts', href: '/docs', icon: 'webhook' },
       ],
       sdks: ['TS', 'Py', 'Go', 'PHP', 'cURL'],
       cards: [
-        { title: 'White-Label Core', desc: 'Embuta contas e pagamentos no seu produto', href: '#cms' },
-        { title: 'API', desc: 'Ambiente isolado para testes de liquidação', href: '#cms' },
+        { title: 'White-Label Core', desc: 'Embuta contas e pagamentos no seu produto', href: '/docs' },
+        { title: 'API', desc: 'Ambiente isolado para testes de liquidação', href: '/docs' },
       ],
     },
   },
@@ -89,14 +89,14 @@ const MEGA = {
       leftTitle: 'Start Building',
       rightTitle: 'Integrate With',
       left: [
-        { title: 'Documentation', desc: 'Build on the ALL X API infrastructure', href: '#cms', icon: 'doc' },
+        { title: 'Documentation', desc: 'Build on the ALL X API infrastructure', href: '/docs', icon: 'doc' },
         { title: 'API Reference', desc: 'Explore and master our REST API for integration', href: '#api', icon: 'branch' },
-        { title: 'Webhooks & Events', desc: 'Automated reconciliation for pay-ins and payouts', href: '#cms', icon: 'webhook' },
+        { title: 'Webhooks & Events', desc: 'Automated reconciliation for pay-ins and payouts', href: '/docs', icon: 'webhook' },
       ],
       sdks: ['TS', 'Py', 'Go', 'PHP', 'cURL'],
       cards: [
-        { title: 'White-Label Core', desc: 'Embed global accounts & payments into your app', href: '#cms' },
-        { title: 'API Sandbox', desc: 'Isolated environment for end-to-end testing', href: '#cms' },
+        { title: 'White-Label Core', desc: 'Embed global accounts & payments into your app', href: '/docs' },
+        { title: 'API Sandbox', desc: 'Isolated environment for end-to-end testing', href: '/docs' },
       ],
     },
   },
@@ -262,13 +262,13 @@ export default function SiteHeader() {
       navigateTo(page)
       return
     }
+    if (href === '/docs' || href === '#cms') {
+      navigateTo('cms')
+      return
+    }
     if (href.startsWith('/')) {
       const slug = href.replace(/^\//, '')
       navigateTo(slug || 'home')
-      return
-    }
-    if (href === '#cms') {
-      navigateTo('cms')
       return
     }
     navigateTo('home', href)
@@ -424,7 +424,7 @@ export default function SiteHeader() {
             </div>
           </div>
 
-          <a href="#cms" className="sandbox" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>
+          <a href="/docs" className="sandbox" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>
             {t('nav.sandbox')}
           </a>
           <a href="/contact" className="cta" onClick={(e) => handleNavClick(e, '/contact', 'contact')}>{t('nav.contact')}</a>
@@ -523,7 +523,7 @@ export default function SiteHeader() {
                   <span className="mega-heading">{megaMenus.devs.rightTitle}</span>
                   <div className="sdk-row">
                     {megaMenus.devs.sdks.map((sdk) => (
-                      <a key={sdk} href="#cms" className="sdk-box mono" onClick={goCms}>
+                      <a key={sdk} href="/docs" className="sdk-box mono" onClick={goCms}>
                         {sdk}
                       </a>
                     ))}
@@ -556,7 +556,7 @@ export default function SiteHeader() {
             </a>
           ))}
           <a
-            href="#cms"
+            href="/docs"
             style={{ '--i': links.length }}
             onClick={(e) => {
               e.preventDefault()

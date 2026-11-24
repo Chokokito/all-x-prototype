@@ -23,7 +23,7 @@ export default function ConversionCta() {
           <p>{t('cta.text')}</p>
           <div className="actions">
             <a href="mailto:contato@allx.global" className="btn btn-primary">{t('cta.b1')}</a>
-            <a href="#cms" className="btn btn-ghost" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>{t('cta.b2')}</a>
+            <a href="/docs" className="btn btn-ghost" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>{t('cta.b2')}</a>
           </div>
         </div>
 

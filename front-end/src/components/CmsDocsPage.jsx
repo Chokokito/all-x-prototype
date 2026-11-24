@@ -319,7 +319,7 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
                       {folder.children.map((item) => (
                         <li key={item.$slug}>
                           <a
-                            href={`#cms`}
+                            href="/docs"
                             className={`cms-nav-item${currentPageDoc?.slug === item.$slug ? ' active' : ''}`}
                             onClick={(e) => {
                               e.preventDefault()
@@ -389,7 +389,7 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
               {/* Pagination Controls (#2:240) — Fumadocs PageTree Neighbours */}
               <nav className="cms-pagination" aria-label="Pagination">
                 <a
-                  href="#cms"
+                  href="/docs"
                   className="cms-page-card prev"
                   onClick={(e) => {
                     e.preventDefault()
@@ -400,7 +400,7 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
                   <span className="cms-page-title">{prevTitle}</span>
                 </a>
                 <a
-                  href="#cms"
+                  href="/docs"
                   className="cms-page-card next"
                   onClick={(e) => {
                     e.preventDefault()
