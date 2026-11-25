@@ -21,12 +21,12 @@ const MEGA = {
       left: [
         { title: 'Business', desc: 'Treasury e Payables para operações globais', href: '/business', page: 'business', icon: 'briefcase' },
         { title: 'Global Payments', desc: 'Envie e receba pagamentos internacionais entre moedas', href: '/global-payments', page: 'global-payments', icon: 'network' },
-        { title: 'Global Accounts', desc: 'Contas corporativas nomeadas em USD, EUR, BRL e carteiras', href: '/global-accounts', page: 'global-accounts', icon: 'wallet' },
-        { title: 'Stablecoin Gateway', desc: 'Liquidez 24/7 em USDC e USDT conectada aos trilhos locais', href: '/stablecoins', page: 'stablecoins', icon: 'coins' },
+        { title: 'Global Accounts', desc: 'Contas em USD e EUR e saldos em stablecoins, conforme disponibilidade', href: '/global-accounts', page: 'global-accounts', icon: 'wallet' },
+        { title: 'Stablecoin Gateway', desc: 'USDC e USDT conectados a trilhos locais conforme a rota disponível', href: '/stablecoins', page: 'stablecoins', icon: 'coins' },
       ],
       right: [
-        { title: 'SWIFT & Trilhos Locais', desc: 'Pix, ACH, SEPA e Fedwire integrados à mesma operação', href: '/global-payments', page: 'global-payments', icon: 'globe' },
-        { title: 'Compliance & Governança', desc: 'Escale globalmente com KYB, KYC e KYT integrados', href: '/compliance', page: 'compliance', icon: 'shield' },
+        { title: 'SWIFT & Trilhos Locais', desc: 'Pix, ACH, SEPA e SWIFT, sujeitos à disponibilidade por rota', href: '/global-payments', page: 'global-payments', icon: 'globe' },
+        { title: 'Compliance & Governança', desc: 'Verificações e controles conforme serviço, parceiro e jurisdição', href: '/compliance', page: 'compliance', icon: 'shield' },
       ],
     },
     platform: {
@@ -34,26 +34,26 @@ const MEGA = {
       rightTitle: 'Governança & Controle',
       left: [
         { title: 'Como Funciona', desc: 'Quatro etapas claras com infraestrutura coordenada', href: '#como-funciona', icon: 'layers' },
-        { title: 'Console em Tempo Real', desc: 'Acompanhe cotações, saldos e liquidações T+0', href: '#console', icon: 'terminal' },
+        { title: 'Demonstração de fluxo', desc: 'Explore exemplos de cotações, saldos e etapas operacionais', href: '#console', icon: 'terminal' },
         { title: 'Aplicações Setoriais', desc: 'Comércio exterior, SaaS global e embedded finance', href: '#mercado', icon: 'briefcase' },
       ],
       right: [
-        { title: 'Matriz de Compliance', desc: 'Screening contínuo OFAC, PEP, UBO e monitoramento', href: '/compliance', page: 'compliance', icon: 'check-shield' },
-        { title: 'Status dos Corredores', desc: 'Verifique a disponibilidade dos trilhos em tempo real', href: '#contato', icon: 'status' },
+        { title: 'Matriz de Compliance', desc: 'Conheça os controles descritos e o escopo aplicável', href: '/compliance', page: 'compliance', icon: 'check-shield' },
+        { title: 'Disponibilidade por rota', desc: 'Consulte a equipe sobre elegibilidade e disponibilidade', href: '#contato', icon: 'status' },
       ],
     },
     devs: {
       leftTitle: 'Comece a Integrar',
       rightTitle: 'Integre com',
       left: [
-        { title: 'Documentação', desc: 'Construa sobre a infraestrutura da API ALL X', href: '/docs', icon: 'doc' },
-        { title: 'Referência da API', desc: 'Explore nossos endpoints REST para integração', href: '#api', icon: 'branch' },
-        { title: 'Webhooks & Eventos', desc: 'Conciliação automática de recebimentos e payouts', href: '/docs', icon: 'webhook' },
+        { title: 'Documentação', desc: 'Consulte informações de integração e valide o escopo com a equipe', href: '/docs', icon: 'doc' },
+        { title: 'Integração por API', desc: 'Conheça as possibilidades de integração para o seu produto', href: '#api', icon: 'branch' },
+        { title: 'Webhooks & Eventos', desc: 'Consulte as opções de integração e conciliação disponíveis', href: '/docs', icon: 'webhook' },
       ],
-      sdks: ['TS', 'Py', 'Go', 'PHP', 'cURL'],
+      sdks: ['API', 'Webhooks', 'Docs'],
       cards: [
         { title: 'White-Label Core', desc: 'Embuta contas e pagamentos no seu produto', href: '/docs' },
-        { title: 'API', desc: 'Ambiente isolado para testes de liquidação', href: '/docs' },
+        { title: 'API', desc: 'Valide escopo técnico e acesso com a equipe', href: '/docs' },
       ],
     },
   },
@@ -64,12 +64,12 @@ const MEGA = {
       left: [
         { title: 'Business', desc: 'Treasury and payables for global operations', href: '/business', page: 'business', icon: 'briefcase' },
         { title: 'Global Payments', desc: 'Send and receive money across borders seamlessly', href: '/global-payments', page: 'global-payments', icon: 'network' },
-        { title: 'Global Accounts', desc: 'Create named corporate accounts in multiple currencies', href: '/global-accounts', page: 'global-accounts', icon: 'wallet' },
-        { title: 'Stablecoin Gateway', desc: '24/7 USDC and USDT liquidity bridged to local rails', href: '/stablecoins', page: 'stablecoins', icon: 'coins' },
+        { title: 'Global Accounts', desc: 'USD and EUR accounts and stablecoin balances, subject to availability', href: '/global-accounts', page: 'global-accounts', icon: 'wallet' },
+        { title: 'Stablecoin Gateway', desc: 'USDC and USDT connected to local rails subject to route availability', href: '/stablecoins', page: 'stablecoins', icon: 'coins' },
       ],
       right: [
-        { title: 'SWIFT & Local Rails', desc: 'Pix, ACH, SEPA and Fedwire in a unified experience', href: '/global-payments', page: 'global-payments', icon: 'globe' },
-        { title: 'Compliance & Governance', desc: 'Scale globally with built-in KYC, KYB and KYT', href: '/compliance', page: 'compliance', icon: 'shield' },
+        { title: 'SWIFT & Local Rails', desc: 'Pix, ACH, SEPA and SWIFT, subject to route availability', href: '/global-payments', page: 'global-payments', icon: 'globe' },
+        { title: 'Compliance & Governance', desc: 'Checks and controls depend on service, partner, and jurisdiction', href: '/compliance', page: 'compliance', icon: 'shield' },
       ],
     },
     platform: {
@@ -77,26 +77,26 @@ const MEGA = {
       rightTitle: 'Governance & Control',
       left: [
         { title: 'How It Works', desc: 'Four visible steps with coordinated infrastructure', href: '#como-funciona', icon: 'layers' },
-        { title: 'Live Console', desc: 'Track locked quotes, balances and T+0 settlements', href: '#console', icon: 'terminal' },
+        { title: 'Flow demonstration', desc: 'Explore examples of quotes, balances, and operational steps', href: '#console', icon: 'terminal' },
         { title: 'Use Cases', desc: 'Global trade, SaaS payroll and embedded finance', href: '#mercado', icon: 'briefcase' },
       ],
       right: [
-        { title: 'Compliance Matrix', desc: 'Continuous OFAC, PEP, UBO and KYT monitoring', href: '/compliance', page: 'compliance', icon: 'check-shield' },
-        { title: 'System Status', desc: 'Check real-time payment rail performance', href: '#contato', icon: 'status' },
+        { title: 'Compliance Matrix', desc: 'Review described controls and applicable scope', href: '/compliance', page: 'compliance', icon: 'check-shield' },
+        { title: 'Route availability', desc: 'Ask the team about eligibility and availability', href: '#contato', icon: 'status' },
       ],
     },
     devs: {
       leftTitle: 'Start Building',
       rightTitle: 'Integrate With',
       left: [
-        { title: 'Documentation', desc: 'Build on the ALL X API infrastructure', href: '/docs', icon: 'doc' },
-        { title: 'API Reference', desc: 'Explore and master our REST API for integration', href: '#api', icon: 'branch' },
-        { title: 'Webhooks & Events', desc: 'Automated reconciliation for pay-ins and payouts', href: '/docs', icon: 'webhook' },
+        { title: 'Documentation', desc: 'Review integration information and validate scope with the team', href: '/docs', icon: 'doc' },
+        { title: 'API integration', desc: 'Explore integration possibilities for your product', href: '#api', icon: 'branch' },
+        { title: 'Webhooks & Events', desc: 'Ask about available integration and reconciliation options', href: '/docs', icon: 'webhook' },
       ],
-      sdks: ['TS', 'Py', 'Go', 'PHP', 'cURL'],
+      sdks: ['API', 'Webhooks', 'Docs'],
       cards: [
         { title: 'White-Label Core', desc: 'Embed global accounts & payments into your app', href: '/docs' },
-        { title: 'API Sandbox', desc: 'Isolated environment for end-to-end testing', href: '/docs' },
+        { title: 'API', desc: 'Validate technical scope and access with the team', href: '/docs' },
       ],
     },
   },

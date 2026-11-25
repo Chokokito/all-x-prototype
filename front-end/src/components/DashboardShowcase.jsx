@@ -5,47 +5,47 @@ import { parallax } from '../parallax'
 import './DashboardShowcase.css'
 
 const fxRates = {
-  'BRL->USDC': { rate: 0.17976, label: '1 USDC = 5,5630 BRL', rail: 'Pix', sym: 'R$' },
-  'BRL->USDT': { rate: 0.17976, label: '1 USDT = 5,5630 BRL', rail: 'Pix', sym: 'R$' },
-  'BRL->USD': { rate: 0.17976, label: '1 USD = 5,5630 BRL', rail: 'Pix', sym: 'R$' },
-  'BRL->EUR': { rate: 0.16611, label: '1 EUR = 6,0200 BRL', rail: 'Pix', sym: 'R$' },
-  'USD->USDC': { rate: 1, label: '1 USD = 1,0000 USDC', rail: 'ACH', sym: '$' },
-  'USD->USDT': { rate: 1, label: '1 USD = 1,0000 USDT', rail: 'Fedwire', sym: '$' },
-  'USD->EUR': { rate: 0.923, label: '1 EUR = 1,0834 USD', rail: 'SWIFT', sym: '$' },
-  'USD->BRL': { rate: 5.563, label: '1 USD = 5,5630 BRL', rail: 'Fedwire', sym: '$' },
-  'EUR->USDC': { rate: 1.0834, label: '1 EUR = 1,0834 USDC', rail: 'SEPA', sym: '€' },
-  'EUR->USD': { rate: 1.0834, label: '1 EUR = 1,0834 USD', rail: 'SEPA', sym: '€' },
-  'EUR->BRL': { rate: 6.02, label: '1 EUR = 6,0200 BRL', rail: 'SEPA', sym: '€' },
-  'USDC->USD': { rate: 1, label: '1 USDC = 1,0000 USD', rail: 'ACH', sym: '$' },
-  'USDC->BRL': { rate: 5.563, label: '1 USDC = 5,5630 BRL', rail: 'Pix', sym: '$' },
-  'USDC->EUR': { rate: 0.923, label: '1 EUR = 1,0834 USDC', rail: 'SEPA', sym: '$' },
+  'BRL->USDC': { rate: 0.17976, label: 'Cotação de exemplo · BRL / USDC', rail: 'Pix', sym: 'R$' },
+  'BRL->USDT': { rate: 0.17976, label: 'Cotação de exemplo · BRL / USDT', rail: 'Pix', sym: 'R$' },
+  'BRL->USD': { rate: 0.17976, label: 'Cotação de exemplo · BRL / USD', rail: 'Pix', sym: 'R$' },
+  'BRL->EUR': { rate: 0.16611, label: 'Cotação de exemplo · BRL / EUR', rail: 'Pix', sym: 'R$' },
+  'USD->USDC': { rate: 1, label: 'Cotação de exemplo · USD / USDC', rail: 'ACH', sym: '$' },
+  'USD->USDT': { rate: 1, label: 'Cotação de exemplo · USD / USDT', rail: 'ACH', sym: '$' },
+  'USD->EUR': { rate: 0.923, label: 'Cotação de exemplo · USD / EUR', rail: 'SWIFT', sym: '$' },
+  'USD->BRL': { rate: 5.563, label: 'Cotação de exemplo · USD / BRL', rail: 'SWIFT', sym: '$' },
+  'EUR->USDC': { rate: 1.0834, label: 'Cotação de exemplo · EUR / USDC', rail: 'SEPA', sym: '€' },
+  'EUR->USD': { rate: 1.0834, label: 'Cotação de exemplo · EUR / USD', rail: 'SEPA', sym: '€' },
+  'EUR->BRL': { rate: 6.02, label: 'Cotação de exemplo · EUR / BRL', rail: 'SEPA', sym: '€' },
+  'USDC->USD': { rate: 1, label: 'Cotação de exemplo · USDC / USD', rail: 'ACH', sym: '$' },
+  'USDC->BRL': { rate: 5.563, label: 'Cotação de exemplo · USDC / BRL', rail: 'Pix', sym: '$' },
+  'USDC->EUR': { rate: 0.923, label: 'Cotação de exemplo · USDC / EUR', rail: 'SEPA', sym: '$' },
 }
 
 const initialTx = [
-  { id: 'tx_8F2K…91AC', from: 'BRL', to: 'USDC', amt: 'R$ 850.000,00', outAmt: '152.795,25 USDC', rail: 'Pix', s: 'done', ben: 'Acme Global Supplies LLC', rate: '1 USDC = 5,5630 BRL', fee: '0,25%', ref: 'E18236120202610301842a9f', time: '1,8s' },
-  { id: 'tx_3H7Q…0B4E', from: 'USD', to: 'EUR', amt: '$ 124.500,00', outAmt: '€ 114.910,20', rail: 'SWIFT', s: 'proc', ben: 'Nordic Freight AB', rate: '1 EUR = 1,0834 USD', fee: '0,20%', ref: 'SWFT-99281-DE89', time: 'Estimado' },
-  { id: 'tx_Q19D…7F06', from: 'BRL', to: 'USDT', amt: 'R$ 212.300,00', outAmt: '38.162,86 USDT', rail: 'Pix', s: 'wait', ben: 'CloudScale Infrastructure Inc.', rate: '1 USDT = 5,5630 BRL', fee: '0,25%', ref: '0x944e8c...7F06', time: 'Estimado' },
-  { id: 'tx_6LMA…C2D8', from: 'USDC', to: 'USD', amt: '$ 98.870,00', outAmt: '$ 98.870,00', rail: 'ACH', s: 'done', ben: 'Mercury Treasury Ops', rate: '1 USDC = 1,0000 USD', fee: '0,10%', ref: 'ACH-021000021-8841', time: '2,4s' },
-  { id: 'tx_Z04P…5E1B', from: 'EUR', to: 'BRL', amt: '€ 46.210,00', outAmt: 'R$ 278.184,20', rail: 'SEPA', s: 'rev', ben: 'Horizon Industrial GmbH', rate: '1 EUR = 6,0200 BRL', fee: '0,30%', ref: 'SEPA-DE71-55019', time: 'KYB Check' },
-  { id: 'tx_K7WT…88A3', from: 'USD', to: 'BRL', amt: '$ 310.000,00', outAmt: 'R$ 1.724.530,00', rail: 'Fedwire', s: 'done', ben: 'Latam Logistics S.A.', rate: '1 USD = 5,5630 BRL', fee: '0,22%', ref: 'FW-026009593-772', time: '3,1s' },
-  { id: 'tx_9P2M…44D1', from: 'USDC', to: 'EUR', amt: '$ 64.000,00', outAmt: '€ 59.073,00', rail: 'SEPA', s: 'done', ben: 'Berlin Digital Studio GmbH', rate: '1 EUR = 1,0834 USDC', fee: '0,18%', ref: 'SEPA-NL44-10942', time: '2,1s' },
-  { id: 'tx_5V8N…19F0', from: 'BRL', to: 'USD', amt: 'R$ 540.000,00', outAmt: '$ 97.069,92', rail: 'ACH', s: 'done', ben: 'Apex Semiconductor Corp', rate: '1 USD = 5,5630 BRL', fee: '0,25%', ref: 'ACH-121000358-401', time: '1,9s' },
-  { id: 'tx_2C9R…63E7', from: 'EUR', to: 'USDC', amt: '€ 88.500,00', outAmt: '95.880,90 USDC', rail: 'SEPA', s: 'proc', ben: 'Vault Liquidity Pool', rate: '1 EUR = 1,0834 USDC', fee: '0,15%', ref: '0x71c9a2...63E7', time: 'Estimado' },
-  { id: 'tx_7M4K…02B9', from: 'USD', to: 'USDT', amt: '$ 175.000,00', outAmt: '175.000,00 USDT', rail: 'Fedwire', s: 'done', ben: 'Pacific Trade Partners', rate: '1 USD = 1,0000 USDT', fee: '0,10%', ref: '0x38f1b0...02B9', time: '1,4s' },
+  { id: 'tx_8F2K…91AC', from: 'BRL', to: 'USDC', amt: 'R$ 850.000,00', outAmt: '152.795,25 USDC', rail: 'Pix', s: 'done', ben: 'Fornecedor de exemplo A', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-001', time: 'Exemplo' },
+  { id: 'tx_3H7Q…0B4E', from: 'USD', to: 'EUR', amt: '$ 124.500,00', outAmt: '€ 114.910,20', rail: 'SWIFT', s: 'proc', ben: 'Fornecedor de exemplo B', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-002', time: 'Exemplo' },
+  { id: 'tx_Q19D…7F06', from: 'BRL', to: 'USDT', amt: 'R$ 212.300,00', outAmt: '38.162,86 USDT', rail: 'Pix', s: 'wait', ben: 'Fornecedor de exemplo C', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-003', time: 'Exemplo' },
+  { id: 'tx_6LMA…C2D8', from: 'USDC', to: 'USD', amt: '$ 98.870,00', outAmt: '$ 98.870,00', rail: 'ACH', s: 'done', ben: 'Fornecedor de exemplo D', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-004', time: 'Exemplo' },
+  { id: 'tx_Z04P…5E1B', from: 'EUR', to: 'BRL', amt: '€ 46.210,00', outAmt: 'R$ 278.184,20', rail: 'SEPA', s: 'rev', ben: 'Fornecedor de exemplo E', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-005', time: 'Exemplo' },
+  { id: 'tx_K7WT…88A3', from: 'USD', to: 'BRL', amt: '$ 310.000,00', outAmt: 'R$ 1.724.530,00', rail: 'SWIFT', s: 'done', ben: 'Fornecedor de exemplo F', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-006', time: 'Exemplo' },
+  { id: 'tx_9P2M…44D1', from: 'USDC', to: 'EUR', amt: '$ 64.000,00', outAmt: '€ 59.073,00', rail: 'SEPA', s: 'done', ben: 'Fornecedor de exemplo G', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-007', time: 'Exemplo' },
+  { id: 'tx_5V8N…19F0', from: 'BRL', to: 'USD', amt: 'R$ 540.000,00', outAmt: '$ 97.069,92', rail: 'ACH', s: 'done', ben: 'Fornecedor de exemplo H', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-008', time: 'Exemplo' },
+  { id: 'tx_2C9R…63E7', from: 'EUR', to: 'USDC', amt: '€ 88.500,00', outAmt: '95.880,90 USDC', rail: 'SEPA', s: 'proc', ben: 'Fornecedor de exemplo I', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-009', time: 'Exemplo' },
+  { id: 'tx_7M4K…02B9', from: 'USD', to: 'USDT', amt: '$ 175.000,00', outAmt: '175.000,00 USDT', rail: 'ACH', s: 'done', ben: 'Fornecedor de exemplo J', rate: 'Cotação ilustrativa', fee: 'Exemplo', ref: 'EXAMPLE-010', time: 'Exemplo' },
 ]
 
 const accounts = [
-  { id: 'acc_usd', name: 'USD Virtual Account', num: 'Routing 021000021 · Acc ·· 1796', rail: 'ACH & Fedwire', bal: '$ 1.420.500,00', cur: 'USD', dest: 'USDC' },
-  { id: 'acc_eur', name: 'EUR Virtual Account', num: 'IBAN DE89 3704 0044 ·· 5678', rail: 'SEPA Instant & SWIFT', bal: '€ 860.240,00', cur: 'EUR', dest: 'USDC' },
-  { id: 'acc_brl', name: 'Conta Operacional BRL', num: 'ISPB 18236120 · Pix Corporativo', rail: 'Pix & TED (Bacen)', bal: 'R$ 3.180.900,00', cur: 'BRL', dest: 'USDC' },
-  { id: 'acc_usdc', name: 'Managed Wallet USDC', num: '0x944e8c21b0...7F06 (Solana / Base)', rail: 'Multichain MPC', bal: '2.280.740,00 USDC', cur: 'USDC', dest: 'USD' },
+  { id: 'acc_usd', name: 'USD account · example', num: 'Details subject to availability', rail: 'ACH · SWIFT', bal: '— USD', cur: 'USD', dest: 'USDC' },
+  { id: 'acc_eur', name: 'EUR account · example', num: 'Details subject to availability', rail: 'SEPA · SWIFT', bal: '— EUR', cur: 'EUR', dest: 'USDC' },
+  { id: 'acc_brl', name: 'BRL flow · example', num: 'Route subject to availability', rail: 'Pix', bal: '— BRL', cur: 'BRL', dest: 'USDC' },
+  { id: 'acc_usdc', name: 'Stablecoin balance · example', num: 'Network subject to route', rail: 'USDC · USDT', bal: '— USDC', cur: 'USDC', dest: 'USD' },
 ]
 
 const initialBen = [
-  { name: 'Acme Global Supplies LLC', country: 'Estados Unidos · Delaware', rail: 'ACH / USDC', kyb: 'KYB Verificado', cur: 'BRL', to: 'USDC' },
-  { name: 'Nordic Freight AB', country: 'Suécia · Estocolmo', rail: 'SEPA / SWIFT', kyb: 'KYB Verificado', cur: 'USD', to: 'EUR' },
-  { name: 'CloudScale Infrastructure Inc.', country: 'Estados Unidos · Califórnia', rail: 'Pix → USDT', kyb: 'KYB Verificado', cur: 'BRL', to: 'USDT' },
-  { name: 'Horizon Industrial GmbH', country: 'Alemanha · Frankfurt', rail: 'SEPA Instant', kyb: 'Em revisão UBO', cur: 'EUR', to: 'BRL' },
+  { name: 'Beneficiário de exemplo A', country: 'Destino sujeito à rota', rail: 'Conforme disponibilidade', kyb: 'Exemplo', cur: 'BRL', to: 'USDC' },
+  { name: 'Beneficiário de exemplo B', country: 'Destino sujeito à rota', rail: 'Conforme disponibilidade', kyb: 'Exemplo', cur: 'USD', to: 'EUR' },
+  { name: 'Beneficiário de exemplo C', country: 'Destino sujeito à rota', rail: 'Conforme disponibilidade', kyb: 'Exemplo', cur: 'BRL', to: 'USDT' },
+  { name: 'Beneficiário de exemplo D', country: 'Destino sujeito à rota', rail: 'Conforme disponibilidade', kyb: 'Exemplo', cur: 'EUR', to: 'BRL' },
 ]
 
 const pageSize = 5
@@ -104,7 +104,7 @@ export default function DashboardShowcase() {
 
   // Satellite Card Live Reactive State
   const [lastSettledAmt, setLastSettledAmt] = useState('152.795,25 USDC')
-  const [lastSettledSource, setLastSettledSource] = useState('R$ 850.000,00 · 1,8s')
+  const [lastSettledSource, setLastSettledSource] = useState('Demonstração local')
 
   const [txList, setTxList] = useState(initialTx)
   const [beneficiaries, setBeneficiaries] = useState(initialBen)
@@ -112,7 +112,7 @@ export default function DashboardShowcase() {
   const [showSecret, setShowSecret] = useState(false)
   const [webhookPing, setWebhookPing] = useState('')
 
-  const currentPair = fxRates[`${newFrom}->${newTo}`] || { rate: 1, label: `1 ${newFrom} = 1,0000 ${newTo}`, rail: 'SWIFT', sym: '$' }
+  const currentPair = fxRates[`${newFrom}->${newTo}`] || { rate: 1, label: `Cotação de exemplo · ${newFrom} / ${newTo}`, rail: 'SWIFT', sym: '$' }
 
   const calculatedOutput = ((Number(newAmount) || 0) * currentPair.rate).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + newTo
 
@@ -145,12 +145,10 @@ export default function DashboardShowcase() {
   }
 
   function settleNow(row) {
-    setTxList((list) => list.map((x) => (x.id === row.id ? { ...x, s: 'done', time: '1,2s' } : x)))
+    setTxList((list) => list.map((x) => (x.id === row.id ? { ...x, s: 'done', time: 'Exemplo' } : x)))
     setLastSettledAmt(row.outAmt)
-    setLastSettledSource(`${langRef.current === 'pt' ? 'Origem' : 'Source'} ${row.amt} · 1,2s`)
-    if (row.ben.includes('Horizon')) {
-      setBeneficiaries((list) => list.map((b) => (b.name.includes('Horizon') ? { ...b, kyb: 'KYB Verificado' } : b)))
-    }
+    setLastSettledSource(langRef.current === 'pt' ? 'Demonstração local' : 'Local demonstration')
+    setBeneficiaries((list) => list.map((b) => (b.name === row.ben ? { ...b, kyb: langRef.current === 'pt' ? 'Exemplo revisado' : 'Example reviewed' } : b)))
   }
 
   function submitNewTx() {
@@ -170,9 +168,9 @@ export default function DashboardShowcase() {
       s: 'proc',
       ben: newBeneficiary,
       rate: currentPair.label,
-      fee: '0,20%',
+      fee: 'Exemplo',
       ref: 'E18236120' + Date.now(),
-      time: 'Estimado',
+      time: 'Exemplo',
     }
     setTxList((list) => [newRow, ...list])
     setShowNewTx(false)
@@ -204,64 +202,64 @@ export default function DashboardShowcase() {
   function triggerWebhookTest() {
     setWebhookPing('sending')
     setTimeout(() => {
-      setWebhookPing('200 OK · 38ms (settlement.completed)')
+      setWebhookPing(langRef.current === 'pt' ? 'Exemplo local · nenhum webhook enviado' : 'Local example · no webhook sent')
     }, 450)
   }
 
   const copy = lang === 'pt'
     ? {
-        home: 'Console ALL X',
+        home: 'ALL X · Demonstração',
         search: 'Filtrar por ID, moeda, beneficiário ou trilho...',
-        newTx: '+ Nova transação',
+        newTx: '+ Simular fluxo',
         closeTx: 'Fechar',
         cols: ['ID', 'Rota', 'Valor', 'Trilho', 'Status'],
         nav: ['Visão geral', 'Transações', 'Contas', 'Beneficiários', 'Compliance', 'Chaves de API'],
         filters: [
           { k: 'all', l: 'Todas' },
-          { k: 'done', l: 'Liquidado' },
-          { k: 'proc', l: 'Em conversão' },
-          { k: 'wait', l: 'Aguardando Pix' },
+          { k: 'done', l: 'Etapa concluída' },
+          { k: 'proc', l: 'Em andamento' },
+          { k: 'wait', l: 'Aguardando etapa' },
           { k: 'rev', l: 'Em revisão' },
         ],
         perPage: '5 por página', prev: 'Anterior', next: 'Próxima',
-        st: { done: 'Liquidado', proc: 'Em conversão', wait: 'Aguardando Pix', rev: 'Em revisão' },
-        cardLTag: 'COTAÇÃO TRAVADA · 30s',
+        st: { done: 'Exemplo', proc: 'Em andamento', wait: 'Pendente', rev: 'Em revisão' },
+        cardLTag: 'COTAÇÃO · EXEMPLO',
         cardLRate: currentPair.label,
-        cardLSub: `Rota ${newFrom} → ${newTo} · Liquidação estimada`,
-        cardRTag: 'LIQUIDAÇÃO CONCLUÍDA',
+        cardLSub: `Rota ilustrativa ${newFrom} → ${newTo}`,
+        cardRTag: 'FLUXO DEMONSTRATIVO',
         cardRAmt: lastSettledAmt,
         cardRSub: lastSettledSource,
-        settleBtn: 'Simular liquidação',
+        settleBtn: 'Avançar demonstração',
         copied: 'Copiado ✓',
         copyId: 'Copiar hash',
-        execBtn: 'Confirmar e liquidar',
+        execBtn: 'Simular etapas',
       }
     : {
-        home: 'ALL X Console',
+        home: 'ALL X · Demonstration',
         search: 'Filter by ID, currency, beneficiary or rail...',
-        newTx: '+ New transaction',
+        newTx: '+ Simulate flow',
         closeTx: 'Close',
         cols: ['ID', 'Route', 'Amount', 'Rail', 'Status'],
         nav: ['Overview', 'Transactions', 'Accounts', 'Beneficiaries', 'Compliance', 'API keys'],
         filters: [
           { k: 'all', l: 'All' },
-          { k: 'done', l: 'Settled' },
-          { k: 'proc', l: 'Converting' },
-          { k: 'wait', l: 'Awaiting Pix' },
+          { k: 'done', l: 'Step completed' },
+          { k: 'proc', l: 'In progress' },
+          { k: 'wait', l: 'Awaiting step' },
           { k: 'rev', l: 'In review' },
         ],
         perPage: '5 per page', prev: 'Previous', next: 'Next',
-        st: { done: 'Settled', proc: 'Converting', wait: 'Awaiting Pix', rev: 'In review' },
-        cardLTag: 'LOCKED QUOTE · 30s',
+        st: { done: 'Example', proc: 'In progress', wait: 'Pending', rev: 'In review' },
+        cardLTag: 'QUOTE · EXAMPLE',
         cardLRate: currentPair.label,
-        cardLSub: `Route ${newFrom} → ${newTo} · Estimated settlement`,
-        cardRTag: 'SETTLEMENT COMPLETED',
+        cardLSub: `Illustrative route ${newFrom} → ${newTo}`,
+        cardRTag: 'DEMONSTRATION FLOW',
         cardRAmt: lastSettledAmt,
         cardRSub: lastSettledSource,
-        settleBtn: 'Simulate settlement',
+        settleBtn: 'Advance demonstration',
         copied: 'Copied ✓',
         copyId: 'Copy hash',
-        execBtn: 'Confirm & settle',
+        execBtn: 'Simulate steps',
       }
 
   const pt = lang === 'pt'
@@ -301,7 +299,7 @@ export default function DashboardShowcase() {
           <aside className="side">
             <div className="side-top">
               <img src="/logo.png" alt="ALL X" width="54" height="13" className="side-logo" />
-              <span className="live-pill"><i /> LIVE</span>
+              <span className="live-pill"><i /> DEMO</span>
             </div>
             <ul role="tablist" aria-label="Console navigation">
               {copy.nav.map((n, i) => (
@@ -342,7 +340,7 @@ export default function DashboardShowcase() {
               </a>
               <a href="#contato" className="side-foot-link">
                 <svg {...svgP} width="13" height="13"><circle cx="12" cy="12" r="9" /><path d="M12 8v4M12 16h.01" /></svg>
-                <span>{pt ? 'Suporte dedicado' : 'Dedicated support'}</span>
+                <span>{pt ? 'Fale com a equipe' : 'Talk to the team'}</span>
               </a>
             </div>
           </aside>
@@ -362,7 +360,7 @@ export default function DashboardShowcase() {
                 <span>{copy.home}</span><i>›</i><b>{copy.nav[activeNav]}</b>
               </div>
               <span className="hint-badge mono">
-                {pt ? 'Console interativo · Clique nas linhas ou crie uma transação' : 'Interactive console · Click rows or create a transaction'}
+                {pt ? 'Demonstração interativa · dados, taxas e operações fictícios' : 'Interactive demonstration · fictional data, fees, and operations'}
               </span>
             </div>
 
@@ -387,7 +385,7 @@ export default function DashboardShowcase() {
                         <span>{pt ? 'Moeda de origem' : 'Source currency'}</span>
                         <select value={newFrom} onChange={(e) => setNewFrom(e.target.value)}>
                           <option value="BRL">BRL (Pix)</option>
-                          <option value="USD">USD (ACH / Fedwire)</option>
+                          <option value="USD">USD (ACH / SWIFT)</option>
                           <option value="EUR">EUR (SEPA)</option>
                           <option value="USDC">USDC (Wallet)</option>
                         </select>
@@ -395,10 +393,10 @@ export default function DashboardShowcase() {
                       <label>
                         <span>{pt ? 'Ativo de destino' : 'Destination asset'}</span>
                         <select value={newTo} onChange={(e) => setNewTo(e.target.value)}>
-                          <option value="USDC">USDC (Solana / Base)</option>
-                          <option value="USDT">USDT (Polygon)</option>
+                          <option value="USDC">USDC</option>
+                          <option value="USDT">USDT</option>
                           <option value="USD">USD (Wire / ACH)</option>
-                          <option value="EUR">EUR (SEPA Instant)</option>
+                          <option value="EUR">EUR (SEPA)</option>
                           <option value="BRL">BRL (Pix)</option>
                         </select>
                       </label>
@@ -481,7 +479,7 @@ export default function DashboardShowcase() {
                                 {copy.settleBtn}
                               </button>
                             ) : (
-                              <span className="settled-stamp mono">✓ {pt ? 'Liquidado em' : 'Settled in'} {r.time}</span>
+                              <span className="settled-stamp mono">✓ {pt ? 'Etapa simulada' : 'Simulated step'} · {r.time}</span>
                             )}
                           </div>
                         </div>
@@ -506,25 +504,25 @@ export default function DashboardShowcase() {
               <>
                 <div className="kpi-grid">
                   <div className="kpi-card">
-                    <small>{pt ? 'Volume liquidado (30d)' : 'Settled volume (30d)'}</small>
-                    <strong className="mono">$ 4.820.500,00</strong>
-                    <span className="kpi-ok">+18,4% · 100% reconciliado</span>
+                    <small>{pt ? 'Volume demonstrativo' : 'Illustrative volume'}</small>
+                    <strong className="mono">—</strong>
+                    <span className="kpi-ok">{pt ? 'Dados fictícios' : 'Fictional data'}</span>
                   </div>
                   <div className="kpi-card">
                     <small>{pt ? 'Tempo médio de liquidação' : 'Avg settlement time'}</small>
                     <strong className="mono">{pt ? 'Conforme rota' : 'Route dependent'}</strong>
-                    <span>Pix, SEPA Instant &amp; Stablecoins</span>
+                    <span>Pix · ACH · SEPA · SWIFT</span>
                   </div>
                   <div className="kpi-card">
                     <small>{pt ? 'Saldos consolidados' : 'Consolidated balances'}</small>
-                    <strong className="mono">$ 5.148.920,00</strong>
+                    <strong className="mono">—</strong>
                     <span>USD · EUR · BRL · USDC</span>
                   </div>
                 </div>
                 <div className="overview-cta">
                   <div>
-                    <b>{pt ? 'Pronto para iniciar uma remessa ou conversão?' : 'Ready to initiate a transfer or conversion?'}</b>
-                    <p>{pt ? 'Simule uma operação com cotação travada e veja a liquidação em tempo real na tabela.' : 'Simulate a locked-quote operation and watch real-time settlement in the table.'}</p>
+                    <b>{pt ? 'Explore um fluxo demonstrativo' : 'Explore an illustrative flow'}</b>
+                    <p>{pt ? 'Os controles abaixo simulam etapas localmente. Nenhuma cotação ou operação real é enviada.' : 'The controls below simulate steps locally. No real quote or transaction is submitted.'}</p>
                   </div>
                   <button type="button" className="exec-btn" onClick={() => { setActiveNav(1); setShowNewTx(true) }}>{copy.newTx}</button>
                 </div>
@@ -575,11 +573,11 @@ export default function DashboardShowcase() {
                 <div className="comp-row">
                   <div>
                     <b>KYB / UBO &amp; Sanctions Screening</b>
-                    <small>{pt ? 'Monitoramento contínuo OFAC, ONU, UE e PEP ativo em todas as carteiras e contas.' : 'Continuous OFAC, UN, EU and PEP screening active across all wallets and accounts.'}</small>
+                    <small>{pt ? 'Verificações de sanções e PEP podem variar conforme o serviço, o parceiro e a jurisdição.' : 'Sanctions and PEP checks may vary by service, partner, and jurisdiction.'}</small>
                   </div>
                   <span className="st done">{pt ? 'Operacional' : 'Operational'}</span>
                 </div>
-                {txList.filter((x) => x.s === 'rev' || x.ben.includes('Horizon')).map((r) => (
+                {txList.filter((x) => x.s === 'rev').map((r) => (
                   <div key={r.id} className="comp-row">
                     <div>
                       <b>{r.ben} ({r.id})</b>
@@ -600,22 +598,22 @@ export default function DashboardShowcase() {
               <div className="comp-panel">
                 <div className="comp-row">
                   <div>
-                    <b>Production Secret Key</b>
-                    <code className="mono key-code">{showSecret ? 'ax_live_9f8a44c2e10b77d3a90131c4' : 'ax_live_9f8a••••••••••••••••31c4'}</code>
+                    <b>{pt ? 'Credencial fictícia' : 'Fictional credential'}</b>
+                    <code className="mono key-code">{showSecret ? 'EXAMPLE-KEY-DO-NOT-USE' : 'EXAMPLE-••••••••••••'}</code>
                   </div>
                   <div className="ben-right">
                     <button type="button" className="mini-btn" onClick={() => setShowSecret(!showSecret)}>
                       {showSecret ? (pt ? 'Ocultar' : 'Hide') : (pt ? 'Revelar' : 'Reveal')}
                     </button>
-                    <button type="button" className="mini-btn" onClick={() => copyText('ax_live_9f8a44c2e10b77d3a90131c4', 'key')}>
+                    <button type="button" className="mini-btn" onClick={() => copyText('EXAMPLE-KEY-DO-NOT-USE', 'key')}>
                       {copiedToken === 'key' ? copy.copied : (pt ? 'Copiar chave' : 'Copy key')}
                     </button>
                   </div>
                 </div>
                 <div className="comp-row">
                   <div>
-                    <b>Webhook Endpoint · https://api.empresa.com/webhooks/allx</b>
-                    <small className="mono">{webhookPing || 'Eventos: settlement.completed, quote.locked, kyb.verified'}</small>
+                    <b>{pt ? 'Webhook · exemplo conceitual' : 'Webhook · conceptual example'}</b>
+                    <small className="mono">{webhookPing || (pt ? 'Eventos e formatos dependem da integração' : 'Events and formats depend on the integration')}</small>
                   </div>
                   <button type="button" className="mini-btn primary" onClick={triggerWebhookTest}>
                     {pt ? 'Disparar evento de teste' : 'Send test webhook'}

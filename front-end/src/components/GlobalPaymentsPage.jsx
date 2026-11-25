@@ -35,13 +35,13 @@ const ARCS = [
   { from: DX, to: SG },
 ]
 
-// origem, destino, codigos, moeda, prazo indicativo, trilho
+// Exemplos de moedas e trilhos; não representam uma rota disponível ou prazo garantido.
 const ROUTES = [
-  { o: ['São Paulo', 'BR'], d: ['New York', 'US'], ccy: 'BRL → USD', t: 'T+0', rail: 'Pix · ACH' },
-  { o: ['São Paulo', 'BR'], d: ['Frankfurt', 'DE'], ccy: 'BRL → EUR', t: 'T+0/1', rail: 'Pix · SEPA' },
-  { o: ['New York', 'US'], d: ['London', 'UK'], ccy: 'USD → GBP', t: 'T+1', rail: 'ACH · FPS' },
-  { o: ['Frankfurt', 'DE'], d: ['Singapore', 'SG'], ccy: 'EUR → SGD', t: 'T+1', rail: 'SEPA · SWIFT' },
-  { o: ['São Paulo', 'BR'], d: ['Mexico City', 'MX'], ccy: 'USDC → MXN', t: 'T+0', rail: 'USDC · SPEI' },
+  { o: ['Origem elegível', 'Conforme rota'], d: ['Destino elegível', 'Conforme rota'], ccy: 'BRL / USD', t: 'Sob consulta', rail: 'Pix · ACH' },
+  { o: ['Origem elegível', 'Conforme rota'], d: ['Destino elegível', 'Conforme rota'], ccy: 'EUR / USD', t: 'Sob consulta', rail: 'SEPA · SWIFT' },
+  { o: ['Origem elegível', 'Conforme rota'], d: ['Destino elegível', 'Conforme rota'], ccy: 'USD / EUR', t: 'Sob consulta', rail: 'ACH · SWIFT' },
+  { o: ['Origem elegível', 'Conforme rota'], d: ['Destino elegível', 'Conforme rota'], ccy: 'BRL / EUR', t: 'Sob consulta', rail: 'Pix · SEPA' },
+  { o: ['Origem elegível', 'Conforme rota'], d: ['Destino elegível', 'Conforme rota'], ccy: 'USDC / USDT', t: 'Sob consulta', rail: 'Conforme rota' },
 ]
 
 const COPY = {
@@ -67,11 +67,11 @@ const COPY = {
     colTime: 'Prazo',
     colRail: 'Trilho',
     boardLabel: 'Painel de corredores',
-    boardNote: 'Exemplos ilustrativos. Prazos e disponibilidade dependem do corredor, parceiro e jurisdição aplicáveis.',
+    boardNote: 'Exemplos esquemáticos de moedas e trilhos, não de corredores ativos. Prazos e disponibilidade dependem da rota, do parceiro e da jurisdição.',
     corridors: [
       ['Receba', 'Receba pagamentos em moedas tradicionais ou stablecoins.', 'Inbound'],
       ['Cote', 'Consulte taxa, fees e prazo estimado antes de confirmar.', 'Quote'],
-      ['Envie', 'Pague fornecedores e beneficiários usando os trilhos locais de cada mercado.', 'Payout'],
+      ['Envie', 'Pague fornecedores e beneficiários pelos trilhos locais disponíveis para a rota.', 'Payout'],
       ['Liquide', 'A disponibilidade depende do corredor, parceiro e jurisdição aplicáveis.', 'Settlement'],
     ],
     fEyebrow: 'Controle',
@@ -79,7 +79,7 @@ const COPY = {
     feats: [
       ['Uma experiência única', 'Envie e receba pagamentos internacionais sem trocar de plataforma.'],
       ['Quotes e status', 'Acompanhe cotações, status e informações da liquidação ao longo da operação.'],
-      ['Trilhos locais', 'Pague fornecedores e beneficiários usando os trilhos locais de cada mercado.'],
+      ['Trilhos locais', 'Pague fornecedores e beneficiários pelos trilhos locais disponíveis para a rota.'],
     ],
     closeA: 'Sua próxima rota',
     closeB: 'começa aqui.',
@@ -106,11 +106,11 @@ const COPY = {
     colTime: 'Timing',
     colRail: 'Rail',
     boardLabel: 'Corridor board',
-    boardNote: 'Illustrative examples. Timing and availability depend on the applicable corridor, partner and jurisdiction.',
+    boardNote: 'Schematic examples of currencies and rails, not active corridors. Timing and availability depend on the route, partner, and jurisdiction.',
     corridors: [
       ['Receive', 'Receive payments in fiat currencies or stablecoins.', 'Inbound'],
       ['Quote', 'Review rate, fees and estimated timing before confirming.', 'Quote'],
-      ['Send', 'Pay suppliers and beneficiaries through local rails in each market.', 'Payout'],
+      ['Send', 'Pay suppliers and beneficiaries through local rails available for the route.', 'Payout'],
       ['Settle', 'Availability depends on the applicable corridor, partner and jurisdiction.', 'Settlement'],
     ],
     fEyebrow: 'Control',
@@ -118,7 +118,7 @@ const COPY = {
     feats: [
       ['A single experience', 'Send and receive international payments without switching platforms.'],
       ['Quotes and status', 'Follow quotes, status and settlement information throughout the operation.'],
-      ['Local rails', 'Pay suppliers and beneficiaries through local rails in each market.'],
+      ['Local rails', 'Pay suppliers and beneficiaries through local rails available for the route.'],
     ],
     closeA: 'Your next route',
     closeB: 'starts here.',

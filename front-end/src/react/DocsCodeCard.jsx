@@ -1,99 +1,19 @@
 import { useState } from 'react'
 import ClickSpark from './bits/ClickSpark.tsx'
 
-const CREATE_SNIPPETS = {
-  cURL: `curl --request POST \\
-  --url https://api.allx.io/v1/instances/in_000000000000/customers/re_000000000000/wallets \\
-  --header 'Authorization: Bearer YOUR_API_KEY' \\
-  --header 'Content-Type: application/json' \\
-  --header 'Idempotency-Key: 7b3125e9-cfd0-4bf6-b516-724d27163c45' \\
-  --data '{
-    "network": "base",
-    "name": "Corporate Liquidity Balance",
-    "supported_assets": ["USDC", "BRL_PIX"],
-    "settlement_rail": "instant_t0"
-  }'`,
-  'Node.js': `import { AllXClient } from '@allx/sdk';
+const ILLUSTRATIVE_SNIPPET =
+  '// Exemplo conceitual. Endpoints, autenticação e parâmetros devem ser confirmados com a ALL X.'
 
-const allx = new AllXClient({ apiKey: process.env.ALLX_API_KEY });
-
-const wallet = await allx.wallets.create(
-  'in_000000000000',
-  're_000000000000',
-  {
-    network: 'base',
-    name: 'Corporate Liquidity Balance',
-    supported_assets: ['USDC', 'BRL_PIX'],
-    settlement_rail: 'instant_t0',
-  },
-  { idempotencyKey: '7b3125e9-cfd0-4bf6-b516-724d27163c45' }
-);`,
-  Python: `from allx import AllXClient
-
-client = AllXClient(api_key="YOUR_API_KEY")
-
-wallet = client.wallets.create(
-    instance_id="in_000000000000",
-    customer_id="re_000000000000",
-    network="base",
-    name="Corporate Liquidity Balance",
-    supported_assets=["USDC", "BRL_PIX"],
-    settlement_rail="instant_t0",
-    idempotency_key="7b3125e9-cfd0-4bf6-b516-724d27163c45",
-)`,
-  Go: `package main
-
-import (
-  "context"
-  "github.com/allx-global/allx-go"
-)
-
-func createWallet(client *allx.Client) (*allx.Wallet, error) {
-  return client.Wallets.Create(context.Background(), &allx.CreateWalletParams{
-    InstanceID:      "in_000000000000",
-    CustomerID:      "re_000000000000",
-    Network:         "base",
-    Name:            "Corporate Liquidity Balance",
-    SupportedAssets: []string{"USDC", "BRL_PIX"},
-    SettlementRail:  "instant_t0",
-  })
-}`,
-}
-
-const CREATE_RESPONSE = `{
-  "id": "wl_allx_99042",
-  "network": "base",
-  "address": "0x1234567890abcdef1234567890abcdef12345678",
-  "name": "Corporate Liquidity Balance",
-  "status": "active",
-  "supported_assets": ["USDC", "BRL_PIX"],
-  "created_at": "2026-03-30T14:22:00.000Z"
+const ILLUSTRATIVE_RESPONSE = `{
+  "example": "illustrative only",
+  "technical_scope": "to be confirmed"
 }`
 
-const BALANCE_REQ = `curl --request GET \\
-  --url https://api.allx.io/v1/wallets/wl_allx_99042/balances \\
-  --header 'Authorization: Bearer YOUR_API_KEY'`
+const BALANCE_REQ = '// Exemplo conceitual. Não representa uma chamada real.'
 
 const BALANCE_RESPONSE = `{
-  "wallet_id": "wl_allx_99042",
-  "balances": {
-    "USDC": {
-      "amount": 254000.50,
-      "available_amount": 4000.50,
-      "reserved_amount": 250000.00,
-      "currency": "USD",
-      "settlement_status": "settled_t0"
-    },
-    "BRL": {
-      "amount": 1289450.00,
-      "rail": "pix_instant",
-      "status": "settled_t0"
-    },
-    "EUR": {
-      "amount": 85400.00,
-      "rail": "sepa_instant"
-    }
-  }
+  "example": "illustrative only",
+  "response_schema": "to be confirmed"
 }`
 
 const CopyIcon = () => (
@@ -113,7 +33,7 @@ export default function DocsCodeCard({
   reqLabel = 'cURL GET /v1/wallets/:id/balances',
   respSub = 'Multicurrency Payload',
 }) {
-  const [tab, setTab] = useState('cURL')
+  const [tab, setTab] = useState('Example')
   const [copiedReq, setCopiedReq] = useState(false)
   const [copiedRes, setCopiedRes] = useState(false)
 
@@ -124,11 +44,15 @@ export default function DocsCodeCard({
   const customResp = snippets?.responseJson?.trim() || ''
 
   const mergedSnippets = {
-    cURL: customCurl || CREATE_SNIPPETS.cURL,
-    'Node.js': customNode || CREATE_SNIPPETS['Node.js'],
-    Python: customPython || CREATE_SNIPPETS.Python,
-    Go: customGo || CREATE_SNIPPETS.Go,
+    ...(customCurl ? { cURL: customCurl } : {}),
+    ...(customNode ? { 'Node.js': customNode } : {}),
+    ...(customPython ? { Python: customPython } : {}),
+    ...(customGo ? { Go: customGo } : {}),
+    ...(!customCurl && !customNode && !customPython && !customGo
+      ? { Example: ILLUSTRATIVE_SNIPPET }
+      : {}),
   }
+  const activeTab = mergedSnippets[tab] ? tab : Object.keys(mergedSnippets)[0]
 
   const copyText = (text, setter) => {
     navigator.clipboard?.writeText(text)
@@ -156,18 +80,7 @@ export default function DocsCodeCard({
               </button>
             </div>
             <pre className="docs-code-pre mono">
-              {customCurl ? (
-                <code className="tk-tx">{customCurl}</code>
-              ) : (
-                <code>
-                  <span className="tk-em">curl</span> <span className="tk-sl">--request GET \</span>{'\n'}
-                  <span className="tk-sl">{'  '}--url https://api.allx.io/v1/wallets/</span>
-                  <span className="tk-cp">wl_allx_99042</span>
-                  <span className="tk-sl">/balances \</span>{'\n'}
-                  <span className="tk-sl">{'  '}--header </span>
-                  <span className="tk-am">'Authorization: Bearer YOUR_API_KEY'</span>
-                </code>
-              )}
+              <code className="tk-tx">{balanceReqText}</code>
             </pre>
           </div>
 
@@ -187,33 +100,7 @@ export default function DocsCodeCard({
               </div>
             </div>
             <pre className="docs-code-pre mono">
-              {customResp ? (
-                <code className="tk-tx">{customResp}</code>
-              ) : (
-                <code>
-                  {'{\n'}
-                  {'  '}<span className="tk-cp">"wallet_id"</span>: <span className="tk-em">"wl_allx_99042"</span>,{'\n'}
-                  {'  '}<span className="tk-cp">"balances"</span>: {'{\n'}
-                  {'    '}<span className="tk-cp">"USDC"</span>: {'{\n'}
-                  {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">254000.50</span>,{'\n'}
-                  {'      '}<span className="tk-cp">"available_amount"</span>: <span className="tk-sk">4000.50</span>,{'\n'}
-                  {'      '}<span className="tk-cp">"reserved_amount"</span>: <span className="tk-sk">250000.00</span>,{'\n'}
-                  {'      '}<span className="tk-cp">"currency"</span>: <span className="tk-em">"USD"</span>,{'\n'}
-                  {'      '}<span className="tk-cp">"settlement_status"</span>: <span className="tk-em">"settled_t0"</span>{'\n'}
-                  {'    },\n'}
-                  {'    '}<span className="tk-cp">"BRL"</span>: {'{\n'}
-                  {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">1289450.00</span>,{'\n'}
-                  {'      '}<span className="tk-cp">"rail"</span>: <span className="tk-em">"pix_instant"</span>,{'\n'}
-                  {'      '}<span className="tk-cp">"status"</span>: <span className="tk-em">"settled_t0"</span>{'\n'}
-                  {'    },\n'}
-                  {'    '}<span className="tk-cp">"EUR"</span>: {'{\n'}
-                  {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">85400.00</span>,{'\n'}
-                  {'      '}<span className="tk-cp">"rail"</span>: <span className="tk-em">"sepa_instant"</span>{'\n'}
-                  {'    }\n'}
-                  {'  }\n'}
-                  {'}'}
-                </code>
-              )}
+              <code className="tk-tx">{balanceRespText}</code>
             </pre>
           </div>
         </div>
@@ -233,8 +120,8 @@ export default function DocsCodeCard({
                   key={langKey}
                   type="button"
                   role="tab"
-                  aria-selected={tab === langKey}
-                  className={`docs-tab mono ${tab === langKey ? 'is-active' : ''}`}
+                  aria-selected={activeTab === langKey}
+                  className={`docs-tab mono ${activeTab === langKey ? 'is-active' : ''}`}
                   onClick={() => setTab(langKey)}
                 >
                   {langKey}
@@ -244,36 +131,14 @@ export default function DocsCodeCard({
             <button
               type="button"
               className="docs-copy-btn mono"
-              onClick={() => copyText(mergedSnippets[tab], setCopiedReq)}
+              onClick={() => copyText(mergedSnippets[activeTab], setCopiedReq)}
             >
               <CopyIcon />
               <span>{copiedReq ? copiedLabel : copyLabel}</span>
             </button>
           </div>
           <pre className="docs-code-pre mono">
-            {tab === 'cURL' && !customCurl ? (
-              <code>
-                <span className="tk-em">curl</span> <span className="tk-sl">--request POST \</span>{'\n'}
-                <span className="tk-sl">{'  '}--url https://api.allx.io/v1/instances/</span>
-                <span className="tk-cp">in_000000000000</span>
-                <span className="tk-sl">/customers/</span>
-                <span className="tk-cp">re_000000000000</span>
-                <span className="tk-sl">/wallets \</span>{'\n'}
-                <span className="tk-sl">{'  '}--header </span>
-                <span className="tk-am">'Authorization: Bearer YOUR_API_KEY'</span>
-                <span className="tk-sl"> \</span>{'\n'}
-                <span className="tk-sl">{'  '}--header </span>
-                <span className="tk-am">'Content-Type: application/json'</span>
-                <span className="tk-sl"> \</span>{'\n'}
-                <span className="tk-sl">{'  '}--header </span>
-                <span className="tk-am">'Idempotency-Key: 7b3125e9-cfd0-4bf6-b516-724d27163c45'</span>
-                <span className="tk-sl"> \</span>{'\n'}
-                <span className="tk-sl">{'  '}--data </span>
-                <span className="tk-tx">{`'{\n    "network": "base",\n    "name": "Corporate Liquidity Balance",\n    "supported_assets": ["USDC", "BRL_PIX"],\n    "settlement_rail": "instant_t0"\n  }'`}</span>
-              </code>
-            ) : (
-              <code className="tk-tx">{mergedSnippets[tab]}</code>
-            )}
+            <code className="tk-tx">{mergedSnippets[activeTab]}</code>
           </pre>
         </div>
 
@@ -287,27 +152,13 @@ export default function DocsCodeCard({
             <button
               type="button"
               className="docs-copy-link mono"
-              onClick={() => copyText(customResp || CREATE_RESPONSE, setCopiedRes)}
+              onClick={() => copyText(customResp || ILLUSTRATIVE_RESPONSE, setCopiedRes)}
             >
               {copiedRes ? copiedLabel : copyJsonLabel}
             </button>
           </div>
           <pre className="docs-code-pre mono">
-            {customResp ? (
-              <code className="tk-tx">{customResp}</code>
-            ) : (
-              <code>
-                {'{\n'}
-                {'  '}<span className="tk-cp">"id"</span>: <span className="tk-em">"wl_allx_99042"</span>,{'\n'}
-                {'  '}<span className="tk-cp">"network"</span>: <span className="tk-em">"base"</span>,{'\n'}
-                {'  '}<span className="tk-cp">"address"</span>: <span className="tk-em">"0x1234567890abcdef1234567890abcdef12345678"</span>,{'\n'}
-                {'  '}<span className="tk-cp">"name"</span>: <span className="tk-em">"Corporate Liquidity Balance"</span>,{'\n'}
-                {'  '}<span className="tk-cp">"status"</span>: <span className="tk-em">"active"</span>,{'\n'}
-                {'  '}<span className="tk-cp">"supported_assets"</span>: [<span className="tk-em">"USDC"</span>, <span className="tk-em">"BRL_PIX"</span>],{'\n'}
-                {'  '}<span className="tk-cp">"created_at"</span>: <span className="tk-em">"2026-03-30T14:22:00.000Z"</span>{'\n'}
-                {'}'}
-              </code>
-            )}
+            <code className="tk-tx">{customResp || ILLUSTRATIVE_RESPONSE}</code>
           </pre>
         </div>
       </div>

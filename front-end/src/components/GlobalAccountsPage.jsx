@@ -11,54 +11,54 @@ const COPY = {
     badge: 'Contas corporativas multimoeda',
     l1: 'Contas globais para empresas',
     l2: 'que operam além da fronteira.',
-    sub: 'Receba pagamentos internacionais como uma operação local e organize saldos em USD, EUR, BRL e stablecoins em um único lugar.',
-    cta1: 'Abrir conta corporativa',
+    sub: 'Consulte a disponibilidade de contas em USD e EUR e organize saldos em stablecoins em uma única visão. Rotas e serviços dependem de elegibilidade e parceiros.',
+    cta1: 'Consultar disponibilidade',
     cta2: 'Ver saldos',
-    panel: 'ALL X · Tesouraria',
-    live: 'Saldos e movimentações',
+    panel: 'ALL X · Exemplo',
+    live: 'Demonstração de interface com dados ilustrativos',
     balance: 'Saldo disponível',
     accounts: [
       { cur: 'USD', name: 'Conta corporativa em USD', bal: 'USD · saldo operacional', rail: 'Redes locais conforme disponibilidade', coord: 'Conta nomeada',
-        rows: [['Entrada', 'Recebimento internacional', 'Collection', 'Recebido'], ['Saída', 'Pagamento a fornecedor', 'Payable', 'Pago'], ['Conversão', 'Conversão de moeda', 'FX', 'Processado']] },
+        rows: [['Entrada', 'Recebimento internacional', 'Recebimento', 'Exemplo'], ['Saída', 'Pagamento a fornecedor', 'Pagamento', 'Exemplo'], ['Conversão', 'Conversão de moeda', 'Conversão', 'Exemplo']] },
       { cur: 'EUR', name: 'Conta corporativa em EUR', bal: 'EUR · saldo operacional', rail: 'Redes locais conforme disponibilidade', coord: 'Conta nomeada',
-        rows: [['Entrada', 'Recebimento internacional', 'Collection', 'Recebido'], ['Saída', 'Pagamento a fornecedor', 'Payable', 'Pago'], ['Conversão', 'Conversão de moeda', 'FX', 'Processado']] },
+        rows: [['Entrada', 'Recebimento internacional', 'Recebimento', 'Exemplo'], ['Saída', 'Pagamento a fornecedor', 'Pagamento', 'Exemplo'], ['Conversão', 'Conversão de moeda', 'Conversão', 'Exemplo']] },
       { cur: 'USDC', name: 'Carteira gerenciada', bal: 'USDC / USDT · saldo operacional', rail: 'Stablecoins e trilhos locais', coord: 'Carteira gerenciada',
-        rows: [['Entrada', 'Recebimento em stablecoin', 'Collection', 'Recebido'], ['Saída', 'Pagamento a beneficiário', 'Payout', 'Pago'], ['Conversão', 'Liquidação em moeda local', 'Settlement', 'Processado']] },
+        rows: [['Entrada', 'Recebimento em stablecoin', 'Recebimento', 'Exemplo'], ['Saída', 'Pagamento a beneficiário', 'Pagamento', 'Exemplo'], ['Conversão', 'Liquidação em moeda local', 'Conversão', 'Exemplo']] },
     ],
-    cols: ['Data', 'Descrição', 'Tag ERP', 'Valor'],
+    cols: ['Etapa', 'Descrição', 'Tipo', 'Status'],
     bEyebrow: 'Estrutura',
-    bTitle: 'Uma conta no lugar de uma colcha de retalhos bancária.',
+    bTitle: 'Uma visão para organizar contas e saldos globais.',
     feats: [
-      ['Saldos em múltiplas moedas', 'Organize saldos e movimentações em diferentes moedas e stablecoins em uma única experiência.'],
-      ['Contas para operações globais', 'Receba pagamentos internacionais e acompanhe os fluxos da sua empresa em um só lugar.'],
-      ['Conciliação e integração', 'Use informações padronizadas, webhooks e referências operacionais para apoiar a reconciliação.'],
+      ['Saldos em múltiplas moedas', 'Consulte saldos em moedas e stablecoins dentro do escopo disponível para a sua operação.'],
+      ['Contas para operações globais', 'Contas em USD e EUR sujeitas à elegibilidade, jurisdição e disponibilidade dos parceiros.'],
+      ['Conciliação e integração', 'Webhooks e informações de liquidação podem apoiar a conciliação, conforme a integração acordada.'],
     ],
   },
   en: {
     badge: 'Multi-currency corporate accounts',
     l1: 'Global accounts for companies',
     l2: 'operating beyond borders.',
-    sub: 'Collect international payments like a local entity and keep USD, EUR, BRL and stablecoin balances in one place.',
-    cta1: 'Open corporate account',
+    sub: 'Check the availability of USD and EUR accounts and organize stablecoin balances in one view. Routes and services depend on eligibility and partners.',
+    cta1: 'Check availability',
     cta2: 'View balances',
-    panel: 'ALL X · Treasury',
-    live: 'Balances and movements',
+    panel: 'ALL X · Example',
+    live: 'Illustrative interface demonstration',
     balance: 'Available balance',
     accounts: [
       { cur: 'USD', name: 'Corporate USD account', bal: 'USD · operating balance', rail: 'Local rails as available', coord: 'Named account',
-        rows: [['Inbound', 'International collection', 'Collection', 'Received'], ['Outbound', 'Supplier payment', 'Payable', 'Paid'], ['Conversion', 'Currency conversion', 'FX', 'Processed']] },
+        rows: [['Inbound', 'International collection', 'Collection', 'Example'], ['Outbound', 'Supplier payment', 'Payment', 'Example'], ['Conversion', 'Currency conversion', 'Conversion', 'Example']] },
       { cur: 'EUR', name: 'Corporate EUR account', bal: 'EUR · operating balance', rail: 'Local rails as available', coord: 'Named account',
-        rows: [['Inbound', 'International collection', 'Collection', 'Received'], ['Outbound', 'Supplier payment', 'Payable', 'Paid'], ['Conversion', 'Currency conversion', 'FX', 'Processed']] },
+        rows: [['Inbound', 'International collection', 'Collection', 'Example'], ['Outbound', 'Supplier payment', 'Payment', 'Example'], ['Conversion', 'Currency conversion', 'Conversion', 'Example']] },
       { cur: 'USDC', name: 'Managed wallet', bal: 'USDC / USDT · operating balance', rail: 'Stablecoins and local rails', coord: 'Managed wallet',
-        rows: [['Inbound', 'Stablecoin collection', 'Collection', 'Received'], ['Outbound', 'Beneficiary payment', 'Payout', 'Paid'], ['Conversion', 'Local currency settlement', 'Settlement', 'Processed']] },
+        rows: [['Inbound', 'Stablecoin collection', 'Collection', 'Example'], ['Outbound', 'Beneficiary payment', 'Payment', 'Example'], ['Conversion', 'Local currency settlement', 'Conversion', 'Example']] },
     ],
-    cols: ['Date', 'Description', 'ERP tag', 'Amount'],
+    cols: ['Step', 'Description', 'Type', 'Status'],
     bEyebrow: 'Structure',
-    bTitle: 'One account instead of a multi-bank patchwork.',
+    bTitle: 'One view to organize global accounts and balances.',
     feats: [
-      ['Multi-currency balances', 'Organize balances and movements across currencies and stablecoins in one experience.'],
-      ['Accounts for global operations', 'Receive international payments and follow your company’s flows in one place.'],
-      ['Reconciliation and integration', 'Use standardized information, webhooks, and operational references to support reconciliation.'],
+      ['Multi-currency balances', 'View balances across currencies and stablecoins within the scope available to your operation.'],
+      ['Accounts for global operations', 'USD and EUR accounts are subject to eligibility, jurisdiction, and partner availability.'],
+      ['Reconciliation and integration', 'Webhooks and settlement information may support reconciliation, depending on the agreed integration.'],
     ],
   },
 }
@@ -73,10 +73,10 @@ const EXTRA = {
     rails: 'Trilhos',
     h: ['Data', 'Descrição', 'Tag ERP', 'Status'],
     stepsEyebrow: 'Selecione a moeda',
-    stepsTitle: 'Uma conta por moeda, a mesma operação.',
+    stepsTitle: 'Contas e saldos, conforme disponibilidade.',
     zzEyebrow: 'Estrutura',
-    closeT: 'Abra sua conta global.',
-    closeP: 'Cartões e contas em USD, EUR, BRL e USDC, ativos em uma única operação.',
+    closeT: 'Consulte a disponibilidade de contas.',
+    closeP: 'Converse com a equipe sobre contas em USD e EUR e saldos em stablecoins para a sua operação.',
     cardLabel: 'ALL X · conta',
     cards: 'Cartões e contas em cascata',
   },
@@ -87,10 +87,10 @@ const EXTRA = {
     rails: 'Rails',
     h: ['Date', 'Description', 'ERP tag', 'Status'],
     stepsEyebrow: 'Select currency',
-    stepsTitle: 'One account per currency, the same operation.',
+    stepsTitle: 'Accounts and balances, subject to availability.',
     zzEyebrow: 'Structure',
-    closeT: 'Open your global account.',
-    closeP: 'Cards and accounts in USD, EUR, BRL and USDC, live in a single operation.',
+    closeT: 'Check account availability.',
+    closeP: 'Talk to the team about USD and EUR accounts and stablecoin balances for your operation.',
     cardLabel: 'ALL X · account',
     cards: 'Cascading cards and accounts',
   },
@@ -160,17 +160,13 @@ function Viz({ k }) {
   )
 }
 
-function BankCard({ cur, label, name, hot, style, cls = 'ga-card' }) {
+function BankCard({ cur, label, name, hot, style }) {
   return (
-    <div className={cls + (hot ? ' hot' : '')} style={style}>
+    <div className={'ga-card' + (hot ? ' hot' : '')} style={style}>
       <div className="ga-card-top"><span>{label}</span><b>{cur}</b></div>
-      {cls === 'ga-card' ? (
-        <>
-          <div className="ga-chipic" />
-          <div className="ga-card-num">•••• •••• •••• 4471</div>
-          <div className="ga-card-bot"><span>{name}</span><span>12/29</span></div>
-        </>
-      ) : <span>{name}</span>}
+      <div className="ga-chipic" />
+      <div className="ga-card-num">•••• •••• •••• 4471</div>
+      <div className="ga-card-bot"><span>{name}</span><span>12/29</span></div>
     </div>
   )
 }
@@ -197,13 +193,13 @@ export default function GlobalAccountsPage() {
   }, [])
 
   const onMove = (e) => {
-    const el = heroRef.current
+    const el = closeRef.current
     if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const r = el.getBoundingClientRect()
     el.style.setProperty('--mx', (((e.clientX - r.left) / r.width - 0.5) * 2).toFixed(3))
     el.style.setProperty('--my', (((e.clientY - r.top) / r.height - 0.5) * 2).toFixed(3))
   }
-  const onLeave = () => { const el = heroRef.current; if (el) { el.style.setProperty('--mx', 0); el.style.setProperty('--my', 0) } }
+  const onLeave = () => { const el = closeRef.current; if (el) { el.style.setProperty('--mx', 0); el.style.setProperty('--my', 0) } }
 
   const onTabKey = (e) => {
     const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0
@@ -216,10 +212,10 @@ export default function GlobalAccountsPage() {
 
   return (
     <div data-c="GlobalAccountsPage" className="ga">
-      <section className="ga-hero" ref={heroRef} onMouseMove={onMove} onMouseLeave={onLeave}>
+      <section className="ga-hero" ref={heroRef}>
         <div ref={parallax(0.18)} className="ga-hero-glow" aria-hidden="true" />
         <div className="container ga-hero-in">
-          <div className="ga-globe-wrap" ref={parallax(-0.06)}>
+          <div className="ga-globe-wrap">
             <CobeGlobe markers={MARKERS} arcs={ARCS} maxWidth={560} theta={0.25} phi={0.9} speed={0.0025} />
             {CURS.map((k, n) => <span key={k} className={'ga-chip c' + (n + 1)} aria-hidden="true">{k}</span>)}
           </div>
@@ -230,15 +226,6 @@ export default function GlobalAccountsPage() {
             <div className="ga-ctas">
               <a href="#contato" className="btn btn-primary">{c.cta1}</a>
               <a href="#saldos" className="btn btn-ghost">{c.cta2}</a>
-            </div>
-          </div>
-          <div className="ga-fan" role="img" aria-label={x.cards}>
-            <div className="ga-fan-in">
-              {CURS.map((k, n) => {
-                const [fx, fy, fz, fr, fd] = FAN[n]
-                return <BankCard key={k} cur={k} label={x.cardLabel} name={x.sub[k]} hot={n === 2}
-                  style={{ '--x': fx, '--y': fy, '--z': fz, '--r': fr, '--d': fd, zIndex: n + 1 }} />
-              })}
             </div>
           </div>
         </div>
@@ -303,17 +290,29 @@ export default function GlobalAccountsPage() {
         </div>
       </section>
 
-      <section ref={closeRef} className={'ga-close' + (closeIn ? ' in' : '')}>
+      <section ref={closeRef} className={'ga-close' + (closeIn ? ' in' : '')} onMouseMove={onMove} onMouseLeave={onLeave}>
         <div className="container ga-close-in">
           <div className="reveal">
             <h2>{x.closeT}</h2>
             <p>{x.closeP}</p>
             <a href="#contato" className="btn btn-primary">{c.cta1}</a>
           </div>
-          <div className="ga-cascade" role="img" aria-label={x.cards}>
-            {CURS.map((k, n) => (
-              <BankCard key={k} cls="ga-cas" cur={k} label={x.cardLabel} name={x.sub[k]} hot={n === 0} style={{ '--i': n }} />
-            ))}
+          <div className="ga-fan" role="img" aria-label={x.cards}>
+            <div className="ga-fan-in">
+              {CURS.map((k, n) => {
+                const [fx, fy, fz, fr, fd] = FAN[n]
+                return (
+                  <BankCard
+                    key={k}
+                    cur={k}
+                    label={x.cardLabel}
+                    name={x.sub[k]}
+                    hot={n === 2}
+                    style={{ '--x': fx, '--y': fy, '--z': fz, '--r': fr, '--d': fd, zIndex: n + 1 }}
+                  />
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>

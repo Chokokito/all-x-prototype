@@ -4,133 +4,120 @@ import { useEffect, useRef, useState } from 'react'
 import { useI18n, navigateTo } from '../i18n'
 import ApiTerminal from '../react/ApiTerminal.jsx'
 import CobeGlobe from '../react/CobeGlobe.jsx'
-import CountUp from '../react/bits/CountUp'
 import { parallax } from '../parallax'
 import './pages/developers.css'
 
 const COPY = {
   pt: {
-    badge: 'API & infraestrutura white-label',
+    badge: 'API e integração',
     l1: 'Leve contas e pagamentos',
     l2: 'globais para o seu produto.',
-    sub: 'APIs RESTful previsíveis, webhooks assinados e carteiras gerenciadas para construir fluxos de recebimento, conversão e liquidação internacional com poucas linhas de código.',
-    cta1: 'Ler documentação da API',
-    cta2: 'Solicitar chaves de Sandbox',
-    terminalLabel: 'ALL X · API Sandbox',
-    terminalStatus: 'Ambiente ativo',
+    sub: 'Conheça as possibilidades de integrar contas e pagamentos internacionais ao seu produto. O escopo técnico e a disponibilidade devem ser validados com a equipe.',
+    cta1: 'Ver informações de integração',
+    cta2: 'Conversar sobre integração',
+    terminalLabel: 'ALL X · Exemplo de integração',
+    terminalStatus: 'Exemplo conceitual',
+    terminalDisclaimer: 'Não é uma especificação de API',
     primitivesEyebrow: 'API primitives',
     primitivesTitle: 'Infraestrutura financeira pronta para integrar.',
-    primitivesText: 'Contas, cotações, pagamentos e eventos em uma única camada operacional para sua equipe de produto.',
+    primitivesText: 'Contas, cotações, pagamentos e webhooks podem fazer parte do escopo de integração, conforme validação.',
     primitives: [
-      ['Managed Wallets & Accounts', 'Provisione contas e carteiras segregadas para clientes ou centros de custo em BRL, USD, EUR, USDC e USDT.'],
-      ['Quotes & FX Engine', 'Consulte cotações em tempo real e trave a taxa para conversões entre moedas fiat e stablecoins.'],
-      ['Payouts & Rails', 'Dispare pagamentos via Pix, ACH, Fedwire, SEPA, SWIFT ou redes blockchain com Idempotency-Key.'],
-      ['Webhooks & Reconciliação', 'Receba eventos assinados por HMAC-SHA256 para cada mudança de estado da transação.'],
+      ['Accounts & balances', 'Avalie contas em USD e EUR e saldos em stablecoins, sujeitos à elegibilidade e disponibilidade.'],
+      ['Quotes & conversion', 'Consulte condições de conversão aplicáveis antes de confirmar uma operação.'],
+      ['Payments & rails', 'Pix, ACH, SEPA e SWIFT podem estar disponíveis conforme rota, parceiro e jurisdição.'],
+      ['Webhooks & reconciliation', 'Webhooks e informações de liquidação podem apoiar a integração, conforme o escopo acordado.'],
     ],
     engineeringEyebrow: 'Built for engineering',
     engineeringTitle: 'Menos infraestrutura para manter. Mais produto para construir.',
-    engineeringText: 'Uma fundação previsível para equipes que precisam operar pagamentos sem abrir mão de controle, observabilidade e segurança.',
+    engineeringText: 'Endpoints, autenticação, eventos, prazos e disponibilidade precisam ser confirmados para cada integração.',
     feats: [
-      ['Idempotência nativa', 'Proteção contra ordens duplicadas em retentativas de rede.'],
-      ['Metadados de ERP', 'Anexe invoice_id, centro de custo e IDs internos às transações.'],
-      ['Sandbox completo', 'Simule KYB, depósitos, FX e liquidações antes da produção.'],
-      ['SDKs e referência interativa', 'Exemplos claros para acelerar a primeira integração.'],
+      ['Escopo da API', 'Confirme endpoints, autenticação e requisitos com a equipe.'],
+      ['Disponibilidade por rota', 'Moedas e trilhos dependem de parceiro e jurisdição.'],
+      ['Eventos e webhooks', 'Formatos e eventos disponíveis devem ser validados.'],
+      ['Apoio à integração', 'Converse com a equipe sobre os requisitos técnicos aplicáveis.'],
     ],
     copy: 'Copiar',
     copied: 'Copiado ✓',
-    flowLabel: 'Fluxo de integração',
+    flowLabel: 'Exemplos conceituais',
     stepWord: 'Passo',
     panelLabel: 'Exemplo de código do passo ativo',
     stepsNav: 'Passos da integração',
-    metricsLabel: 'Indicadores da plataforma',
-    metrics: ['latência p95 (ms)', 'uptime (%)', 'rails conectados', 'endpoints'],
-    quickEyebrow: 'Quickstart',
-    quickTitle: 'Da chave ao primeiro payout em minutos.',
-    quickText: 'Rode no terminal, use sua chave de Sandbox e acompanhe os eventos chegarem.',
-    endpointsLabel: 'Endpoints disponíveis',
+    metricsLabel: 'Informações a confirmar',
+    metrics: [
+      { value: 'A validar', label: 'Escopo da API' },
+      { value: 'Por rota', label: 'Trilhos disponíveis' },
+      { value: 'A confirmar', label: 'Prazos e condições' },
+      { value: 'Sob consulta', label: 'Acesso técnico' },
+    ],
+    quickEyebrow: 'Próximo passo',
+    quickTitle: 'Valide o escopo técnico antes de integrar.',
+    quickText: 'Converse com a equipe para confirmar acesso, requisitos e disponibilidade para o seu caso.',
+    endpointsLabel: 'Tópicos de integração',
   },
   en: {
-    badge: 'API & white-label infrastructure',
+    badge: 'API and integration',
     l1: 'Embed global accounts',
     l2: 'and payments into your product.',
-    sub: 'Predictable RESTful APIs, signed webhooks, and managed wallets to build collection, conversion, and cross-border settlement flows with minimal code.',
-    cta1: 'Read API documentation',
-    cta2: 'Request Sandbox keys',
-    terminalLabel: 'ALL X · API Sandbox',
-    terminalStatus: 'Environment active',
+    sub: 'Explore ways to integrate international accounts and payments into your product. Technical scope and availability must be confirmed with the team.',
+    cta1: 'View integration information',
+    cta2: 'Discuss an integration',
+    terminalLabel: 'ALL X · Integration example',
+    terminalStatus: 'Conceptual example',
+    terminalDisclaimer: 'Not an API specification',
     primitivesEyebrow: 'API primitives',
     primitivesTitle: 'Financial infrastructure ready to integrate.',
-    primitivesText: 'Accounts, quotes, payments, and events in one operating layer for your product team.',
+    primitivesText: 'Accounts, quotes, payments, and webhooks may be part of an integration scope, subject to validation.',
     primitives: [
-      ['Managed Wallets & Accounts', 'Provision segregated accounts and wallets for customers or cost centers in BRL, USD, EUR, USDC, and USDT.'],
-      ['Quotes & FX Engine', 'Query real-time quotes and lock rates for conversions between fiat currencies and stablecoins.'],
-      ['Payouts & Rails', 'Trigger payments through Pix, ACH, Fedwire, SEPA, SWIFT, or blockchain rails with Idempotency-Key.'],
-      ['Webhooks & Reconciliation', 'Receive HMAC-SHA256-signed events for every transaction state change.'],
+      ['Accounts & balances', 'Review USD and EUR accounts and stablecoin balances, subject to eligibility and availability.'],
+      ['Quotes & conversion', 'Review applicable conversion conditions before confirming an operation.'],
+      ['Payments & rails', 'Pix, ACH, SEPA, and SWIFT may be available depending on route, partner, and jurisdiction.'],
+      ['Webhooks & reconciliation', 'Webhooks and settlement information may support integration, depending on the agreed scope.'],
     ],
     engineeringEyebrow: 'Built for engineering',
     engineeringTitle: 'Less infrastructure to maintain. More product to build.',
-    engineeringText: 'A predictable foundation for teams that need to operate payments without giving up control, observability, or security.',
+    engineeringText: 'Endpoints, authentication, events, timing, and availability must be confirmed for each integration.',
     feats: [
-      ['Native idempotency', 'Protection against duplicate orders during network retries.'],
-      ['ERP metadata', 'Attach invoice_id, cost center, and internal IDs to transactions.'],
-      ['Complete Sandbox', 'Simulate KYB, deposits, FX, and settlements before production.'],
-      ['SDKs and interactive reference', 'Clear examples to accelerate the first integration.'],
+      ['API scope', 'Confirm endpoints, authentication, and requirements with the team.'],
+      ['Route availability', 'Currencies and rails depend on partner and jurisdiction.'],
+      ['Events and webhooks', 'Available formats and events must be validated.'],
+      ['Integration support', 'Discuss applicable technical requirements with the team.'],
     ],
     copy: 'Copy',
     copied: 'Copied ✓',
-    flowLabel: 'Integration flow',
+    flowLabel: 'Conceptual examples',
     stepWord: 'Step',
     panelLabel: 'Code sample for the active step',
     stepsNav: 'Integration steps',
-    metricsLabel: 'Platform indicators',
-    metrics: ['p95 latency (ms)', 'uptime (%)', 'connected rails', 'endpoints'],
-    quickEyebrow: 'Quickstart',
-    quickTitle: 'From key to first payout in minutes.',
-    quickText: 'Run it in your terminal, use your Sandbox key, and watch events arrive.',
-    endpointsLabel: 'Available endpoints',
+    metricsLabel: 'Details to confirm',
+    metrics: [
+      { value: 'To validate', label: 'API scope' },
+      { value: 'By route', label: 'Available rails' },
+      { value: 'To confirm', label: 'Timing and conditions' },
+      { value: 'On request', label: 'Technical access' },
+    ],
+    quickEyebrow: 'Next step',
+    quickTitle: 'Validate the technical scope before integration.',
+    quickText: 'Talk to the team to confirm access, requirements, and availability for your use case.',
+    endpointsLabel: 'Integration topics',
   },
 }
 
 const STEP_TAGS = ['Auth', 'Quote', 'Payout', 'Webhook']
 
 const SNIPPETS = [
-  `curl https://api.allx.com/v1/auth/token \\
-  -u $ALLX_KEY:$ALLX_SECRET \\
-  -d scope="wallets quotes payouts"
-
-// 200 OK
-{ "access_token": "ax_live_8f2c…",
-  "expires_in": 3600 }`,
-  `POST /v1/quotes
-{
-  "from": "BRL", "to": "USDC",
-  "amount": 500000.00,
-  "lock_seconds": 30
-}
-
-// 200 OK
-{ "quote_id": "qt_41ab", "rate": 0.1832 }`,
-  `POST /v1/payouts
-Idempotency-Key: 7c1e-44ab-9d20
-{
-  "quote_id": "qt_41ab",
-  "rail": "SOLANA",
-  "metadata": { "invoice_id": "INV-2041" }
-}
-
-// 202 ACCEPTED  status: PENDING`,
-  `POST https://you.app/hooks/allx
-X-AllX-Signature: sha256=3b9f…
-
-{ "event": "payout.settled",
-  "id": "po_9d20",
-  "status": "SETTLED_T0" }`,
+  `// Exemplo conceitual — não é uma especificação de API.
+// Confirme autenticação e acesso com a equipe ALL X.`,
+  `// Cotações
+// Condições e moedas disponíveis dependem da rota.`,
+  `// Pagamentos
+// Trilhos, dados necessários e prazos devem ser confirmados.`,
+  `// Webhooks
+// Eventos e formatos disponíveis dependem da integração.`,
 ]
 
 const ENDPOINTS = [
-  'GET /v1/accounts', 'POST /v1/quotes', 'POST /v1/payouts', 'GET /v1/payouts/{id}',
-  'POST /v1/wallets', 'GET /v1/balances', 'POST /v1/webhooks', 'GET /v1/rates',
-  'POST /v1/kyb/sandbox', 'GET /v1/events',
+  'DOC API scope', 'DOC Accounts', 'DOC Quotes', 'DOC Payments',
+  'DOC Webhooks', 'DOC Availability',
 ]
 
 const PING_MARKERS = [
@@ -145,11 +132,12 @@ const PING_ARCS = [
   { from: [50.1109, 8.6821], to: [1.3521, 103.8198] },
 ]
 
-const QUICK_CMD = 'curl -X POST https://sandbox.allx.com/v1/payouts -H "Authorization: Bearer $ALLX_KEY"'
-
 export default function DevelopersPage() {
   const { lang } = useI18n()
   const c = COPY[lang] || COPY.pt
+  const quickNote = lang === 'pt'
+    ? 'Confirme acesso à API, requisitos e disponibilidade de rota com a equipe ALL X.'
+    : 'Confirm API access, requirements, and route availability with the ALL X team.'
   const [active, setActive] = useState(0)
   const [cmdCopied, setCmdCopied] = useState(false)
   const stepRefs = useRef([])
@@ -161,7 +149,7 @@ export default function DevelopersPage() {
 
   const copyCmd = async () => {
     try {
-      await navigator.clipboard.writeText(QUICK_CMD)
+      await navigator.clipboard.writeText(quickNote)
       setCmdCopied(true)
       setTimeout(() => setCmdCopied(false), 1800)
     } catch { /* clipboard unavailable */ }
@@ -178,13 +166,6 @@ export default function DevelopersPage() {
     els.forEach((el) => io.observe(el))
     return () => io.disconnect()
   }, [])
-
-  const metricVals = [
-    { to: 120, suffix: '', decimals: 0 },
-    { to: 99.99, suffix: '', decimals: 2 },
-    { to: 12, suffix: '+', decimals: 0 },
-    { to: 40, suffix: '+', decimals: 0 },
-  ]
 
   const loop = [...ENDPOINTS, ...ENDPOINTS]
 
@@ -218,7 +199,13 @@ export default function DevelopersPage() {
                 <span>{c.terminalLabel}</span>
                 <span className="dx-live"><i />{c.terminalStatus}</span>
               </div>
-              <ApiTerminal copyLabel={c.copy} copiedLabel={c.copied} />
+              <ApiTerminal
+                title={c.flowLabel}
+                disclaimer={c.terminalDisclaimer}
+                lang={lang}
+                copyLabel={c.copy}
+                copiedLabel={c.copied}
+              />
             </div>
           </div>
         </div>
@@ -229,7 +216,7 @@ export default function DevelopersPage() {
         <div className="dx-track" aria-hidden="true">
           {loop.map((e, i) => {
             const [m, ...rest] = e.split(' ')
-            return <span key={i} className="dx-ep"><b className={m === 'GET' ? 'get' : 'post'}>{m}</b>{rest.join(' ')}</span>
+            return <span key={i} className="dx-ep"><b className="get">{m}</b>{rest.join(' ')}</span>
           })}
         </div>
         <ul className="dx-sr">{ENDPOINTS.map((e) => <li key={e}>{e}</li>)}</ul>
@@ -295,12 +282,10 @@ export default function DevelopersPage() {
             <p>{c.engineeringText}</p>
           </header>
           <div className="dx-metrics" role="group" aria-label={c.metricsLabel}>
-            {metricVals.map((m, i) => (
+            {c.metrics.map((m, i) => (
               <div key={i} className="dx-metric">
-                <strong>
-                  <CountUp to={m.to} decimals={m.decimals} duration={1.6} />{m.suffix}
-                </strong>
-                <span>{c.metrics[i]}</span>
+                <strong>{m.value}</strong>
+                <span>{m.label}</span>
               </div>
             ))}
           </div>
@@ -330,8 +315,8 @@ export default function DevelopersPage() {
             </div>
           </div>
           <div className="dx-cmd reveal">
-            <span className="dx-cmd-prompt" aria-hidden="true">$</span>
-            <code>{QUICK_CMD}</code>
+            <span className="dx-cmd-prompt" aria-hidden="true">i</span>
+            <code>{quickNote}</code>
             <button type="button" onClick={copyCmd} className="dx-cmd-btn" aria-live="polite">
               {cmdCopied ? c.copied : c.copy}
             </button>

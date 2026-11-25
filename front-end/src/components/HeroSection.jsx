@@ -4,7 +4,7 @@ import { useI18n, navigateTo } from '../i18n'
 import { parallax } from '../parallax'
 import './HeroSection.css'
 
-const rails = ['Pix', 'ACH', 'SWIFT', 'SEPA', 'Fedwire', 'USDC', 'USDT']
+const rails = ['Pix', 'ACH', 'SWIFT', 'SEPA', 'USDC', 'USDT']
 
 export default function HeroSection() {
   const { lang, t } = useI18n()
@@ -17,21 +17,21 @@ export default function HeroSection() {
           {
             icon: 'network',
             title: 'Mova dinheiro entre fronteiras',
-            desc: 'Transações rápidas com conversão integrada, cotações ao vivo, taxas transparentes e liquidação T+0.',
+            desc: 'Consulte cotações, tarifas e prazo estimado. Rotas e disponibilidade dependem do serviço e dos parceiros envolvidos.',
             href: '/global-payments',
             page: 'global-payments',
           },
           {
             icon: 'wallet',
             title: 'Contas virtuais nomeadas',
-            desc: 'Abra contas dedicadas em USD e EUR e carteiras multichain para receber em fiat e stablecoins.',
+            desc: 'Consulte a disponibilidade de contas em USD e EUR e organize fluxos com stablecoins, conforme a rota.',
             href: '/global-accounts',
             page: 'global-accounts',
           },
           {
             icon: 'shield',
-            title: 'Stablecoin Gateway 24/7',
-            desc: 'Stablecoins quando aceleram a operação. Moeda local quando o dinheiro chega ao destino, sem fricção.',
+            title: 'Stablecoin Gateway',
+            desc: 'A ALL X conecta stablecoins e trilhos locais conforme a disponibilidade da rota.',
             href: '/stablecoins',
             page: 'stablecoins',
           },
@@ -40,21 +40,21 @@ export default function HeroSection() {
           {
             icon: 'network',
             title: 'Move money across borders',
-            desc: 'Fast transactions with seamless on/off-ramps, live quotes, transparent fees, and T+0 settlement.',
+            desc: 'Review quotes, fees, and estimated timing. Routes and availability depend on the service and partners involved.',
             href: '/global-payments',
             page: 'global-payments',
           },
           {
             icon: 'wallet',
             title: 'Launch named virtual accounts',
-            desc: 'Create dedicated USD and EUR accounts and multi-chain wallets to collect in fiat and stablecoins.',
+            desc: 'Check the availability of USD and EUR accounts and organize stablecoin flows, depending on the route.',
             href: '/global-accounts',
             page: 'global-accounts',
           },
           {
             icon: 'shield',
-            title: '24/7 Stablecoin Gateway',
-            desc: 'Stablecoins when they speed up operations. Local currency when money reaches its destination.',
+            title: 'Stablecoin Gateway',
+            desc: 'ALL X connects stablecoins and local rails subject to route availability.',
             href: '/stablecoins',
             page: 'stablecoins',
           },

@@ -149,7 +149,7 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
 
   const isPt = lang === 'pt'
   const pageTitle = (isPt ? currentPageDoc?.titlePt : currentPageDoc?.titleEn) || t('cms.hero.title')
-  const pageSub = (isPt ? currentPageDoc?.subtitlePt : currentPageDoc?.subtitleEn) || t('cms.hero.subtitle')
+  const pageSub = `${t('cms.hero.notice')} ${(isPt ? currentPageDoc?.subtitlePt : currentPageDoc?.subtitleEn) || t('cms.hero.subtitle')}`
 
   const prevSlug = currentPageDoc?.prevSlug || neighbours?.previous?.$slug || 'multi-currency'
   const prevTitle =

@@ -2,53 +2,52 @@
 
 import { useEffect, useRef, useState } from 'react'
 import CobeGlobe from '../../../react/CobeGlobe.jsx'
-import CountUp from '../../../react/bits/CountUp.tsx'
 import { parallax } from '../../../parallax'
 
 const UI_COPY = {
   pt: {
     metrics: [
-      { to: 40, suffix: '+', label: 'Mercados & corredores', sub: 'Liquidação local e cross-border' },
-      { to: 4, suffix: '', label: 'Moedas-base unificadas', sub: 'BRL · USD · EUR · USDC' },
-      { to: 99.98, decimals: 2, suffix: '%', label: 'Disponibilidade operacional', sub: 'Trilhos monitorados 24/7' },
-      { to: 3, suffix: 'x', label: 'Mais velocidade no fechamento', sub: 'Conciliação com IDs de ERP' },
+      { value: 'USD · EUR', label: 'Contas globais', sub: 'Sujeitas à elegibilidade e disponibilidade' },
+      { value: 'USDC · USDT', label: 'Stablecoins', sub: 'Conforme rota e escopo aplicáveis' },
+      { value: 'Pix · ACH · SWIFT · SEPA', label: 'Trilhos mencionados', sub: 'Disponibilidade varia por jurisdição e parceiro' },
+      { value: 'API · Webhooks', label: 'Integrações', sub: 'Escopo sujeito à validação' },
     ],
-    balancesLabel: 'LIQUIDEZ CONSOLIDADA',
-    chartLabel: 'FLUXO DE CAIXA · 30D',
-    approvalsBadge: 'POLÍTICA ATIVA',
-    approvalsOff: 'EM REVISÃO',
+    balancesLabel: 'VISÃO DEMONSTRATIVA',
+    chartLabel: 'FLUXO ILUSTRATIVO',
+    approvalsBadge: 'DEMO',
+    approvalsOff: 'EXEMPLO',
     toggleLabels: [
-      'Visão consolidada em tempo real',
-      'Dupla alçada acima de USD 25k',
-      'Exportação automática para ERP',
+      'Exemplo de acompanhamento de saldos',
+      'Exemplo de validação de disponibilidade',
+      'Exemplo de informações para conciliação',
     ],
     crossLabel: 'EXPLORE A PLATAFORMA',
   },
   en: {
     metrics: [
-      { to: 40, suffix: '+', label: 'Markets & corridors', sub: 'Local and cross-border settlement' },
-      { to: 4, suffix: '', label: 'Unified base currencies', sub: 'BRL · USD · EUR · USDC' },
-      { to: 99.98, decimals: 2, suffix: '%', label: 'Operational availability', sub: '24/7 monitored rails' },
-      { to: 3, suffix: 'x', label: 'Faster financial close', sub: 'Reconciliation with ERP IDs' },
+      { value: 'USD · EUR', label: 'Global accounts', sub: 'Subject to eligibility and availability' },
+      { value: 'USDC · USDT', label: 'Stablecoins', sub: 'According to route and applicable scope' },
+      { value: 'Pix · ACH · SWIFT · SEPA', label: 'Rails mentioned', sub: 'Availability varies by jurisdiction and partner' },
+      { value: 'API · Webhooks', label: 'Integrations', sub: 'Scope subject to validation' },
     ],
-    balancesLabel: 'CONSOLIDATED LIQUIDITY',
-    chartLabel: 'CASH FLOW · 30D',
-    approvalsBadge: 'POLICY ACTIVE',
-    approvalsOff: 'IN REVIEW',
+    balancesLabel: 'ILLUSTRATIVE VIEW',
+    chartLabel: 'ILLUSTRATIVE FLOW',
+    approvalsBadge: 'DEMO',
+    approvalsOff: 'EXAMPLE',
     toggleLabels: [
-      'Real-time consolidated view',
-      'Dual approval above USD 25k',
-      'Automatic ERP export',
+      'Example of balance monitoring',
+      'Example of availability validation',
+      'Example of reconciliation information',
     ],
     crossLabel: 'EXPLORE THE PLATFORM',
   },
 }
 
 const BALANCES = [
-  { code: 'USD', rail: 'ACH / Fedwire', amount: '$ 1,420,800', delta: '+4.2%', pct: 78 },
-  { code: 'EUR', rail: 'SEPA Instant', amount: '€ 684,250', delta: '+2.8%', pct: 56 },
-  { code: 'BRL', rail: 'Pix Corporate', amount: 'R$ 3,190,400', delta: '+6.1%', pct: 68 },
-  { code: 'USDC', rail: 'On-chain Treasury', amount: '890,000 USDC', delta: '24/7', pct: 62 },
+  { code: 'USD', rail: 'ACH / SWIFT', amount: '—', delta: '—', pct: 78 },
+  { code: 'EUR', rail: 'SEPA / SWIFT', amount: '—', delta: '—', pct: 56 },
+  { code: 'BRL', rail: 'Pix · route dependent', amount: '—', delta: '—', pct: 68 },
+  { code: 'USDC', rail: 'USDC / USDT · route dependent', amount: '—', delta: '—', pct: 62 },
 ]
 
 const TREASURY_MARKERS = [
@@ -206,7 +205,7 @@ export default function BusinessView({ c, lang, navigateTo }) {
                   <div className="bz-chart-box">
                     <div className="bz-col-head">
                       <span>{ui.chartLabel}</span>
-                      <span>+14.6%</span>
+                      <span>{lang === 'pt' ? 'Dados de exemplo' : 'Example data'}</span>
                     </div>
                     <svg
                       viewBox="0 0 420 104"
@@ -277,15 +276,7 @@ export default function BusinessView({ c, lang, navigateTo }) {
           <div className="bz-metrics-grid">
             {ui.metrics.map((m) => (
               <div key={m.label} className="bz-metric">
-                <div className="bz-metric-num">
-                  <CountUp
-                    to={m.to}
-                    from={0}
-                    duration={1.6}
-                    decimals={m.decimals || 0}
-                    suffix={m.suffix}
-                  />
-                </div>
+                <div className="bz-metric-num">{m.value}</div>
                 <strong>{m.label}</strong>
                 <span>{m.sub}</span>
               </div>

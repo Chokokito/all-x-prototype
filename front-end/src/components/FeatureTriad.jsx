@@ -23,31 +23,33 @@ export default function FeatureTriad() {
   const features = rawFeatures.map((f, i) => ({ ...f, id: ids[i], icon: icons[i], flip: i % 2 === 1 }))
 
   const head = lang === 'pt'
-    ? { title: 'Uma plataforma completa para operar dinheiro entre países', text: 'Orquestramos compliance, liquidez, stablecoins e trilhos locais por baixo — para que a sua operação não precise.' }
-    : { title: 'A complete platform to move money across borders', text: 'We orchestrate compliance, liquidity, stablecoins and local rails underneath — so your operation doesn’t have to.' }
+    ? { title: 'Uma camada para organizar operações internacionais', text: 'Consulte contas, pagamentos, stablecoins e trilhos locais conforme o escopo e a disponibilidade de cada rota.' }
+    : { title: 'One layer for organizing international operations', text: 'Review accounts, payments, stablecoins, and local rails subject to each route’s scope and availability.' }
 
   const ui = lang === 'pt'
     ? {
-        corridors: 'Corredores ativos 24/7',
+        corridors: 'Exemplos de trilhos',
         select: 'Saldos multimoeda',
-        accTitle: 'Contas corporativas nominais & Wallets',
+        accTitle: 'Exemplo de contas e saldos',
         usd: 'Conta comercial USD',
-        usdSub: 'Routing ACH & Fedwire ·· 4820',
+        usdSub: 'Dados conforme disponibilidade',
         eur: 'Conta corporativa EUR',
-        eurSub: 'SEPA Instant IBAN ·· 9104',
-        usdc: 'Carteira Tesouraria USDC',
-        usdcSub: 'Solana · Polygon · Ethereum',
+        eurSub: 'Dados conforme disponibilidade',
+        usdc: 'Saldo em stablecoin',
+        usdcSub: 'USDC · USDT · conforme rota',
+        accountStatus: 'Exemplo',
       }
     : {
-        corridors: '24/7 active corridors',
+        corridors: 'Rail examples',
         select: 'Multi-currency balances',
-        accTitle: 'Named corporate accounts & Wallets',
+        accTitle: 'Example accounts and balances',
         usd: 'USD commercial account',
-        usdSub: 'ACH & Fedwire routing ·· 4820',
+        usdSub: 'Details subject to availability',
         eur: 'EUR corporate account',
-        eurSub: 'SEPA Instant IBAN ·· 9104',
-        usdc: 'USDC Treasury Wallet',
-        usdcSub: 'Solana · Polygon · Ethereum',
+        eurSub: 'Details subject to availability',
+        usdc: 'Stablecoin balance',
+        usdcSub: 'USDC · USDT · route dependent',
+        accountStatus: 'Example',
       }
 
   return (
@@ -104,17 +106,17 @@ export default function FeatureTriad() {
                   <div className="acc-row">
                     <span className="ccy-badge">USD</span>
                     <div className="acc-meta"><b>{ui.usd}</b><small>{ui.usdSub}</small></div>
-                    <span className="acc-status">Ativa</span>
+                    <span className="acc-status">{ui.accountStatus}</span>
                   </div>
                   <div className="acc-row">
                     <span className="ccy-badge">EUR</span>
                     <div className="acc-meta"><b>{ui.eur}</b><small>{ui.eurSub}</small></div>
-                    <span className="acc-status">Ativa</span>
+                    <span className="acc-status">{ui.accountStatus}</span>
                   </div>
                   <div className="acc-row">
                     <span className="ccy-badge copper">USDC</span>
                     <div className="acc-meta"><b>{ui.usdc}</b><small>{ui.usdcSub}</small></div>
-                    <span className="acc-status">T+0</span>
+                    <span className="acc-status">{ui.accountStatus}</span>
                   </div>
                 </div>
               </div>
