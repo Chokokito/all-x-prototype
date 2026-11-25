@@ -307,12 +307,20 @@ html body .allx-onb__btn--primary {
 html body .allx-onb__btn--primary:hover { background: #c97d57; }
 
 html body .allx-onb__stats { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
-html body .allx-onb__stats > div {
+html body .allx-onb__stat {
   flex: 1 1 140px; padding: 14px 18px; border-radius: 8px; background: #0d0d0f;
   border: 1px solid rgba(255, 255, 255, 0.07); display: flex; flex-direction: column; gap: 2px;
+  text-decoration: none !important; transition: border-color 0.15s ease, background 0.15s ease;
 }
+html body .allx-onb__stat:hover { border-color: rgba(217, 142, 104, 0.45); background: #121216; }
+html body .allx-onb__stat.is-alert { border-color: rgba(217, 142, 104, 0.55); background: rgba(217, 142, 104, 0.07); }
 html body .allx-onb__stats strong { font-size: 26px; color: #ebaa89; }
 html body .allx-onb__stats span { font-size: 12px; color: #85858d; }
+html body .allx-onb__links a { display: flex; align-items: center; justify-content: space-between; }
+html body .allx-onb__pill {
+  padding: 2px 8px; border-radius: 999px; background: #d98e68; color: #1a0e07;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+}
 
 html body .allx-onb__title { font-size: 18px; margin: 0 0 14px; }
 html body .allx-onb__steps {
@@ -480,3 +488,33 @@ html body .list-selection button[id*='delete']:hover {
   border-color: #f87171 !important;
   color: #fee2e2 !important;
 }
+
+/* ===== Avatar do usuario (header e campo de upload na conta) ===== */
+html body .allx-avatar {
+  width: 28px; height: 28px; border-radius: 50%; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(217, 142, 104, 0.16); border: 1px solid rgba(217, 142, 104, 0.45);
+  color: #ebaa89; font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+}
+html body .allx-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+html body .allx-avatar-field { margin-bottom: 24px; }
+html body .allx-avatar-field__row { display: flex; align-items: center; gap: 18px; margin-top: 8px; flex-wrap: wrap; }
+html body .allx-avatar-field__preview {
+  width: 68px; height: 68px; border-radius: 50%; overflow: hidden; flex: none;
+  display: grid; place-items: center; background: #141417;
+  border: 1px solid rgba(217, 142, 104, 0.4); color: #85858d;
+}
+html body .allx-avatar-field__preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+html body .allx-avatar-field__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; max-width: 420px; }
+html body .allx-avatar-field__btn {
+  padding: 7px 14px; border-radius: 6px; cursor: pointer; font: inherit; font-size: 13px; font-weight: 600;
+  background: #d98e68; color: #1a0e07; border: 0; transition: background 0.15s ease;
+}
+html body .allx-avatar-field__btn:hover { background: #c97d57; }
+html body .allx-avatar-field__btn.is-ghost {
+  background: transparent; color: #c8c8cd; border: 1px solid rgba(255, 255, 255, 0.14);
+}
+html body .allx-avatar-field__btn.is-ghost:hover { border-color: #f87171; color: #fca5a5; }
+html body .allx-avatar-field__hint { width: 100%; font-size: 12px; color: #85858d; }
+html body .allx-avatar-field__err { width: 100%; font-size: 12px; color: #fca5a5; }

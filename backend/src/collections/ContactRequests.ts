@@ -25,7 +25,8 @@ function rateLimited(ip: string): boolean {
   return false
 }
 
-const adminOnly = ({ req }: { req: { user?: unknown } }) => Boolean(req.user)
+const isAdmin = ({ req }: { req: { user?: { role?: string } | null } }) =>
+  req.user?.role === 'admin'
 
 export const ContactRequests: CollectionConfig = {
   slug: 'contact-requests',
@@ -38,18 +39,19 @@ export const ContactRequests: CollectionConfig = {
     useAsTitle: 'company',
     defaultColumns: ['name', 'company', 'email', 'interest', 'status', 'createdAt'],
     group: 'Comercial',
+    hidden: ({ user }) => (user as { role?: string } | null)?.role !== 'admin',
     components: {
       beforeList: ['/components/admin/ContactRequestsHint#default'],
     },
     description:
-      'Solicitações enviadas pelo formulário de contato do site. Apenas a equipe logada consegue ver e tratar estes registros.',
+      'Solicitações enviadas pelo formulário de contato do site. Apenas administradores conseguem ver e tratar estes registros.',
   },
   access: {
-    // O público só pode ENVIAR; ler, editar e apagar é exclusivo da equipe.
+    // O público só pode ENVIAR; ler, editar e apagar é exclusivo de administradores.
     create: () => true,
-    read: adminOnly,
-    update: adminOnly,
-    delete: adminOnly,
+    read: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   timestamps: true,
   hooks: {
@@ -75,24 +77,26 @@ export const ContactRequests: CollectionConfig = {
     ],
   },
   fields: [
-    { name: 'name', type: 'text', label: 'Nome', required: true, maxLength: 120 },
+    { name: 'name', type: 'text', label: 'Nome', required: true, maxLength: 120, admin: { readOnly: true } },
     {
       name: 'email',
       type: 'email',
       label: 'E-mail corporativo',
       required: true,
+      admin: { readOnly: true },
     },
-    { name: 'company', type: 'text', label: 'Empresa / CNPJ', maxLength: 160 },
-    { name: 'role', type: 'text', label: 'Cargo / área', maxLength: 120 },
-    { name: 'interest', type: 'text', label: 'Interesse principal', maxLength: 160 },
-    { name: 'volume', type: 'text', label: 'Volume mensal estimado', maxLength: 120 },
-    { name: 'corridors', type: 'text', label: 'Moedas e corredores', maxLength: 240 },
-    { name: 'message', type: 'textarea', label: 'Mensagem', required: true, maxLength: 4000 },
+    { name: 'company', type: 'text', label: 'Empresa / CNPJ', maxLength: 160, admin: { readOnly: true } },
+    { name: 'role', type: 'text', label: 'Cargo / área', maxLength: 120, admin: { readOnly: true } },
+    { name: 'interest', type: 'text', label: 'Interesse principal', maxLength: 160, admin: { readOnly: true } },
+    { name: 'volume', type: 'text', label: 'Volume mensal estimado', maxLength: 120, admin: { readOnly: true } },
+    { name: 'corridors', type: 'text', label: 'Moedas e corredores', maxLength: 240, admin: { readOnly: true } },
+    { name: 'message', type: 'textarea', label: 'Mensagem', required: true, maxLength: 4000, admin: { readOnly: true } },
     {
       name: 'lang',
       type: 'select',
       label: 'Idioma do site',
       defaultValue: 'pt',
+      admin: { readOnly: true },
       options: [
         { label: 'Português', value: 'pt' },
         { label: 'English', value: 'en' },
@@ -116,14 +120,14 @@ export const ContactRequests: CollectionConfig = {
         { label: 'Respondida', value: 'done' },
         { label: 'Descartada', value: 'archived' },
       ],
-      access: { create: adminOnly, update: adminOnly },
+      access: { create: isAdmin, update: isAdmin },
       admin: { position: 'sidebar' },
     },
     {
       name: 'internalNotes',
       type: 'textarea',
       label: 'Observações internas',
-      access: { create: adminOnly, read: adminOnly, update: adminOnly },
+      access: { create: isAdmin, read: isAdmin, update: isAdmin },
       admin: { position: 'sidebar' },
     },
   ],

@@ -67,6 +67,9 @@ export default buildConfig({
   },
   admin: {
     theme: 'dark',
+    avatar: {
+      Component: '/components/admin/Avatar#default',
+    },
     importMap: { baseDir: path.resolve(dirname) },
     components: {
       beforeNavLinks: [

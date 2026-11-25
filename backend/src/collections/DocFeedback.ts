@@ -24,7 +24,9 @@ function rateLimited(ip: string): boolean {
   return false
 }
 
-const adminOnly = ({ req }: { req: { user?: unknown } }) => Boolean(req.user)
+const loggedIn = ({ req }: { req: { user?: unknown } }) => Boolean(req.user)
+const isAdmin = ({ req }: { req: { user?: { role?: string } | null } }) =>
+  req.user?.role === 'admin'
 
 export const DocFeedback: CollectionConfig = {
   slug: 'doc-feedback',
@@ -42,9 +44,9 @@ export const DocFeedback: CollectionConfig = {
   },
   access: {
     create: () => true,
-    read: adminOnly,
-    update: adminOnly,
-    delete: adminOnly,
+    read: loggedIn,
+    update: isAdmin,
+    delete: isAdmin,
   },
   timestamps: true,
   hooks: {
@@ -66,18 +68,21 @@ export const DocFeedback: CollectionConfig = {
       required: true,
       index: true,
       maxLength: 160,
+      admin: { readOnly: true },
     },
     {
       name: 'pageTitle',
       type: 'text',
       label: 'Título da Página',
       maxLength: 200,
+      admin: { readOnly: true },
     },
     {
       name: 'helpful',
       type: 'select',
       label: 'Foi útil?',
       required: true,
+      admin: { readOnly: true },
       options: [
         { label: 'Sim (Útil)', value: 'yes' },
         { label: 'Não (Precisa melhorar)', value: 'no' },
@@ -88,6 +93,7 @@ export const DocFeedback: CollectionConfig = {
       type: 'select',
       label: 'Idioma',
       defaultValue: 'pt',
+      admin: { readOnly: true },
       options: [
         { label: 'Português', value: 'pt' },
         { label: 'English', value: 'en' },
@@ -98,6 +104,7 @@ export const DocFeedback: CollectionConfig = {
       type: 'textarea',
       label: 'Comentário (opcional)',
       maxLength: 1000,
+      admin: { readOnly: true },
     },
   ],
 }

@@ -24,6 +24,16 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
+      name: 'avatar',
+      type: 'text',
+      label: 'Foto de Perfil',
+      admin: {
+        components: {
+          Field: '/components/admin/AvatarField#default',
+        },
+      },
+    },
+    {
       name: 'name',
       type: 'text',
       label: 'Nome Completo',

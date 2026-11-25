@@ -403,7 +403,7 @@ export interface DocFeedback {
   createdAt: string;
 }
 /**
- * Solicitações enviadas pelo formulário de contato do site. Apenas a equipe logada consegue ver e tratar estes registros.
+ * Solicitações enviadas pelo formulário de contato do site. Apenas administradores conseguem ver e tratar estes registros.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-requests".
@@ -433,6 +433,7 @@ export interface ContactRequest {
  */
 export interface User {
   id: number;
+  avatar?: string | null;
   name?: string | null;
   role?: ('admin' | 'editor') | null;
   updatedAt: string;
@@ -777,6 +778,7 @@ export interface ContactRequestsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  avatar?: T;
   name?: T;
   role?: T;
   updatedAt?: T;
