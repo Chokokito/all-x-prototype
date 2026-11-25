@@ -34,6 +34,7 @@ export const ContactRequests: CollectionConfig = {
     plural: 'Solicitações de Contato',
   },
   admin: {
+    hideAPIURL: true,
     useAsTitle: 'company',
     defaultColumns: ['name', 'company', 'email', 'interest', 'status', 'createdAt'],
     group: 'Comercial',

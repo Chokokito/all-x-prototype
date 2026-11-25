@@ -33,6 +33,7 @@ export const DocFeedback: CollectionConfig = {
     plural: '3. Feedback da Documentação',
   },
   admin: {
+    hideAPIURL: true,
     useAsTitle: 'pageTitle',
     defaultColumns: ['pageTitle', 'pageSlug', 'helpful', 'lang', 'createdAt'],
     group: 'Documentação ALL X',

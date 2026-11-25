@@ -16,6 +16,7 @@ export const Categories: CollectionConfig = {
     plural: '1. Seções do Menu Lateral',
   },
   admin: {
+    hideAPIURL: true,
     useAsTitle: 'titlePt',
     defaultColumns: ['titlePt', 'moduleId', 'order', 'accent'],
     group: 'Documentação ALL X',

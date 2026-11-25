@@ -17,6 +17,7 @@ export const Users: CollectionConfig = {
     plural: 'Equipe & Acessos',
   },
   admin: {
+    hideAPIURL: true,
     useAsTitle: 'email',
     group: 'Administração',
     description: 'Gerencie quem pode acessar e editar o conteúdo da documentação da ALL X.',

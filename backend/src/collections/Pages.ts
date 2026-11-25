@@ -18,6 +18,7 @@ export const Pages: CollectionConfig = {
     plural: '2. Páginas da Documentação',
   },
   admin: {
+    hideAPIURL: true,
     useAsTitle: 'titlePt',
     defaultColumns: ['titlePt', 'category', 'method', 'order', 'slug'],
     group: 'Documentação ALL X',

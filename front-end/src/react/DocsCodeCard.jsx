@@ -105,6 +105,7 @@ const CopyIcon = () => (
 
 export default function DocsCodeCard({
   mode = 'create',
+  snippets = null,
   copyLabel = 'Copiar',
   copiedLabel = 'Copiado ✓',
   copyJsonLabel = 'Copiar JSON',
@@ -116,6 +117,19 @@ export default function DocsCodeCard({
   const [copiedReq, setCopiedReq] = useState(false)
   const [copiedRes, setCopiedRes] = useState(false)
 
+  const customCurl = snippets?.curl?.trim() || ''
+  const customNode = snippets?.nodejs?.trim() || ''
+  const customPython = snippets?.python?.trim() || ''
+  const customGo = snippets?.go?.trim() || ''
+  const customResp = snippets?.responseJson?.trim() || ''
+
+  const mergedSnippets = {
+    cURL: customCurl || CREATE_SNIPPETS.cURL,
+    'Node.js': customNode || CREATE_SNIPPETS['Node.js'],
+    Python: customPython || CREATE_SNIPPETS.Python,
+    Go: customGo || CREATE_SNIPPETS.Go,
+  }
+
   const copyText = (text, setter) => {
     navigator.clipboard?.writeText(text)
     setter(true)
@@ -123,6 +137,8 @@ export default function DocsCodeCard({
   }
 
   if (mode === 'balance') {
+    const balanceReqText = customCurl || BALANCE_REQ
+    const balanceRespText = customResp || BALANCE_RESPONSE
     return (
       <ClickSpark sparkColor="#EBAA89" sparkRadius={18} sparkCount={7}>
         <div className="docs-code-stack">
@@ -133,21 +149,25 @@ export default function DocsCodeCard({
               <button
                 type="button"
                 className="docs-copy-btn mono"
-                onClick={() => copyText(BALANCE_REQ, setCopiedReq)}
+                onClick={() => copyText(balanceReqText, setCopiedReq)}
               >
                 <CopyIcon />
                 <span>{copiedReq ? copiedLabel : copyLabel}</span>
               </button>
             </div>
             <pre className="docs-code-pre mono">
-              <code>
-                <span className="tk-em">curl</span> <span className="tk-sl">--request GET \</span>{'\n'}
-                <span className="tk-sl">{'  '}--url https://api.allx.io/v1/wallets/</span>
-                <span className="tk-cp">wl_allx_99042</span>
-                <span className="tk-sl">/balances \</span>{'\n'}
-                <span className="tk-sl">{'  '}--header </span>
-                <span className="tk-am">'Authorization: Bearer YOUR_API_KEY'</span>
-              </code>
+              {customCurl ? (
+                <code className="tk-tx">{customCurl}</code>
+              ) : (
+                <code>
+                  <span className="tk-em">curl</span> <span className="tk-sl">--request GET \</span>{'\n'}
+                  <span className="tk-sl">{'  '}--url https://api.allx.io/v1/wallets/</span>
+                  <span className="tk-cp">wl_allx_99042</span>
+                  <span className="tk-sl">/balances \</span>{'\n'}
+                  <span className="tk-sl">{'  '}--header </span>
+                  <span className="tk-am">'Authorization: Bearer YOUR_API_KEY'</span>
+                </code>
+              )}
             </pre>
           </div>
 
@@ -160,36 +180,40 @@ export default function DocsCodeCard({
                 <button
                   type="button"
                   className="docs-copy-link mono"
-                  onClick={() => copyText(BALANCE_RESPONSE, setCopiedRes)}
+                  onClick={() => copyText(balanceRespText, setCopiedRes)}
                 >
                   {copiedRes ? copiedLabel : copyJsonLabel}
                 </button>
               </div>
             </div>
             <pre className="docs-code-pre mono">
-              <code>
-                {'{\n'}
-                {'  '}<span className="tk-cp">"wallet_id"</span>: <span className="tk-em">"wl_allx_99042"</span>,{'\n'}
-                {'  '}<span className="tk-cp">"balances"</span>: {'{\n'}
-                {'    '}<span className="tk-cp">"USDC"</span>: {'{\n'}
-                {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">254000.50</span>,{'\n'}
-                {'      '}<span className="tk-cp">"available_amount"</span>: <span className="tk-sk">4000.50</span>,{'\n'}
-                {'      '}<span className="tk-cp">"reserved_amount"</span>: <span className="tk-sk">250000.00</span>,{'\n'}
-                {'      '}<span className="tk-cp">"currency"</span>: <span className="tk-em">"USD"</span>,{'\n'}
-                {'      '}<span className="tk-cp">"settlement_status"</span>: <span className="tk-em">"settled_t0"</span>{'\n'}
-                {'    },\n'}
-                {'    '}<span className="tk-cp">"BRL"</span>: {'{\n'}
-                {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">1289450.00</span>,{'\n'}
-                {'      '}<span className="tk-cp">"rail"</span>: <span className="tk-em">"pix_instant"</span>,{'\n'}
-                {'      '}<span className="tk-cp">"status"</span>: <span className="tk-em">"settled_t0"</span>{'\n'}
-                {'    },\n'}
-                {'    '}<span className="tk-cp">"EUR"</span>: {'{\n'}
-                {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">85400.00</span>,{'\n'}
-                {'      '}<span className="tk-cp">"rail"</span>: <span className="tk-em">"sepa_instant"</span>{'\n'}
-                {'    }\n'}
-                {'  }\n'}
-                {'}'}
-              </code>
+              {customResp ? (
+                <code className="tk-tx">{customResp}</code>
+              ) : (
+                <code>
+                  {'{\n'}
+                  {'  '}<span className="tk-cp">"wallet_id"</span>: <span className="tk-em">"wl_allx_99042"</span>,{'\n'}
+                  {'  '}<span className="tk-cp">"balances"</span>: {'{\n'}
+                  {'    '}<span className="tk-cp">"USDC"</span>: {'{\n'}
+                  {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">254000.50</span>,{'\n'}
+                  {'      '}<span className="tk-cp">"available_amount"</span>: <span className="tk-sk">4000.50</span>,{'\n'}
+                  {'      '}<span className="tk-cp">"reserved_amount"</span>: <span className="tk-sk">250000.00</span>,{'\n'}
+                  {'      '}<span className="tk-cp">"currency"</span>: <span className="tk-em">"USD"</span>,{'\n'}
+                  {'      '}<span className="tk-cp">"settlement_status"</span>: <span className="tk-em">"settled_t0"</span>{'\n'}
+                  {'    },\n'}
+                  {'    '}<span className="tk-cp">"BRL"</span>: {'{\n'}
+                  {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">1289450.00</span>,{'\n'}
+                  {'      '}<span className="tk-cp">"rail"</span>: <span className="tk-em">"pix_instant"</span>,{'\n'}
+                  {'      '}<span className="tk-cp">"status"</span>: <span className="tk-em">"settled_t0"</span>{'\n'}
+                  {'    },\n'}
+                  {'    '}<span className="tk-cp">"EUR"</span>: {'{\n'}
+                  {'      '}<span className="tk-cp">"amount"</span>: <span className="tk-sk">85400.00</span>,{'\n'}
+                  {'      '}<span className="tk-cp">"rail"</span>: <span className="tk-em">"sepa_instant"</span>{'\n'}
+                  {'    }\n'}
+                  {'  }\n'}
+                  {'}'}
+                </code>
+              )}
             </pre>
           </div>
         </div>
@@ -204,7 +228,7 @@ export default function DocsCodeCard({
         <div className="docs-code-card docs-code-elevated">
           <div className="docs-code-head">
             <div className="docs-code-tabs" role="tablist" aria-label="SDK Language">
-              {Object.keys(CREATE_SNIPPETS).map((langKey) => (
+              {Object.keys(mergedSnippets).map((langKey) => (
                 <button
                   key={langKey}
                   type="button"
@@ -220,14 +244,14 @@ export default function DocsCodeCard({
             <button
               type="button"
               className="docs-copy-btn mono"
-              onClick={() => copyText(CREATE_SNIPPETS[tab], setCopiedReq)}
+              onClick={() => copyText(mergedSnippets[tab], setCopiedReq)}
             >
               <CopyIcon />
               <span>{copiedReq ? copiedLabel : copyLabel}</span>
             </button>
           </div>
           <pre className="docs-code-pre mono">
-            {tab === 'cURL' ? (
+            {tab === 'cURL' && !customCurl ? (
               <code>
                 <span className="tk-em">curl</span> <span className="tk-sl">--request POST \</span>{'\n'}
                 <span className="tk-sl">{'  '}--url https://api.allx.io/v1/instances/</span>
@@ -248,7 +272,7 @@ export default function DocsCodeCard({
                 <span className="tk-tx">{`'{\n    "network": "base",\n    "name": "Corporate Liquidity Balance",\n    "supported_assets": ["USDC", "BRL_PIX"],\n    "settlement_rail": "instant_t0"\n  }'`}</span>
               </code>
             ) : (
-              <code className="tk-tx">{CREATE_SNIPPETS[tab]}</code>
+              <code className="tk-tx">{mergedSnippets[tab]}</code>
             )}
           </pre>
         </div>
@@ -263,23 +287,27 @@ export default function DocsCodeCard({
             <button
               type="button"
               className="docs-copy-link mono"
-              onClick={() => copyText(CREATE_RESPONSE, setCopiedRes)}
+              onClick={() => copyText(customResp || CREATE_RESPONSE, setCopiedRes)}
             >
               {copiedRes ? copiedLabel : copyJsonLabel}
             </button>
           </div>
           <pre className="docs-code-pre mono">
-            <code>
-              {'{\n'}
-              {'  '}<span className="tk-cp">"id"</span>: <span className="tk-em">"wl_allx_99042"</span>,{'\n'}
-              {'  '}<span className="tk-cp">"network"</span>: <span className="tk-em">"base"</span>,{'\n'}
-              {'  '}<span className="tk-cp">"address"</span>: <span className="tk-em">"0x1234567890abcdef1234567890abcdef12345678"</span>,{'\n'}
-              {'  '}<span className="tk-cp">"name"</span>: <span className="tk-em">"Corporate Liquidity Balance"</span>,{'\n'}
-              {'  '}<span className="tk-cp">"status"</span>: <span className="tk-em">"active"</span>,{'\n'}
-              {'  '}<span className="tk-cp">"supported_assets"</span>: [<span className="tk-em">"USDC"</span>, <span className="tk-em">"BRL_PIX"</span>],{'\n'}
-              {'  '}<span className="tk-cp">"created_at"</span>: <span className="tk-em">"2026-03-30T14:22:00.000Z"</span>{'\n'}
-              {'}'}
-            </code>
+            {customResp ? (
+              <code className="tk-tx">{customResp}</code>
+            ) : (
+              <code>
+                {'{\n'}
+                {'  '}<span className="tk-cp">"id"</span>: <span className="tk-em">"wl_allx_99042"</span>,{'\n'}
+                {'  '}<span className="tk-cp">"network"</span>: <span className="tk-em">"base"</span>,{'\n'}
+                {'  '}<span className="tk-cp">"address"</span>: <span className="tk-em">"0x1234567890abcdef1234567890abcdef12345678"</span>,{'\n'}
+                {'  '}<span className="tk-cp">"name"</span>: <span className="tk-em">"Corporate Liquidity Balance"</span>,{'\n'}
+                {'  '}<span className="tk-cp">"status"</span>: <span className="tk-em">"active"</span>,{'\n'}
+                {'  '}<span className="tk-cp">"supported_assets"</span>: [<span className="tk-em">"USDC"</span>, <span className="tk-em">"BRL_PIX"</span>],{'\n'}
+                {'  '}<span className="tk-cp">"created_at"</span>: <span className="tk-em">"2026-03-30T14:22:00.000Z"</span>{'\n'}
+                {'}'}
+              </code>
+            )}
           </pre>
         </div>
       </div>

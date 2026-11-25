@@ -146,6 +146,7 @@ export default function PayloadBlocksRenderer({ blocks = [], lang = 'pt', t }) {
                 <div>
                   <DocsCodeCard
                     mode={block.mode || 'create'}
+                    snippets={block.snippets}
                     copyLabel={t('cms.create.copy')}
                     copiedLabel={t('cms.create.copied')}
                     copyJsonLabel={t('cms.create.copyJson')}

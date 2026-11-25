@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { pt } from '@payloadcms/translations/languages/pt'
 import { Users } from './collections/Users'
@@ -26,7 +27,30 @@ const allowedOrigins = [
 const dbUri = process.env.DATABASE_URI || 'file:./allx-cms.db'
 const usePostgres = dbUri.startsWith('postgres://') || dbUri.startsWith('postgresql://')
 
+const smtpHost = process.env.SMTP_HOST
+const smtpUser = process.env.SMTP_USER
+const smtpPass = process.env.SMTP_PASS
+const smtpPort = Number(process.env.SMTP_PORT || 587)
+
+const emailAdapter =
+  smtpHost && smtpUser && smtpPass
+    ? nodemailerAdapter({
+        defaultFromAddress: process.env.SMTP_FROM || smtpUser,
+        defaultFromName: process.env.SMTP_FROM_NAME || 'ALL X',
+        transportOptions: {
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpPort === 465,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+        },
+      })
+    : undefined
+
 export default buildConfig({
+  ...(emailAdapter ? { email: emailAdapter } : {}),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001',
   secret: (() => {
     const s = process.env.PAYLOAD_SECRET
