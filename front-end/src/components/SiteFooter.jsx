@@ -8,9 +8,12 @@ const FOOTER_PAGE_MAP = {
   'Global Accounts': 'global-accounts',
   'Global Payments': 'global-payments',
   'Stablecoin Gateway': 'stablecoins',
+  'API / White-Label': 'developers',
   Documentação: 'cms',
   Documentation: 'cms',
-  'API / White-Label': 'cms',
+  Compliance: 'compliance',
+  Contato: 'contact',
+  Contact: 'contact',
 }
 
 export default function SiteFooter() {
@@ -74,7 +77,7 @@ export default function SiteFooter() {
           <span>{t('footer.rights')}</span>
           <div className="social">
             <a href="/docs" onClick={(e) => { e.preventDefault(); navigateTo('cms') }}>API Docs</a>
-            <a href="#compliance" onClick={(e) => { e.preventDefault(); navigateTo('home', '#compliance') }}>Compliance</a>
+            <a href="/compliance" onClick={(e) => { e.preventDefault(); navigateTo('compliance') }}>Compliance</a>
           </div>
         </div>
       </div>
