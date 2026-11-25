@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnchorProvider, ScrollProvider, TOCItem, useActiveAnchor } from 'fumadocs-core/toc'
 import { useI18n, setLang, navigateTo, openSearchModal } from '../i18n'
 import Transition from '../Transition'
-import { usePayloadFumadocs } from '../docs/payloadSource'
+import { CMS_BASE_URL, usePayloadFumadocs } from '../docs/payloadSource'
 import PayloadBlocksRenderer from '../docs/PayloadBlocksRenderer'
 import './CmsDocsPage.css'
 
@@ -46,7 +46,7 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
   const { t, lang } = useI18n()
   const [activeNavId, setActiveNavId] = useState(initialSlug)
   const [copiedLink, setCopiedLink] = useState(false)
-  const [feedbackGiven, setFeedbackGiven] = useState(false)
+  const [feedbackByPage, setFeedbackByPage] = useState({})
   const [switcherOpen, setSwitcherOpen] = useState(false)
   const [selectedModuleIdx, setSelectedModuleIdx] = useState(0)
   const [sidebarFilter, setSidebarFilter] = useState('')
@@ -69,10 +69,14 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
     return () => window.removeEventListener('docs:navigate', onNavigate)
   }, [])
 
-  // Link direto com âncora (/docs/slug#secao)
+  // Link direto com âncora (/docs/slug#secao) + carregar feedback já enviado por página
   useEffect(() => {
     const h = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : ''
     if (h) setTimeout(() => document.getElementById(h)?.scrollIntoView({ block: 'start' }), 400)
+    try {
+      const saved = JSON.parse(localStorage.getItem('allx_doc_feedback') || '{}')
+      if (saved && typeof saved === 'object') setFeedbackByPage(saved)
+    } catch { /* ignore storage errors */ }
   }, [])
 
   const {
@@ -119,6 +123,28 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
     setTimeout(() => {
       setCopiedLink(false)
     }, 1800)
+  }
+
+  async function submitFeedback(helpful) {
+    const slug = currentPageDoc?.slug || activeNavId
+    if (!slug || feedbackByPage[slug]) return
+    const next = { ...feedbackByPage, [slug]: helpful }
+    setFeedbackByPage(next)
+    try {
+      localStorage.setItem('allx_doc_feedback', JSON.stringify(next))
+    } catch { /* ignore */ }
+    try {
+      await fetch(`${CMS_BASE_URL.replace(/\/+$/, '')}/api/doc-feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pageSlug: slug,
+          pageTitle,
+          helpful,
+          lang,
+        }),
+      })
+    } catch { /* fallback silencioso se CMS estiver offline */ }
   }
 
   const isPt = lang === 'pt'
@@ -210,11 +236,11 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
             </div>
 
             <a
-              href="#contato"
+              href="/contact"
               className="cms-contact-btn"
               onClick={(e) => {
                 e.preventDefault()
-                navigateTo('home', '#contato')
+                navigateTo('contact')
               }}
             >
               {t('cms.top.contact')}
@@ -341,13 +367,6 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
                 )
               })}
             </nav>
-
-            <div className="cms-sidebar-footer">
-              <div className="cms-version-info mono">
-                <span className="cms-version-dot" />
-                <span>{t('cms.sidebar.version')}</span>
-              </div>
-            </div>
           </aside>
 
           {/* Column 2: MainContentCenter (#2:33) — Dynamic Payload CMS Blocks */}
@@ -366,10 +385,15 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
 
               {/* Hero Header (#2:46) */}
               <div className="cms-hero">
+                <div className="cms-hero-meta mono">
+                  <span>{currentModule.title}</span>
+                  <span className="cms-hero-sep" aria-hidden="true">/</span>
+                  <span>{currentPageDoc?.method || 'REFERENCE'}</span>
+                </div>
                 <div className="cms-hero-top">
                   <h1>{pageTitle}</h1>
                   <button type="button" className="cms-copy-link-btn" onClick={copyPageLink}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                     </svg>
@@ -434,17 +458,22 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
                 </div>
               </ScrollProvider>
 
-              {/* Feedback Widget (#2:346) */}
+              {/* Feedback Widget (#2:346) — único por página e salvo no CMS */}
               <div className="cms-feedback-card">
                 <p className="cms-feedback-title">{t('cms.toc.feedbackTitle')}</p>
-                {!feedbackGiven ? (
+                {!feedbackByPage[currentPageDoc?.slug || activeNavId] ? (
                   <div className="cms-feedback-btns">
-                    <button type="button" className="cms-fb-btn" onClick={() => setFeedbackGiven(true)}>
-                      <span aria-hidden="true">👍</span>
+                    <button type="button" className="cms-fb-btn" onClick={() => submitFeedback('yes')}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                       <span>{t('cms.toc.yes')}</span>
                     </button>
-                    <button type="button" className="cms-fb-btn" onClick={() => setFeedbackGiven(true)}>
-                      <span aria-hidden="true">👎</span>
+                    <button type="button" className="cms-fb-btn" onClick={() => submitFeedback('no')}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
                       <span>{t('cms.toc.no')}</span>
                     </button>
                   </div>
@@ -456,14 +485,14 @@ export default function CmsDocsPage({ initialSlug = 'managed-wallets' }) {
               {/* Quick Developer Actions (#2:358) */}
               <div className="cms-quick-actions">
                 <a
-                  href="#contato"
+                  href="/contact"
                   className="cms-quick-link"
                   onClick={(e) => {
                     e.preventDefault()
-                    navigateTo('home', '#contato')
+                    navigateTo('contact')
                   }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                   </svg>
                   <span>{t('cms.toc.support')}</span>

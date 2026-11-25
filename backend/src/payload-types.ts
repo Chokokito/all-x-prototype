@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     categories: Category;
     'docs-pages': DocsPage;
+    'doc-feedback': DocFeedback;
     'contact-requests': ContactRequest;
     users: User;
     'payload-kv': PayloadKv;
@@ -80,6 +81,7 @@ export interface Config {
   collectionsSelect: {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'docs-pages': DocsPagesSelect<false> | DocsPagesSelect<true>;
+    'doc-feedback': DocFeedbackSelect<false> | DocFeedbackSelect<true>;
     'contact-requests': ContactRequestsSelect<false> | ContactRequestsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -385,6 +387,22 @@ export interface DocsPage {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Avaliações enviadas pelos visitantes no widget de feedback de cada página da documentação.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "doc-feedback".
+ */
+export interface DocFeedback {
+  id: number;
+  pageSlug: string;
+  pageTitle?: string | null;
+  helpful: 'yes' | 'no';
+  lang?: ('pt' | 'en') | null;
+  comment?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Solicitações enviadas pelo formulário de contato do site. Apenas a equipe logada consegue ver e tratar estes registros.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -468,6 +486,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'docs-pages';
         value: number | DocsPage;
+      } | null)
+    | ({
+        relationTo: 'doc-feedback';
+        value: number | DocFeedback;
       } | null)
     | ({
         relationTo: 'contact-requests';
@@ -716,6 +738,19 @@ export interface DocsPagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "doc-feedback_select".
+ */
+export interface DocFeedbackSelect<T extends boolean = true> {
+  pageSlug?: T;
+  pageTitle?: T;
+  helpful?: T;
+  lang?: T;
+  comment?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

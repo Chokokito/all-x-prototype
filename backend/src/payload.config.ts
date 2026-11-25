@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import { Categories } from './collections/Categories'
 import { Pages } from './collections/Pages'
 import { ContactRequests } from './collections/ContactRequests'
+import { DocFeedback } from './collections/DocFeedback'
 import { seedDocumentation } from './seed'
 import { migrations } from './migrations'
 
@@ -79,7 +80,7 @@ export default buildConfig({
           url: dbUri,
         },
       }),
-  collections: [Categories, Pages, ContactRequests, Users],
+  collections: [Categories, Pages, DocFeedback, ContactRequests, Users],
   cors: allowedOrigins,
   csrf: allowedOrigins,
   typescript: {
