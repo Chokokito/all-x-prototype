@@ -173,7 +173,7 @@ export default async function Welcome(props: any) {
                 </a>
               )}
               <a href={ADMIN + '/collections/doc-feedback'}>Feedback da documentação</a>
-              <a href={ADMIN + '/collections/users'}>Equipe &amp; acessos</a>
+              {isAdmin && <a href={ADMIN + '/collections/users'}>Equipe &amp; acessos</a>}
             </div>
           </section>
         </div>

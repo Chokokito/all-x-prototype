@@ -5,6 +5,7 @@ import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { brevoHttpAdapter } from './lib/brevoEmailAdapter'
 import { pt } from '@payloadcms/translations/languages/pt'
 import { Users } from './collections/Users'
 import { Categories } from './collections/Categories'
@@ -27,16 +28,24 @@ const allowedOrigins = [
 const dbUri = process.env.DATABASE_URI || 'file:./allx-cms.db'
 const usePostgres = dbUri.startsWith('postgres://') || dbUri.startsWith('postgresql://')
 
-const smtpHost = process.env.SMTP_HOST
-const smtpUser = process.env.SMTP_USER
-const smtpPass = process.env.SMTP_PASS
+const brevoApiKey = process.env.BREVO_API_KEY?.trim()
+const smtpHost = process.env.SMTP_HOST?.trim()
+const smtpUser = process.env.SMTP_USER?.trim()
+const smtpPass = process.env.SMTP_PASS?.trim()
 const smtpPort = Number(process.env.SMTP_PORT || 587)
+const smtpFrom = process.env.SMTP_FROM?.trim() || smtpUser
+const smtpFromName = process.env.SMTP_FROM_NAME?.trim() || 'ALL X'
 
-const emailAdapter =
-  smtpHost && smtpUser && smtpPass
+const emailAdapter = brevoApiKey
+  ? brevoHttpAdapter({
+      apiKey: brevoApiKey,
+      defaultFromAddress: smtpFrom || 'no-reply@allx.global',
+      defaultFromName: smtpFromName,
+    })
+  : smtpHost && smtpUser && smtpPass
     ? nodemailerAdapter({
-        defaultFromAddress: process.env.SMTP_FROM || smtpUser,
-        defaultFromName: process.env.SMTP_FROM_NAME || 'ALL X',
+        defaultFromAddress: smtpFrom || 'no-reply@allx.global',
+        defaultFromName: smtpFromName,
         transportOptions: {
           host: smtpHost,
           port: smtpPort,

@@ -4,9 +4,9 @@ export const Users: CollectionConfig = {
   slug: 'users',
   auth: true,
   access: {
-    // Qualquer logado le (necessario no admin); so admin gerencia contas.
-    // create: permite o primeiro usuario quando o banco ainda esta vazio (setup).
-    read: ({ req }) => Boolean(req.user),
+    // Admin ve e gerencia todos; editor so le e edita a propria conta (/admin/account).
+    read: ({ req }) =>
+      req.user ? (req.user.role === 'admin' ? true : { id: { equals: req.user.id } }) : false,
     create: ({ req }) => (req.user ? req.user.role === 'admin' : false),
     update: ({ req, id }) =>
       req.user ? (req.user.role === 'admin' ? true : req.user.id === id) : false,
@@ -18,6 +18,7 @@ export const Users: CollectionConfig = {
   },
   admin: {
     hideAPIURL: true,
+    hidden: ({ user }) => (user as { role?: string } | null)?.role !== 'admin',
     useAsTitle: 'email',
     group: 'Administração',
     description: 'Gerencie quem pode acessar e editar o conteúdo da documentação da ALL X.',
