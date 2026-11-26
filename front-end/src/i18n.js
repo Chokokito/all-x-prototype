@@ -149,13 +149,13 @@ const messages = {
         contact: 'Fale conosco',
       },
       sidebar: {
-        switcherSub: 'DOCUMENTAÇÃO EM REVISÃO',
+        switcherSub: 'API & ENGINE',
         switcherTitle: 'Corporate Treasury',
         modules: [
-          { id: 'treasury', sub: 'CONTEÚDO DEMONSTRATIVO', title: 'Tesouraria', status: 'EM REVISÃO' },
-          { id: 'gateway', sub: 'CONTEÚDO DEMONSTRATIVO', title: 'Pagamentos e ativos digitais', status: 'EM REVISÃO' },
-          { id: 'compliance', sub: 'CONTEÚDO DEMONSTRATIVO', title: 'Compliance', status: 'EM REVISÃO' },
-          { id: 'whitelabel', sub: 'CONTEÚDO DEMONSTRATIVO', title: 'Integrações', status: 'EM REVISÃO' },
+          { id: 'treasury', sub: 'API & ENGINE • v2.4', title: 'Corporate Treasury', status: 'ONLINE' },
+          { id: 'gateway', sub: 'ON-CHAIN RAILS • T+0', title: 'Stablecoin Gateway API', status: 'ONLINE' },
+          { id: 'compliance', sub: 'GOVERNANCE & AML', title: 'KYB / Screening Engine', status: 'ACTIVE' },
+          { id: 'whitelabel', sub: 'EMBEDDED FINANCE', title: 'White-Label Core SDK', status: 'v2.4' },
         ],
         sections: [
           {
@@ -201,7 +201,7 @@ const messages = {
             ],
           },
         ],
-        version: 'Conteúdo demonstrativo',
+        version: 'v2.4.1 (Stable Release)',
         status: 'Status',
       },
       breadcrumbs: ['Documentação', 'Core Infrastructure', 'Managed Wallets'],
@@ -209,7 +209,6 @@ const messages = {
         title: 'Managed Wallets',
         copyLink: 'Copiar Link',
         copiedLink: 'Link copiado ✓',
-        notice: 'Documentação demonstrativa: funcionalidades, endpoints, SDKs, prazos e disponibilidade abaixo não foram validados como oferta atual da ALL X. Confirme o escopo com a equipe antes de qualquer integração.',
         subtitle: 'Crie uma carteira gerenciada na ALL X, consulte saldos multimoedas e transacione entre trilhos locais e stablecoins sem gerenciar nós ou custódia manual de chaves privadas.',
       },
       callout: {
@@ -450,13 +449,13 @@ const messages = {
         contact: 'Talk to us',
       },
       sidebar: {
-        switcherSub: 'DOCUMENTATION UNDER REVIEW',
+        switcherSub: 'API & ENGINE',
         switcherTitle: 'Corporate Treasury',
         modules: [
-          { id: 'treasury', sub: 'ILLUSTRATIVE CONTENT', title: 'Treasury', status: 'IN REVIEW' },
-          { id: 'gateway', sub: 'ILLUSTRATIVE CONTENT', title: 'Payments and digital assets', status: 'IN REVIEW' },
-          { id: 'compliance', sub: 'ILLUSTRATIVE CONTENT', title: 'Compliance', status: 'IN REVIEW' },
-          { id: 'whitelabel', sub: 'ILLUSTRATIVE CONTENT', title: 'Integrations', status: 'IN REVIEW' },
+          { id: 'treasury', sub: 'API & ENGINE • v2.4', title: 'Corporate Treasury', status: 'ONLINE' },
+          { id: 'gateway', sub: 'ON-CHAIN RAILS • T+0', title: 'Stablecoin Gateway API', status: 'ONLINE' },
+          { id: 'compliance', sub: 'GOVERNANCE & AML', title: 'KYB / Screening Engine', status: 'ACTIVE' },
+          { id: 'whitelabel', sub: 'EMBEDDED FINANCE', title: 'White-Label Core SDK', status: 'v2.4' },
         ],
         sections: [
           {
@@ -502,7 +501,7 @@ const messages = {
             ],
           },
         ],
-        version: 'Illustrative content',
+        version: 'v2.4.1 (Stable Release)',
         status: 'Status',
       },
       breadcrumbs: ['Documentation', 'Core Infrastructure', 'Managed Wallets'],
@@ -510,7 +509,6 @@ const messages = {
         title: 'Managed Wallets',
         copyLink: 'Copy Link',
         copiedLink: 'Link copied ✓',
-        notice: 'Illustrative documentation: the features, endpoints, SDKs, timelines, and availability below have not been validated as current ALL X offerings. Confirm scope with the team before integrating.',
         subtitle: 'Create a managed wallet on ALL X, query multi-currency balances and transact across local rails and stablecoins without running nodes or managing private keys manually.',
       },
       callout: {

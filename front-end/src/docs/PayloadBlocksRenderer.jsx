@@ -150,9 +150,11 @@ export default function PayloadBlocksRenderer({ blocks = [], lang = 'pt', t }) {
                     copyLabel={t('cms.create.copy')}
                     copiedLabel={t('cms.create.copied')}
                     copyJsonLabel={t('cms.create.copyJson')}
-                    reqLabel={isPt ? 'Exemplo conceitual' : 'Illustrative example'}
-                    respLabel={isPt ? 'Resposta ilustrativa' : 'Illustrative response'}
-                    respSub={isPt ? 'Não representa uma API ativa' : 'Not an active API response'}
+                    reqLabel={block.reqLabel || t('cms.balance.reqLabel')}
+                    respLabel={block.respLabel || t('cms.create.respLabel')}
+                    respSub={
+                      (isPt ? block.respSubPt : block.respSubEn) || t('cms.balance.respSub')
+                    }
                   />
                 </div>
               </section>

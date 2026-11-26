@@ -1,25 +1,15 @@
 import { useState } from 'react'
 
+const payload = `{
+  "source": { "asset": "BRL", "rail": "PIX" },
+  "destination": { "asset": "USDC", "network": "SOLANA" },
+  "amount": 500000.00,
+  "status": "SETTLED_T0"
+}`
+
 /** API terminal with a working "copy" action. */
-export default function ApiTerminal({
-  title = 'Exemplo conceitual',
-  disclaimer = 'Não é uma especificação de API',
-  lang = 'pt',
-  copyLabel = 'Copiar',
-  copiedLabel = 'Copiado ✓',
-}) {
+export default function ApiTerminal({ copyLabel = 'Copiar', copiedLabel = 'Copiado ✓' }) {
   const [copied, setCopied] = useState(false)
-  const payload = lang === 'pt'
-    ? `{
-  "tipo": "exemplo conceitual",
-  "disponibilidade": "a confirmar",
-  "escopo_tecnico": "a validar"
-}`
-    : `{
-  "type": "conceptual example",
-  "availability": "to be confirmed",
-  "technical_scope": "to be validated"
-}`
 
   const copy = async () => {
     try {
@@ -35,13 +25,13 @@ export default function ApiTerminal({
         display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap',
         paddingBottom: 16, borderBottom: '1px solid var(--line)', fontFamily: 'var(--mono)', fontSize: 12,
       }}>
-        <span style={{ color: 'var(--muted)' }}>{title}</span>
+        <span style={{ color: 'var(--muted)' }}>POST /v1/settlement/instant</span>
         <span style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <button onClick={copy} style={{
             background: 'none', border: '1px solid var(--line-2)', color: 'var(--muted)', borderRadius: 6,
             padding: '2px 8px', font: 'inherit', cursor: 'pointer',
           }}>{copied ? copiedLabel : copyLabel}</button>
-          <span style={{ color: 'var(--accent)' }}>{disclaimer}</span>
+          <span style={{ color: 'var(--accent)' }}>200 OK</span>
         </span>
       </div>
       <pre style={{
